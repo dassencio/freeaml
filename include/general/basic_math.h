@@ -98,7 +98,7 @@ inline T sign (const T& x)
  * @param n an integer
  * @return the number of digits on n (if n is negative, the minus sign is ignored)
  */
-inline int num_digits (int n)
+inline size_t num_digits (int n)
 {
 	/* every integer has at least one digit */
 	int digits = 1;
@@ -113,6 +113,100 @@ inline int num_digits (int n)
 	}
 	return digits;
 }
+
+
+/**
+ * @brief computes a binomial coefficient
+ * @param n an integer
+ * @param k an integer
+ * @return the binomial coefficient indexed by n and k: n!/(k!(n-k)!) if
+ *         0 <= k <= n, otherwise zero
+ */
+int binomial (const int n, const int k)
+{
+	FREEAML_ASSERT(k >= 0);
+	FREEAML_ASSERT(n >= k);
+
+	/* hard-coded cases: n = 0,...6; 0 <= k <= n */
+	switch (n)
+	{
+	case 0:
+		switch (k)
+		{
+		case 0:  return 1;
+		default: return 0;
+		}
+	case 1:
+		switch (k)
+		{
+		case 0:  return 1;
+		case 1:  return 1;
+		default: return 0;
+		}
+	case 2:
+		switch (k)
+		{
+		case 0:  return 1;
+		case 1:  return 2;
+		case 2:  return 1;
+		default: return 0;
+		}
+	case 3:
+		switch (k)
+		{
+		case 0:  return 1;
+		case 1:  return 3;
+		case 2:  return 3;
+		case 3:  return 1;
+		default: return 0;
+		}
+	case 4:
+		switch (k)
+		{
+		case 0:  return 1;
+		case 1:  return 4;
+		case 2:  return 6;
+		case 3:  return 4;
+		case 4:  return 1;
+		default: return 0;
+		}
+	case 5:
+		switch (k)
+		{
+		case 0:  return 1;
+		case 1:  return 5;
+		case 2:  return 10;
+		case 3:  return 10;
+		case 4:  return 5;
+		case 5:  return 1;
+		default: return 0;
+		}
+	case 6:
+		switch (k)
+		{
+		case 0:  return 1;
+		case 1:  return 6;
+		case 2:  return 15;
+		case 3:  return 20;
+		case 4:  return 15;
+		case 5:  return 6;
+		case 6:  return 1;
+		default: return 0;
+		}
+	default:
+		break;
+	}
+
+	/* compute all other cases by hand */
+	int rv = 1;
+
+	for (int i = 1; i <= k; i++)
+	{
+		rv *= (n - k + i) / i;
+	}
+}
+
+
 
 
 } /* end of namespace aml */
