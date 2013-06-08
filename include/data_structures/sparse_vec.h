@@ -125,16 +125,16 @@ public:
 	 *
 	 **********************************************************************/
 
-	/** @brief computes the L-1 norm of the vector */
+	/** @brief computes the L^1 norm of the vector */
 	T l1_norm () const;
 
-	/** @brief computes the L-2 norm of the vector */
+	/** @brief computes the L^2 norm of the vector */
 	T l2_norm () const;
 
-	/** @brief computes the L-p norm of the vector */
+	/** @brief computes the L^p norm of the vector */
 	T lp_norm (const int p) const;
 
-	/** @brief computes the L-inf norm of the vector */
+	/** @brief computes the L^inf norm of the vector */
 	T linf_norm () const;
 
 	/** @brief computes the sum of all values of the vector */
