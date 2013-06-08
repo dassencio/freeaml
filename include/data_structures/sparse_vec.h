@@ -132,7 +132,7 @@ public:
 	T l2_norm () const;
 
 	/** @brief computes the L-p norm of the vector */
-	T lp_norm (const T& p) const;
+	T lp_norm (const int p) const;
 
 	/** @brief computes the L-inf norm of the vector */
 	T linf_norm () const;
@@ -464,8 +464,10 @@ T sparse_vec< T >::l2_norm () const
 
 
 template < class T >
-T sparse_vec< T >::lp_norm (const T& p) const
+T sparse_vec< T >::lp_norm (const int p) const
 {
+	FREEAML_ASSERT(p > 0);
+
 	T norm = (T) 0;
 
 	for (const_iterator it = begin(); it != end(); it++)

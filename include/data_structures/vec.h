@@ -167,7 +167,7 @@ public:
 	T l2_norm () const;
 
 	/** @brief computes the L-p norm of the vector */
-	T lp_norm (const T& p) const;
+	T lp_norm (const int p) const;
 
 	/** @brief computes the L-inf norm of the vector */
 	T linf_norm () const;
@@ -502,7 +502,7 @@ T vec< T >::l2_norm () const
 
 
 template < class T >
-T vec< T >::lp_norm (const T& p) const
+T vec< T >::lp_norm (const int p) const
 {
 	T norm = (T) 0;
 
