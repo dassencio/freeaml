@@ -107,7 +107,7 @@ bool gradient< T >::solve (const _mat& A, _vec& x, const _vec& b)
 	/* r = residual vector */
 	_vec r = b - A*x;
 
-	T rr = r*x;
+	T rr = r*r;
 
 	size_t num_iter = 0;
 
@@ -121,8 +121,6 @@ bool gradient< T >::solve (const _mat& A, _vec& x, const _vec& b)
 		r -= alpha * Ar;
 
 		num_iter++;
-
-		r = b - A*x;
 
 		rr = r*r;
 
