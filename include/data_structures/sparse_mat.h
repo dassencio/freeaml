@@ -136,6 +136,9 @@ public:
 	 *
 	 **********************************************************************/
 
+	/** @brief computes the max norm of the matrix */
+	T max_norm () const;
+
 	/** @brief computes the transpose of the matrix */
 	sparse_mat< T > transpose () const;
 
@@ -497,6 +500,42 @@ vec< T > sparse_mat< T >::operator* (const vec< T >& v) const
 		Av[i] = (*this)[i] * v;
 	}
 	return Av;
+}
+
+
+template < class T >
+T sparse_mat< T >::max_norm () const
+{
+	T norm = (T) 0;
+
+#ifdef _OPENMP
+#pragma omp parallel
+	{
+		T local_norm = (T) 0;
+
+#pragma omp for nowait
+
+		for (size_t i = 0; i < num_rows(); i++)
+		{
+			/* this should also work with complex numbers */
+			local_norm = std::max(std::abs(local_norm), (*this)[i].linf_norm());
+		}
+
+#pragma omp critical
+		{
+			norm = std::max(std::abs(local_norm), std::abs(norm));
+		}
+	}
+#else
+
+	/* serial implementation */
+	for (size_t i = 0; i < num_rows(); i++)
+	{
+		norm = std::max(std::abs(norm), (*this)[i].linf_norm());
+	}
+	#endif
+
+	return norm;
 }
 
 
