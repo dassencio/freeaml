@@ -242,12 +242,10 @@ int binomial (const int n, const int k)
 template < class T, class _vec >
 void householder (const _vec& u, _vec& v, T& b, T& c, const size_t j = 0)
 {
-	/* let v = u */
 	v = u;
 
 	FREEAML_ASSERT(j < v.size());
 
-	/* get the L^2 norm of u */
 	T norm = u.l2_norm();
 
 	/* if u is the null vector, then it is already a multiple of e_j */
@@ -258,10 +256,9 @@ void householder (const _vec& u, _vec& v, T& b, T& c, const size_t j = 0)
 	}
 	else
 	{
-		/* get the sign of the j-th element of u */
 		c = sign(u[j]);
 
-		/* fix the j-th element of v */
+		/* only the j-th element of v needs to be adjusted */
 		v[j] += c * norm;
 
 		v /= v.l2_norm();
@@ -276,14 +273,11 @@ void householder (const _vec& u, _vec& v, T& b, T& c, const size_t j = 0)
  * @param x the x component of the 2d vector
  * @param y the y component of the 2d vector
  * @param c the first parameter which defines the Given rotation matrix for (x,y)
- * @param c the second parameter which defines the Given rotation matrix for (x,y)
+ * @param s the second parameter which defines the Given rotation matrix for (x,y)
  * @note the Givens rotation matrix has the form G = ( c -s ; s c )
  */
 template < class T >
-void givens (const T& x,
-             const T& y,
-                   T& c,
-                   T& s)
+void givens (const T& x, const T& y, T& c, T& s)
 {
 	/* compute the magnitude of (x,y) */
 	T norm = std::sqrt(x*x + y*y);
