@@ -271,6 +271,63 @@ void householder (const _vec& u, _vec& v, T& b, T& c, const size_t j = 0)
 }
 
 
+/**
+ * @brief computes the entries of the Givens rotation matrix for a 2d vector
+ * @param x the x component of the 2d vector
+ * @param y the y component of the 2d vector
+ * @param c the first parameter which defines the Given rotation matrix for (x,y)
+ * @param c the second parameter which defines the Given rotation matrix for (x,y)
+ * @note the Givens rotation matrix has the form G = ( c -s ; s c )
+ */
+template < class T >
+void givens (const T& x,
+             const T& y,
+                   T& c,
+                   T& s)
+{
+	/* compute the magnitude of (x,y) */
+	T norm = std::sqrt(x*x + y*y);
+
+	if (norm > (T) 0)
+	{
+		c =  x / norm;
+		s = -y / norm;
+	}
+	else
+	{
+		c = (T) 0;
+		s = (T) 0;
+	}
+}
+
+
+/**
+ * @brief computes the Givens rotation matrix for a 2d vector
+ * @param x the x component of the 2d vector
+ * @param y the y component of the 2d vector
+ * @return the Givens rotation matrix for (x,y)
+ */
+template < class T >
+mat< T > givens (const T& x, const T& y)
+{
+	mat< T > G(2,2);
+
+	/* compute the magnitude of (x,y) */
+	T norm = std::sqrt(x*x + y*y);
+
+	if (norm > (T) 0)
+	{
+		T c =  x / norm;
+		T s = -y / norm;
+
+		G(0,0) = c;  G(0,1) = -s;
+		G(1,0) = s;  G(1,1) = c;
+	}
+
+	return G;
+}
+
+
 } /* end of namespace aml */
 
 #endif /* _freeAML_math_h_ */
