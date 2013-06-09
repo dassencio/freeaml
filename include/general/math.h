@@ -219,6 +219,58 @@ int binomial (const int n, const int k)
 }
 
 
+/*******************************************************************************
+ *
+ *	OTHER MATHEMATICAL FUNCTIONS
+ *
+ ******************************************************************************/
+
+/**
+ * @brief computes the Householder vector and the associated parameters which
+ *        define the Householder transformation for a given input vector
+ * @param u the vector for which the Householder transformation will be defined
+ * @param v at the end, the Householder transformation vector for u
+ * @param b at the end, the first Householder transformation constant
+ * @param c at the end, the second Householder transformation constant
+ * @param j the index such that the Householder transformation for u projects
+ *        it onto the unit vector e_j whose elements are all zero except for
+ *        the j-th element which is 1 (if omitted, j is assumed to be zero)
+ * @note the vector v and the constants b and c are such that
+ *       (I - bvv^t)u = -c|u|e_j, where I is the identity matrix, v is a column
+ *       vector and |u| is the L^2 norm of the vector u
+ */
+template < class T, class _vec >
+void householder (const _vec& u, _vec& v, T& b, T& c, const size_t j = 0)
+{
+	/* let v = u */
+	v = u;
+
+	FREEAML_ASSERT(j < v.size());
+
+	/* get the L^2 norm of u */
+	T norm = u.l2_norm();
+
+	/* if u is the null vector, then it is already a multiple of e_j */
+	if (norm == (T) 0)
+	{
+		b = (T) 0;
+		c = (T) 1;
+	}
+	else
+	{
+		/* get the sign of the j-th element of u */
+		c = sign(u[j]);
+
+		/* fix the j-th element of v */
+		v[j] += c * norm;
+
+		v /= v.l2_norm();
+
+		b = (T) 2;
+	}
+}
+
+
 } /* end of namespace aml */
 
 #endif /* _freeAML_math_h_ */
