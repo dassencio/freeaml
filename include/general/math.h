@@ -27,13 +27,19 @@
  ******************************************************************************/
 
 
-#ifndef _freeAML_basic_math_h_
-#define _freeAML_basic_math_h_
+#ifndef _freeAML_math_h_
+#define _freeAML_math_h_
 
 
 namespace aml
 {
 
+
+/*******************************************************************************
+ *
+ *	BASIC MATHEMATICAL FUNCTIONS
+ *
+ ******************************************************************************/
 
 /**
  * @brief computes the Kronecker delta for a pair of integers
@@ -124,9 +130,6 @@ inline size_t num_digits (int n)
  */
 int binomial (const int n, const int k)
 {
-	FREEAML_ASSERT(k >= 0);
-	FREEAML_ASSERT(n >= k);
-
 	/* hard-coded cases: n = 0,...6; 0 <= k <= n */
 	switch (n)
 	{
@@ -197,18 +200,25 @@ int binomial (const int n, const int k)
 		break;
 	}
 
-	/* compute all other cases by hand */
-	int rv = 1;
-
-	for (int i = 1; i <= k; i++)
+	if(k < 0 || k > n)
 	{
-		rv *= (n - k + i) / i;
+		return 0;
+	}
+	else
+	{
+		/* compute all other cases by hand */
+		int rv = 1;
+
+		for (int i = 1; i <= k; i++)
+		{
+			rv *= (n - k + i) / i;
+		}
+
+		return rv;
 	}
 }
 
 
-
-
 } /* end of namespace aml */
 
-#endif /* _freeAML_basic_math_h_ */
+#endif /* _freeAML_math_h_ */
