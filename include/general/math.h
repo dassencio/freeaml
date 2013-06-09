@@ -31,6 +31,11 @@
 #define _freeAML_math_h_
 
 
+#include <cstdlib>
+
+#include "debug.h"
+
+
 namespace aml
 {
 
