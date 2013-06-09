@@ -134,7 +134,6 @@ int month ()
 }
 
 
-
 /** @brief gets the current day of the month as an integer (1-31) */
 int month_day ()
 {
@@ -252,6 +251,25 @@ std::string string_date (const char sep = '.')
 	       int_to_string(month(),2) + sep +
 	       int_to_string(year(),4);
 }
+
+
+/* year at which the program started */
+int g_start_year       = year();
+
+/* month at which the program started */
+int g_start_month      = month();
+
+/* day of month at which the program started */
+int g_start_month_day  = month_day();
+
+/* hour at which the program started */
+int g_start_hour       = hour();
+
+/* minute at which the program started */
+int g_start_minute     = minute();
+
+/* second at which the program started */
+int g_start_second     = second();
 
 
 } /* end of namespace aml */
