@@ -236,7 +236,7 @@ private:
 
 /*******************************************************************************
  *
- *	NON-MEMBER OVERLOADED OPERATORS
+ *	NON-MEMBER OVERLOADED OPERATORS AND FUNCTIONS
  *
  ******************************************************************************/
 
@@ -261,6 +261,10 @@ vec< T > operator* (const vec< T >& v, const sparse_mat< T >& A);
 /** @brief computes the multiplication of a matrix by scalar (on the left) */
 template < class T >
 sparse_mat< T > operator* (const T& c, const sparse_mat< T >& A);
+
+/** @brief returns the m×m identity matrix */
+template < class T >
+sparse_mat< T > identity_matrix (const size_t m);
 
 
 /*******************************************************************************
@@ -811,7 +815,7 @@ sparse_vec< T >& sparse_mat< T >::operator[] (const size_t i)
 
 /*******************************************************************************
  *
- *	DEFINITIONS OF NON-MEMBER OVERLOADED OPERATORS
+ *	DEFINITIONS OF NON-MEMBER OVERLOADED OPERATORS AND FUNCTIONS
  *
  ******************************************************************************/
 
@@ -871,6 +875,19 @@ template < class T >
 sparse_mat< T > operator* (const T& c, const sparse_mat< T >& A)
 {
 	return A*c;
+}
+
+
+template < class T >
+sparse_mat< T > identity_matrix (const size_t m)
+{
+	sparse_mat< T > A(m, m);
+
+	for (size_t i = 0; i < m; i++)
+	{
+		A(i,i) = (T) 1;
+	}
+	return A;
 }
 
 

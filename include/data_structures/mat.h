@@ -205,7 +205,7 @@ private:
 
 /*******************************************************************************
  *
- *	NON-MEMBER OVERLOADED OPERATORS
+ *	NON-MEMBER OVERLOADED OPERATORS AND FUNCTIONS
  *
  ******************************************************************************/
 
@@ -221,6 +221,10 @@ vec< T > operator* (const vec< T >& v, const mat< T >& A);
 /** @brief computes the multiplication of a matrix by scalar (on the left) */
 template < class T >
 mat< T > operator* (const T& c, const mat< T >& A);
+
+/** @brief returns the m×m identity matrix */
+template < class T >
+mat< T > identity_matrix (const size_t m);
 
 
 /*******************************************************************************
@@ -670,7 +674,7 @@ vec< T >& mat< T >::operator[] (const size_t i)
 
 /*******************************************************************************
  *
- *	DEFINITIONS OF NON-MEMBER OVERLOADED OPERATORS
+ *	DEFINITIONS OF NON-MEMBER OVERLOADED OPERATORS AND FUNCTIONS
  *
  ******************************************************************************/
 
@@ -700,6 +704,19 @@ template < class T >
 mat< T > operator* (const T& c, const mat< T >& A)
 {
 	return A*c;
+}
+
+
+template < class T >
+mat< T > identity_matrix (const size_t m)
+{
+	mat< T > A(m, m, (T) 0);
+
+	for (size_t i = 0; i < m; i++)
+	{
+		A(i,i) = (T) 1;
+	}
+	return A;
 }
 
 
