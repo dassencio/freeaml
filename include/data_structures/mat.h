@@ -222,7 +222,7 @@ vec< T > operator* (const vec< T >& v, const mat< T >& A);
 template < class T >
 mat< T > operator* (const T& c, const mat< T >& A);
 
-/** @brief returns the m×m identity matrix */
+/** @brief returns the m × m identity matrix */
 template < class T >
 mat< T > identity_matrix (const size_t m);
 

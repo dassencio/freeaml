@@ -262,7 +262,7 @@ vec< T > operator* (const vec< T >& v, const sparse_mat< T >& A);
 template < class T >
 sparse_mat< T > operator* (const T& c, const sparse_mat< T >& A);
 
-/** @brief returns the m×m identity matrix */
+/** @brief returns the m × m identity matrix */
 template < class T >
 sparse_mat< T > identity_matrix (const size_t m);
 

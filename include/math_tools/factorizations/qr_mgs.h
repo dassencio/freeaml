@@ -55,6 +55,8 @@ public:
 	 * @return true if the factorization A = QR could be built, false otherwise
 	 * @note if the method succeeds, Q will be orthogonal and R will be
 	 *       upper triangular with positive diagonal values
+	 * @note the number of rows of A must be larger or equal than its number
+	 *       of columns
 	 */
 	template < class _mat1, class _mat2, class _mat3 >
 	bool factorize (const _mat1& A, _mat2& Q, _mat3& R) const;
