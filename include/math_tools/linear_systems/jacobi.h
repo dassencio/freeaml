@@ -146,12 +146,6 @@ bool jacobi< T >::solve (const _mat& A, _vec& x, const _vec& b)
 }
 
 
-/*******************************************************************************
- *
- *	DEFINITIONS OF CLASS MEMBER FUNCTIONS
- *
- ******************************************************************************/
-
 template < class T >
 template < class _mat, class _vec >
 void jacobi< T >::iterate (const _mat& A, _vec& x, const _vec& b, const size_t n)
