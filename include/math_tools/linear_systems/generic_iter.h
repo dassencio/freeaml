@@ -190,9 +190,10 @@ bool generic_iter< T >::check_dimensions (const _mat& A,
                                           const _vec& x,
                                           const _vec& b) const
 {
-	return A.is_square() &&
-	           x.size() == b.size() &&
-	               A.num_cols() == x.size();
+	return (A.num_rows() > 0) &&
+	               A.is_square() &&
+	                   x.size() == b.size() &&
+	                       A.num_cols() == x.size();
 }
 
 
