@@ -133,6 +133,12 @@ public:
 	/** @brief computes the max norm of the matrix */
 	T max_norm () const;
 
+	/** @brief if this matrix is A, gets A(i_min:imax, j_min:j_max) */
+	mat< T > submatrix(const size_t i_min,
+	                   const size_t i_max,
+	                   const size_t j_min,
+	                   const size_t j_max) const;
+
 	/** @brief computes the transpose of the matrix */
 	mat< T > transpose () const;
 
@@ -475,6 +481,28 @@ T mat< T >::max_norm () const
 	#endif
 
 	return norm;
+}
+
+
+template < class T >
+mat< T > mat< T >::submatrix (const size_t i_min,
+                              const size_t i_max,
+                              const size_t j_min,
+                              const size_t j_max) const
+{
+	FREEAML_ASSERT(i_min <= i_max && i_max < num_rows());
+	FREEAML_ASSERT(j_min <= j_max && j_max < num_cols());
+
+	mat< T > B(i_max-i_min+1, j_max-j_min+1);
+
+	for (size_t i = i_min; i <= i_max; i++)
+	{
+		for (size_t j = j_min; j <= j_max; j++)
+		{
+			B(i-i_min, j-j_min) = (*this)(i,j);
+		}
+	}
+	return B;
 }
 
 
