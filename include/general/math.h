@@ -31,6 +31,7 @@
 #define _freeAML_math_h_
 
 
+#include <cmath>
 #include <cstdlib>
 
 #include "debug.h"
