@@ -135,10 +135,10 @@ bool gmres_givens< T >::solve (const _mat& A, _vec& x, const _vec& b)
 
 	size_t n = A.num_rows();
 
-	/**
+	/*
 	 * Q and H are the matrices which define the Hessenberg decomposition
 	 * of A; Q is actually the transpose of the theoretical Q (we allocate
-	 * space for these matrices as necessary since they are both dense)
+	 * space for these matrices as necessary because they are dense)
 	 */
 	mat< T > Q(1, n, (T)0);
 	mat< T > H(1, n, (T)0);
@@ -160,15 +160,21 @@ bool gmres_givens< T >::solve (const _mat& A, _vec& x, const _vec& b)
 	{
 		size_t k = num_iter;
 
-		/* s defines the number of rows of Hk and fk (see below) */
+		/*
+		 * s defines the number of rows of Hk and fk (see below); it
+		 * is the number of basis vectors q_i built at the end this
+		 * iteration
+		 */
 		size_t s = std::min(k+2, n);
 
 		/* if more rows for Q and H must be allocated */
 		if (s > Q.num_rows())
 		{
-			/* in order to avoid wasting CPU cycles, we double th
-			 * number of rows allocated for Q and H whenenever
-			 * necessary instead of allocating one row at a time */
+			/*
+			 * in order to avoid wasting CPU cycles, we double the
+			 * number of rows allocated for Q and H whenever
+			 * necessary instead of allocating one row at a time
+			 */
 			size_t m = std::min(n, 2*Q.num_rows());
 
 			Q.resize(m, n, (T)0);
