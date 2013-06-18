@@ -124,11 +124,6 @@ bool gmres_givens_v2< T >::solve (const _mat& A, _vec& x, const _vec& b)
 
 	size_t n = A.num_rows();
 
-	/*
-	 * Q and H are the matrices which define the Hessenberg decomposition
-	 * of A; Q is actually the transpose of the theoretical Q (we allocate
-	 * space for these matrices as necessary because they are dense)
-	 */
 	mat< T > Q(1, n, (T)0);
 	mat< T > H(1, n, (T)0);
 

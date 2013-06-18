@@ -256,7 +256,7 @@ bool gmres_givens< T >::arnoldi_iteration (const _mat1&  A,
 	/* z will later be used to compute q_k+1, the (k+1)-th row of Q */
 	vec< T > z = A * c_Q[k];
 
-	/* project out q_1,...,q_k from z to get an orthogonal basis of
+	/* project out q_0,...,q_k from z to get an orthogonal basis of
 	 * span{b,Ab,...A^k*b} */
 	for (size_t i = 0; i <= k; i++)
 	{
