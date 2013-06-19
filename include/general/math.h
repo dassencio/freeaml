@@ -275,7 +275,7 @@ void householder (const _vec& u, _vec& v, T& b, T& c, const size_t j = 0)
 
 
 /**
- * @brief computes the entries of the Givens rotation matrix for a 2d vector
+ * @brief computes the entries of the Givens rotation matrix for a 2d vector (x,y)
  * @param x the x component of the 2d vector
  * @param y the y component of the 2d vector
  * @param c the first parameter which defines the Given rotation matrix for (x,y)
@@ -301,6 +301,26 @@ void givens (const T& x, const T& y, T& c, T& s)
 }
 
 
+/**
+ * @brief applies a Givens rotation to a 2d vector (x,y)
+ * @param _x the x component of the 2d vector
+ * @param _y the y component of the 2d vector
+ * @param c the first parameter which defines the Given rotation matrix
+ * @param s the second parameter which defines the Given rotation matrix
+ * @note the Givens rotation matrix has the form G = ( c -s ; s c )
+ */
+template < class T >
+void givens_rotation (T& _x, T& _y, const T& c, const T& s)
+{
+	const T x = _x;
+	const T y = _y;
+
+	_x = c*x - s*y;
+	_y = s*x + c*y;
+}
+
+
 } /* end of namespace aml */
+
 
 #endif /* _freeAML_math_h_ */

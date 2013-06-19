@@ -85,18 +85,6 @@ public:
 	template < class _mat, class _vec >
 	bool solve (const _mat& A, _vec& x, const _vec& b);
 
-private:
-
-	/**
-	 * @brief applies a Givens rotation to a 2d vector (x,y)
-	 * @param c first parameter of the Givens rotation matrix
-	 * @param s second parameter of the Givens rotation matrix
-	 * @param x first component of the vector (x,y)
-	 * @param y second component of the vector (x,y)
-	 * @note the Givens rotation matrix is G = ( c -s ; s c )
-	 */
-	void givens_rotation (const T& c, const T& s, T& x, T& y) const;
-
 }; /* end of class gmres_givens_v2 */
 
 
@@ -188,7 +176,7 @@ bool gmres_givens_v2< T >::solve (const _mat& A, _vec& x, const _vec& b)
 		 * triangular (H here being the theoretical H) */
 		for (size_t i = 0; i < k; i++)
 		{
-			givens_rotation(c[i], s[i], H(i,k), H(i+1,k));
+			givens_rotation(H(i,k), H(i+1,k), c[i], s[i]);
 		}
 
 		/* If one more Givens rotations must be applied */
@@ -208,10 +196,10 @@ bool gmres_givens_v2< T >::solve (const _mat& A, _vec& x, const _vec& b)
 			givens(H(k,k), H(k+1,k), c[k], s[k]);
 
 			/* keep H (the theoretical H) upper triangular */
-			givens_rotation(c[k], s[k], H(k,k), H(k+1,k));
+			givens_rotation(H(k,k), H(k+1,k), c[k], s[k]);
 
 			/* apply also the Givens rotation to the rhs f */
-			givens_rotation(c[k], s[k], f[k], f[k+1]);
+			givens_rotation(f[k], f[k+1], c[k], s[k]);
 		}
 
 		/* if H(k,k) = 0, A is not invertible */
@@ -263,20 +251,6 @@ bool gmres_givens_v2< T >::solve (const _mat& A, _vec& x, const _vec& b)
 
 	gen_it_type::set_num_iterations(num_iter);
 	return false;
-}
-
-
-template < class T >
-void gmres_givens_v2< T >::givens_rotation (const T& c,
-                                            const T& s,
-                                                  T& x,
-                                                  T& y) const
-{
-	const T a = x;
-	const T b = y;
-
-	x = c*a - s*b;
-	y = s*a + c*b;
 }
 
 
