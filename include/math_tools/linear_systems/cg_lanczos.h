@@ -108,7 +108,7 @@ bool cg_lanczos< T >::solve (const _mat& A, _vec& x, const _vec& b)
 
 	_vec v = b;
 
-	/* \beta_{k-1} and \beta_k */
+	/* \beta_{k-1} and \beta_k, k is the iteration number */
 	T beta1 = (T) 0;
 	T beta2 = v.l2_norm();
 
@@ -117,8 +117,11 @@ bool cg_lanczos< T >::solve (const _mat& A, _vec& x, const _vec& b)
 	T delta2 = (T) 0;
 
 	/* vectors q_{k-1} and q_k */
-	_vec q1(x.size(), (T) 0);
-	_vec q2(x.size(), (T) 0);
+	_vec q1(x.size());
+	_vec q2(x.size());
+
+	q1.set_all_values_to_zero();
+	q2.set_all_values_to_zero();
 
 	_vec c(x.size(), (T) 0);
 
@@ -142,7 +145,7 @@ bool cg_lanczos< T >::solve (const _mat& A, _vec& x, const _vec& b)
 		beta1 = beta2;
 		beta2 = v.l2_norm();
 
-		/* LDL^T decomposition with forward substitution */
+		/* LDL^t decomposition with forward substitution */
 		if (num_iter == 0)
 		{
 			delta2 = alpha;

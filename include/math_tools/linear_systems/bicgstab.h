@@ -112,8 +112,11 @@ bool bicgstab< T >::solve (const _mat& A, _vec& x, const _vec& b)
 	T alpha = (T) 1;
 	T omega = (T) 1;
 
-	_vec p(b.size(), (T)0);
-	_vec v(b.size(), (T)0);
+	_vec p(b.size());
+	_vec v(b.size());
+
+	p.set_all_values_to_zero();
+	v.set_all_values_to_zero();
 
 	size_t num_iter = 0;
 

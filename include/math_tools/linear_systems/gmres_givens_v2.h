@@ -232,7 +232,7 @@ bool gmres_givens_v2< T >::solve (const _mat& A, _vec& x, const _vec& b)
 			}
 
 			/* build the problem solution x = Q*lambda (keep in
-			 * mind Q is the theoretical Q^T) */
+			 * mind Q is the theoretical Q^t) */
 			x.set_all_values_to_zero();
 
 			for (size_t i = 0; i <= k; i++)
