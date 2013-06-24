@@ -543,7 +543,7 @@ T sparse_mat< T >::max_norm () const
 	{
 		norm = std::max(std::abs(norm), (*this)[i].linf_norm());
 	}
-	#endif
+#endif
 
 	return norm;
 }
