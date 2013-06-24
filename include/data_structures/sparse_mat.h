@@ -560,6 +560,10 @@ sparse_mat< T > sparse_mat< T >::submatrix (const size_t i_min,
 
 	sparse_mat< T > B(i_max-i_min+1, j_max-j_min+1);
 
+#ifdef _OPENMP
+#pragma omp parallel for
+#endif
+
 	for (size_t i = i_min; i <= i_max; i++)
 	{
 		for (const_iterator j = (*this)[i].begin(); j != (*this)[i].end(); j++)
