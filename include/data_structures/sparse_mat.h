@@ -579,10 +579,8 @@ sparse_mat< T > sparse_mat< T >::transpose () const
 {
 	sparse_mat< T > At(num_cols(), num_rows());
 
-#ifdef _OPENMP
-#pragma omp parallel for
-#endif
-
+	/* since std::map is not thread safe, it is a not a good idea to
+	 * use more than one thread here */
 	for (size_t i = 0; i < num_rows(); i++)
 	{
 		for (const_iterator j = (*this)[i].begin(); j != (*this)[i].end(); j++)
