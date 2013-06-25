@@ -95,12 +95,12 @@ private:
 	bool build_K (const _mat& A, _mat& K) const;
 
 	/**
-	 * \brief solves the ICCG preconditioner equation KK^t*z = r
-	 * \param K the lower triangular matrix which approximates the Cholesky
+	 * @brief solves the ICCG preconditioner equation KK^t*z = r
+	 * @param K the lower triangular matrix which approximates the Cholesky
 	 *        factorization of the system matrix (A)
-	 * \param z a vector on which the solution to the preconditioner
+	 * @param z a vector on which the solution to the preconditioner
 	 *        equation will be written (if found)
-	 * \param r the right-hand side vector (in our case, a residual vector)
+	 * @param r the right-hand side vector (in our case, a residual vector)
 	 */
 	template < class _mat, class _vec >
 	bool solve_preconditioner_equation (const _mat& K,
