@@ -119,7 +119,7 @@ bool gebs< T >::solve (_mat A, _vec& x, _vec b) const
 		{
 			T m = A(row[j],i) / A(row[i],i);
 
-			/* do A_j <--- A_j - m*A_i */
+			/* A_j <--- A_j - m*A_i */
 			for (size_t l = i+1; l < n; l++)
 			{
 				A(row[j],l) -= m * A(row[i],l);

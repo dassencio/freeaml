@@ -149,7 +149,7 @@ bool iccg< T >::solve (const _mat& A, _vec& x, const _vec& b)
 
 	_vec z(n);
 
-	/* do z = (KK^t)^(-1)r */
+	/* z = (KK^t)^(-1)r */
 	if (!solve_preconditioner_equation(K,z,r))
 	{
 		gen_it_type::set_num_iterations(0);
@@ -169,7 +169,7 @@ bool iccg< T >::solve (const _mat& A, _vec& x, const _vec& b)
 		x += alpha * p;
 		r -= alpha * q;
 
-		/* do z = (KK^t)^(-1)r */
+		/* z = (KK^t)^(-1)r */
 		if (!solve_preconditioner_equation(K,z,r))
 		{
 			break;
