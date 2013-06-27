@@ -79,7 +79,7 @@ bool qr_house< T >::factorize (_mat1 A, _mat2& Q, _mat3& R) const
 	size_t n = A.num_cols();
 
 	/* P will be the product of all Householder transformations applied */
-	mat< T > P = identity_matrix< T >(m);
+	mat< T > P = dense_identity_matrix< T >(m);
 
 	size_t d = std::min(m,n);
 
