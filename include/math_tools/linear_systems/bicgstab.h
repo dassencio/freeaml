@@ -115,8 +115,8 @@ bool bicgstab< T >::solve (const _mat& A, _vec& x, const _vec& b)
 	_vec p(b.size());
 	_vec v(b.size());
 
-	p.set_all_values_to_zero();
-	v.set_all_values_to_zero();
+	p.zero_fill();
+	v.zero_fill();
 
 	size_t num_iter = 0;
 

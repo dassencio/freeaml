@@ -85,8 +85,8 @@ bool qr_cgs< T >::factorize (const _mat1& A, _mat2& Q, _mat3& R) const
 	Q.resize(m,n);
 	R.resize(n,n);
 
-	Q.set_all_values_to_zero();
-	R.set_all_values_to_zero();
+	Q.zero_fill();
+	R.zero_fill();
 
 	for (size_t i = 0; i < n; i++)
 	{

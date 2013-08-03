@@ -86,8 +86,8 @@ bool qr_givens< T >::factorize (_mat1 A, _mat2& Q, _mat3& R) const
 	Q.resize(m, d);
 	R.resize(d, n);
 
-	Q.set_all_values_to_zero();
-	R.set_all_values_to_zero();
+	Q.zero_fill();
+	R.zero_fill();
 
 	/* for each column p of A which must have its subdiagonal
 	 * elements zeroed out */

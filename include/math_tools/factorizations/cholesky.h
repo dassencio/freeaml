@@ -79,7 +79,7 @@ bool cholesky< T >::factorize (const _mat1&  A, _mat2& L) const
 	/* assign the correct dimensions to L */
 	L.resize(n,n);
 
-	L.set_all_values_to_zero();
+	L.zero_fill();
 
 	for (size_t j = 0; j < n; j++)
 	{

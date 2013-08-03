@@ -104,7 +104,7 @@ bool cg_lanczos< T >::solve (const _mat& A, _vec& x, const _vec& b)
 	FREEAML_ASSERT(gen_it_type::check_dimensions(A,x,b));
 
 	/* in this algorithm, the initial guess is the zero vector */
-	x.set_all_values_to_zero();
+	x.zero_fill();
 
 	_vec v = b;
 
@@ -120,8 +120,8 @@ bool cg_lanczos< T >::solve (const _mat& A, _vec& x, const _vec& b)
 	_vec q1(x.size());
 	_vec q2(x.size());
 
-	q1.set_all_values_to_zero();
-	q2.set_all_values_to_zero();
+	q1.zero_fill();
+	q2.zero_fill();
 
 	_vec c(x.size(), (T) 0);
 

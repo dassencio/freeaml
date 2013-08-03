@@ -161,22 +161,22 @@ public:
 	 *
 	 **********************************************************************/
 
-	/** @brief sets all values of the matrix to zero */
-	void set_all_values_to_zero ();
+	/** @brief sets all elements of the matrix to zero */
+	void zero_fill ();
 
-	/** @brief computes the number of nonzero values stored on the matrix */
-	size_t num_nonzero_values () const;
+	/** @brief computes the number of nonzero elements stored in the matrix */
+	size_t num_nonzero_elements () const;
 
-	/** @brief gets the total number of values stored on the matrix (if
+	/** @brief gets the total number of elements stored in the matrix (if
 	 *	   zeros were stored by hand, they will also be counted!) */
-	size_t num_stored_values () const;
+	size_t num_stored_elements () const;
 
 	/**
 	 * @brief removes all elements of the matrix storing zeros
 	 * @note the matrix dimensions remain the same; this function merely
 	 *       frees the memory associated with elements storing zeros
 	 *       (however, avoid adding zeros to the sparse matrix by only
-	 *       reading its values in const mode and by not writing zeros to
+	 *       reading its elements in const mode and by not writing zeros to
 	 *       it in the first place!)
 	 */
 	void remove_zeros();
@@ -629,7 +629,7 @@ bool sparse_mat< T >::is_square () const
 
 
 template < class T >
-void sparse_mat< T >::set_all_values_to_zero()
+void sparse_mat< T >::zero_fill()
 {
 
 #ifdef _OPENMP
@@ -638,32 +638,32 @@ void sparse_mat< T >::set_all_values_to_zero()
 
 	for (size_t i = 0; i < num_rows(); i++)
 	{
-		(*this)[i].set_all_values_to_zero();
+		(*this)[i].zero_fill();
 	}
 }
 
 
 template < class T >
-size_t sparse_mat< T >::num_nonzero_values () const
+size_t sparse_mat< T >::num_nonzero_elements () const
 {
 	size_t count = 0;
 
 	for (size_t i = 0; i < num_rows(); i++)
 	{
-		count += (*this)[i].num_nonzero_values();
+		count += (*this)[i].num_nonzero_elements();
 	}
 	return count;
 }
 
 
 template < class T >
-size_t sparse_mat< T >::num_stored_values () const
+size_t sparse_mat< T >::num_stored_elements () const
 {
 	size_t count = 0;
 
 	for (size_t i = 0; i < num_rows(); i++)
 	{
-		count += (*this)[i].num_stored_values();
+		count += (*this)[i].num_stored_elements();
 	}
 	return count;
 }

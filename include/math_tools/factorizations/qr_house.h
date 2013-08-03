@@ -87,8 +87,8 @@ bool qr_house< T >::factorize (_mat1 A, _mat2& Q, _mat3& R) const
 	Q.resize(m, d);
 	R.resize(d, n);
 
-	Q.set_all_values_to_zero();
-	R.set_all_values_to_zero();
+	Q.zero_fill();
+	R.zero_fill();
 
 	vec< T > w(n, (T) 0);
 	vec< T > z(m, (T) 0);
@@ -122,8 +122,8 @@ bool qr_house< T >::factorize (_mat1 A, _mat2& Q, _mat3& R) const
 			/* build w = (v^t)A(p:m-1,p:n-1) and
 			 * z = (v^t)P(p:m-1,0:m-1) */
 
-			w.set_all_values_to_zero();
-			z.set_all_values_to_zero();
+			w.zero_fill();
+			z.zero_fill();
 
 			for (size_t k = 0; k < M; k++)
 			{

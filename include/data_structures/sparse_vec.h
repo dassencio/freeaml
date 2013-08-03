@@ -137,11 +137,11 @@ public:
 	/** @brief computes the L^inf norm of the vector */
 	T linf_norm () const;
 
-	/** @brief computes the sum of all values of the vector */
-	T sum_values (void) const;
+	/** @brief computes the sum of all elements of the vector */
+	T sum (void) const;
 
-	/** @brief computes the average of all values of the vector */
-	T average_value (void) const;
+	/** @brief computes the average of all elements of the vector */
+	T average (void) const;
 
 
 	/***********************************************************************
@@ -150,22 +150,22 @@ public:
 	 *
 	 **********************************************************************/
 
-	/** @brief sets all values of the vector to zero */
-	sparse_vec< T >& set_all_values_to_zero ();
+	/** @brief sets all elements of the vector to zero */
+	sparse_vec< T >& zero_fill ();
 
-	/** @brief computes the number of nonzero values stored on the vector */
-	size_t num_nonzero_values () const;
+	/** @brief computes the number of nonzero elements stored in the vector */
+	size_t num_nonzero_elements () const;
 
-	/** @brief gets the total number of values stored on the vector (if
+	/** @brief gets the total number of elements stored in the vector (if
 	 *         zeros were stored by hand, they will also be counted!) */
-	size_t num_stored_values () const;
+	size_t num_stored_elements () const;
 
 	/**
 	 * @brief removes all elements of the vector storing zeros
 	 * @note the vector size remains the same; this function merely
 	 *       frees the memory associated with elements storing zeros
 	 *       (however, avoid adding zeros to the sparse vector by only
-	 *       reading its values in const mode and by not writing zeros to
+	 *       reading its elements in const mode and by not writing zeros to
 	 *       it in the first place!)
 	 */
 	void remove_zeros();
@@ -224,11 +224,11 @@ public:
 
 private:
 
-	/* a map holds all the values of the sparse vector */
-	map_type	m_values;
+	/* a map stores all elements of the sparse vector */
+	map_type	m_elements;
 
 	/* length (size) of the sparse vector (this value can be differnt
-	 * from the number of values actually stored on the sparse vector) */
+	 * from the number of elements actually stored in the sparse vector) */
 	size_t		m_len;
 
 }; /* end of class sparse_vec */
@@ -248,7 +248,7 @@ sparse_vec< T > operator* (const T& c, const sparse_vec< T >& v);
 template < class T >
 T operator* (const vec< T >& u, const sparse_vec< T >& v);
 
-/** @brief prints the values of a sparse vector directly to an output stream */
+/** @brief prints the elements of a sparse vector directly to an output stream */
 template < class T >
 std::ostream& operator<< (std::ostream& st, const sparse_vec< T >& v);
 
@@ -268,7 +268,7 @@ sparse_vec< T >::sparse_vec (const size_t len): m_len(len)
 
 template < class T >
 template < class _iterator >
-sparse_vec< T >::sparse_vec (_iterator first, _iterator last): m_values(first,last)
+sparse_vec< T >::sparse_vec (_iterator first, _iterator last): m_elements(first,last)
 {
 	/* nothing needs to be done here */
 }
@@ -277,7 +277,7 @@ sparse_vec< T >::sparse_vec (_iterator first, _iterator last): m_values(first,la
 template < class T >
 sparse_vec< T >::sparse_vec (const sparse_vec< T >& v):
 
-	m_values(v.m_values), m_len(v.m_len)
+	m_elements(v.m_elements), m_len(v.m_len)
 {
 	/* nothing needs to be done here */
 }
@@ -288,7 +288,7 @@ T& sparse_vec< T >::operator[] (const size_t i)
 {
 	FREEAML_ASSERT(i < size());
 
-	return m_values[i];
+	return m_elements[i];
 }
 
 
@@ -301,7 +301,7 @@ const T& sparse_vec< T >::operator[] (const size_t i) const
 
 	const_iterator it;
 
-	if ((it = m_values.find(i)) != end())
+	if ((it = m_elements.find(i)) != end())
 	{
 		return it->second;
 	}
@@ -354,7 +354,7 @@ sparse_vec< T >& sparse_vec< T >::operator+= (const sparse_vec< T >& v)
 
 	for (const_iterator it = v.begin(); it != v.end(); it++)
 	{
-		m_values[it->first] += it->second;
+		m_elements[it->first] += it->second;
 	}
 	return *this;
 }
@@ -377,7 +377,7 @@ sparse_vec< T >& sparse_vec< T >::operator-= (const sparse_vec< T >& v)
 
 	for (const_iterator it = v.begin(); it != v.end(); it++)
 	{
-		m_values[it->first] -= it->second;
+		m_elements[it->first] -= it->second;
 	}
 	return *this;
 }
@@ -426,7 +426,7 @@ T sparse_vec< T >::operator* (const vec< T >& v) const
 template < class T >
 bool sparse_vec< T >::operator== (const sparse_vec< T >& v) const
 {
-	return (m_values == v.m_values && size() == v.size());
+	return (m_elements == v.m_elements && size() == v.size());
 }
 
 
@@ -493,7 +493,7 @@ T sparse_vec< T >::linf_norm () const
 
 
 template < class T >
-T sparse_vec< T >::sum_values (void) const
+T sparse_vec< T >::sum (void) const
 {
 	T sum = (T) 0;
 
@@ -506,26 +506,26 @@ T sparse_vec< T >::sum_values (void) const
 
 
 template < class T >
-T sparse_vec< T >::average_value () const
+T sparse_vec< T >::average () const
 {
 	if (!empty())
 	{
-		return sum_values() / (T) size();
+		return sum() / (T) size();
 	}
 	return (T) 0;
 }
 
 
 template < class T >
-sparse_vec< T >& sparse_vec< T >::set_all_values_to_zero ()
+sparse_vec< T >& sparse_vec< T >::zero_fill ()
 {
-	m_values.clear();
+	m_elements.clear();
 	return *this;
 }
 
 
 template < class T >
-size_t sparse_vec< T >::num_nonzero_values () const
+size_t sparse_vec< T >::num_nonzero_elements () const
 {
 	size_t count = 0;
 
@@ -541,9 +541,9 @@ size_t sparse_vec< T >::num_nonzero_values () const
 
 
 template < class T >
-size_t sparse_vec< T >::num_stored_values () const
+size_t sparse_vec< T >::num_stored_elements () const
 {
-	return m_values.size();
+	return m_elements.size();
 }
 
 
@@ -557,7 +557,7 @@ void sparse_vec< T >::remove_zeros()
 		if (it->second == (T) 0)
 		{
 			/* safe erase */
-			m_values.erase(it++);
+			m_elements.erase(it++);
 		}
 		else
 		{
@@ -584,7 +584,7 @@ bool sparse_vec< T >::empty () const
 template < class T >
 void sparse_vec<T>::clear()
 {
-	m_values.clear();
+	m_elements.clear();
 	m_len = 0;
 	return *this;
 }
@@ -605,7 +605,7 @@ void sparse_vec< T >::resize (const size_t len)
 			if (it->first >= len)
 			{
 				/* safe erase */
-				m_values.erase(it--);
+				m_elements.erase(it--);
 			}
 			else
 			{
@@ -621,7 +621,7 @@ void sparse_vec< T >::resize (const size_t len)
 template < class T >
 void sparse_vec< T >::push_back (const T& x)
 {
-	m_values[size()] = x;
+	m_elements[size()] = x;
 	m_len++;
 	return *this;
 }
@@ -632,7 +632,7 @@ void sparse_vec< T >::pop_back ()
 {
 	if (!empty())
 	{
-		m_values.erase(end());
+		m_elements.erase(end());
 		m_len--;
 	}
 	return *this;
@@ -642,14 +642,14 @@ void sparse_vec< T >::pop_back ()
 template < class T >
 typename sparse_vec< T >::iterator sparse_vec< T >::begin ()
 {
-	return m_values.begin();
+	return m_elements.begin();
 }
 
 
 template < class T >
 typename sparse_vec< T >::const_iterator sparse_vec< T >::begin () const
 {
-	return m_values.begin();
+	return m_elements.begin();
 }
 
 
@@ -657,14 +657,14 @@ typename sparse_vec< T >::const_iterator sparse_vec< T >::begin () const
 template < class T >
 typename sparse_vec< T >::iterator sparse_vec< T >::end ()
 {
-	return m_values.end();
+	return m_elements.end();
 }
 
 
 template < class T >
 typename sparse_vec< T >::const_iterator sparse_vec< T >::end () const
 {
-	return m_values.end();
+	return m_elements.end();
 }
 
 

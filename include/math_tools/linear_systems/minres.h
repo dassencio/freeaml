@@ -107,16 +107,16 @@ bool minres< T >::solve (const _mat& A, _vec& x, const _vec& b)
 	size_t n = A.num_rows();
 
 	/* in this algorithm, the initial guess is the zero vector */
-	x.set_all_values_to_zero();
+	x.zero_fill();
 
 	/*  q_{k-1}, q_k and q_{k+1}, k is the iteration number */
 	_vec q1(n);
 	_vec q2(n);
 	_vec q3(n);
 
-	q1.set_all_values_to_zero();
-	q2.set_all_values_to_zero();
-	q3.set_all_values_to_zero();
+	q1.zero_fill();
+	q2.zero_fill();
+	q3.zero_fill();
 
 	/* m_{k-2}, m_{k-1} and m_k */
 	_vec m1(n);

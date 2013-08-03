@@ -172,17 +172,14 @@ public:
 	/** @brief computes the L^inf norm of the vector */
 	T linf_norm () const;
 
-	/** @brief computes the sum of all values of the vector */
-	T sum_values (void) const;
+	/** @brief computes the sum of all elements of the vector */
+	T sum (void) const;
 
-	/** @brief computes the average of all values of the vector */
-	T average_value (void) const;
+	/** @brief computes the average of all elements of the vector */
+	T average (void) const;
 
 	/** @brief changes the vector average value to an input value */
-	vec< T >& average_values_to (const T& x);
-
-	/** @brief changes the vector average value to zero */
-	vec< T >& average_values_to_zero (void);
+	vec< T >& average_elements (const T& x);
 
 
 	/***********************************************************************
@@ -191,11 +188,11 @@ public:
 	 *
 	 **********************************************************************/
 
-	/** @brief sets all values of the vector to a constant */
-	void set_all_values_to (const T& x);
+	/** @brief sets all elements of the vector to a constant */
+	void fill (const T& x);
 
-	/** @brief sets all values of the vector to zero */
-	void set_all_values_to_zero (void);
+	/** @brief sets all elements of the vector to zero */
+	void zero_fill (void);
 
 	/** @brief swaps the contents of this vector and an input vector */
 	void swap (vec< T >& v);
@@ -234,7 +231,7 @@ public:
 template < class T >
 vec< T > operator* (const T& c, const vec< T >& v);
 
-/** @brief prints the values of a vector directly to an output stream */
+/** @brief prints the elements of a vector directly to an output stream */
 template < class T >
 std::ostream& operator<< (std::ostream& st, const vec< T >& v);
 
@@ -573,7 +570,7 @@ T vec< T >::linf_norm () const
 
 
 template < class T >
-T vec< T >::sum_values (void) const
+T vec< T >::sum (void) const
 {
 	T sum = (T) 0;
 
@@ -608,11 +605,11 @@ T vec< T >::sum_values (void) const
 
 
 template < class T >
-T vec< T >::average_value (void) const
+T vec< T >::average (void) const
 {
 	if (!empty())
 	{
-		return sum_values() / (T) size();
+		return sum() / (T) size();
 	}
 	else
 	{
@@ -622,9 +619,9 @@ T vec< T >::average_value (void) const
 
 
 template < class T >
-vec< T >& vec< T >::average_values_to (const T& x)
+vec< T >& vec< T >::average_elements (const T& x)
 {
-	const T avg = average_value();
+	const T avg = average();
 
 #ifdef _OPENMP
 #pragma omp parallel for
@@ -639,14 +636,7 @@ vec< T >& vec< T >::average_values_to (const T& x)
 
 
 template < class T >
-vec< T >& vec< T >::average_values_to_zero (void)
-{
-	return average_values_to((T)0);
-}
-
-
-template < class T >
-void vec< T >::set_all_values_to (const T& x)
+void vec< T >::fill (const T& x)
 {
 
 #ifdef _OPENMP
@@ -661,9 +651,9 @@ void vec< T >::set_all_values_to (const T& x)
 
 
 template < class T >
-void vec< T >::set_all_values_to_zero (void)
+void vec< T >::zero_fill (void)
 {
-	set_all_values_to((T)0);
+	fill((T)0);
 }
 
 

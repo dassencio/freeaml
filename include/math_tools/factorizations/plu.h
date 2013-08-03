@@ -87,9 +87,9 @@ bool plu< T >::factorize (_mat1  A,
 	L.resize(n,n);
 	U.resize(n,n);
 
-	P.set_all_values_to_zero();
-	L.set_all_values_to_zero();
-	U.set_all_values_to_zero();
+	P.zero_fill();
+	L.zero_fill();
+	U.zero_fill();
 
 	/* perm will be used to build the permutation matrix P at the end */
 	vec< size_t > perm(n,0);

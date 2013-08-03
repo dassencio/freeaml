@@ -135,7 +135,7 @@ bool iccg< T >::solve (const _mat& A, _vec& x, const _vec& b)
 
 	_mat K(n,n);
 
-	K.set_all_values_to_zero();
+	K.zero_fill();
 
 	/* the incomplete Cholesky preconditioner is KK^t */
 	if (!build_K(A,K))
@@ -257,11 +257,11 @@ bool iccg< T >::solve_preconditioner_equation (const _mat& K,
 	/* K is an n × n matrix */
 	size_t n = K.num_rows();
 
-	z.set_all_values_to_zero();
+	z.zero_fill();
 
 	_vec w(n);
 
-	w.set_all_values_to_zero();
+	w.zero_fill();
 
 	const _mat Kt = K.transpose();
 

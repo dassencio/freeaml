@@ -155,11 +155,11 @@ public:
 	 *
 	 **********************************************************************/
 
-	/** @brief sets all values of the matrix to a constant */
-	void set_all_values_to (const T& x);
+	/** @brief sets all elements of the matrix to a constant */
+	void fill (const T& x);
 
-	/** @brief sets all values of the matrix to zero */
-	void set_all_values_to_zero ();
+	/** @brief sets all elements of the matrix to zero */
+	void zero_fill ();
 
 	/** @brief gets the number of rows in the matrix */
 	size_t num_rows () const;
@@ -560,7 +560,7 @@ bool mat< T >::is_square () const
 
 
 template < class T >
-void mat<T>::set_all_values_to(const T& x)
+void mat<T>::fill(const T& x)
 {
 
 #ifdef _OPENMP
@@ -569,15 +569,15 @@ void mat<T>::set_all_values_to(const T& x)
 
 	for (size_t i = 0; i < num_rows(); i++)
 	{
-		(*this)[i].set_all_values_to(x);
+		(*this)[i].fill(x);
 	}
 }
 
 
 template < class T >
-void mat<T>::set_all_values_to_zero()
+void mat<T>::zero_fill()
 {
-	set_all_values_to((T)0);
+	fill((T)0);
 }
 
 

@@ -202,7 +202,7 @@ bool gmres_givens< T >::solve (const _mat& A, _vec& x, const _vec& b)
 		lss.solve(Hk, y, fk, fac);
 
 		/* update the approximate solution x */
-		x.set_all_values_to_zero();
+		x.zero_fill();
 
 		for (size_t i = 0; i <= k; i++)
 		{
