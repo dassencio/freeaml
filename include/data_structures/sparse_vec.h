@@ -316,7 +316,7 @@ sparse_vec< T >& sparse_vec< T >::operator*= (const T& c)
 	{
 		it->second *= c;
 	}
-	return *this;
+	return (*this);
 }
 
 
@@ -335,7 +335,7 @@ sparse_vec< T >& sparse_vec< T >::operator/= (const T& c)
 	{
 		it->second /= c;
 	}
-	return *this;
+	return (*this);
 }
 
 
@@ -356,7 +356,7 @@ sparse_vec< T >& sparse_vec< T >::operator+= (const sparse_vec< T >& v)
 	{
 		m_elements[it->first] += it->second;
 	}
-	return *this;
+	return (*this);
 }
 
 
@@ -379,7 +379,7 @@ sparse_vec< T >& sparse_vec< T >::operator-= (const sparse_vec< T >& v)
 	{
 		m_elements[it->first] -= it->second;
 	}
-	return *this;
+	return (*this);
 }
 
 
@@ -520,7 +520,7 @@ template < class T >
 sparse_vec< T >& sparse_vec< T >::zero_fill ()
 {
 	m_elements.clear();
-	return *this;
+	return (*this);
 }
 
 
@@ -586,7 +586,7 @@ void sparse_vec<T>::clear()
 {
 	m_elements.clear();
 	m_len = 0;
-	return *this;
+	return (*this);
 }
 
 
@@ -623,7 +623,7 @@ void sparse_vec< T >::push_back (const T& x)
 {
 	m_elements[size()] = x;
 	m_len++;
-	return *this;
+	return (*this);
 }
 
 
@@ -635,7 +635,7 @@ void sparse_vec< T >::pop_back ()
 		m_elements.erase(end());
 		m_len--;
 	}
-	return *this;
+	return (*this);
 }
 
 

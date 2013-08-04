@@ -631,7 +631,7 @@ vec< T >& vec< T >::average_elements (const T& x)
 	{
 		(*this)[i] += (x - avg);
 	}
-	return *this;
+	return (*this);
 }
 
 
