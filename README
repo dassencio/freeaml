@@ -1,0 +1,47 @@
+DESCRIPTION
+===========
+
+freeAML is an easy-to-use, free and open-source Applied Mathematics Library.
+
+It contains many linear system solvers, least square solvers, matrix
+factorization algorithms and more. It was created based on the work I have done
+during my PhD at the UCLA Department of Mathematics.
+
+I have not performed any tests with this library in a Windows environment; I
+only run tests inside of a Linux environment. I will not attempt to modify the
+code to make it compile with any Windows compiler, but please feel free to it
+if you wish.
+
+If you wish to contribute to this project in any way, go for it! :-)
+
+
+INSTALLATION INSTRUCTIONS
+=========================
+
+You do not need to compile the library to use it, but if you wish to generate
+the doxygen-based documentation, enter the 'doc' directory and run
+
+$ doxygen Doxyfile
+
+If you do not have doxygen installed and if you are using a Debian-based
+distribution, open a terminal and run:
+
+$ sudo apt-get install doxygen
+
+
+EXAMPLES
+========
+
+You can find examples at http://freeaml.org.
+
+
+CONTACT INFORMATION
+===================
+
+You can contact me directly at dassencio[at]freeaml[dot]org
+
+
+CONTRIBUTORS
+============
+
+Dr. Diego C. Assêncio
