@@ -89,6 +89,9 @@ public:
 	/** @brief gets a const reference to the i-th row of the matrix */
 	const vec< T >& operator[] (const size_t i) const;
 
+	/** @brief copies the elements of an input matrix */
+	mat< T >& operator= (const mat< T >& B);
+
 	/** @brief multiplies all elements of the matrix by a scalar */
 	mat< T >& operator*= (const T& c);
 
@@ -289,6 +292,24 @@ template < class _array2d >
 typename mat< T >::const_reference mat< T >::operator() (const _array2d& u) const
 {
 	return m_rows[u[0]][u[1]];
+}
+
+
+template < class T >
+mat< T >& mat< T >::operator= (const mat< T >& B)
+{
+	m_rows.resize(B.num_rows());
+
+#ifdef _OPENMP
+#pragma omp parallel for
+#endif
+
+	for (size_t i = 0; i < B.num_rows(); i++)
+	{
+		m_rows[i] = B[i];
+	}
+
+	return (*this);
 }
 
 

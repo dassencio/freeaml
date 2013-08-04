@@ -89,6 +89,9 @@ public:
 	/** @brief gets a const reference to the i-th row of the matrix */
 	const sparse_vec< T >& operator[] (const size_t i) const;
 
+	/** @brief copies the elements of an input matrix */
+	sparse_mat< T >& operator= (const sparse_mat< T >& B);
+
 	/** @brief multiplies all elements of the matrix by a scalar */
 	sparse_mat< T >& operator*= (const T& c);
 
@@ -328,6 +331,24 @@ template < class _array2d >
 const T& sparse_mat< T >::operator() (const _array2d& u) const
 {
 	return m_rows[u[0]][u[1]];
+}
+
+
+template < class T >
+sparse_mat< T >& sparse_mat< T >::operator= (const sparse_mat< T >& B)
+{
+	m_rows.resize(B.num_rows());
+
+#ifdef _OPENMP
+#pragma omp parallel for
+#endif
+
+	for (size_t i = 0; i < B.num_rows(); i++)
+	{
+		m_rows[i] = B[i];
+	}
+
+	return (*this);
 }
 
 
