@@ -70,6 +70,12 @@ public:
 }; /* end of class plu */
 
 
+/*******************************************************************************
+ *
+ *	DEFINITIONS OF CLASS MEMBER FUNCTIONS
+ *
+ ******************************************************************************/
+
 template < class T >
 template < class _mat1, class _mat2,
            class _mat3, class _mat4 >
