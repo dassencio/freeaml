@@ -206,7 +206,7 @@ int binomial (const int n, const int k)
 		break;
 	}
 
-	if(k < 0 || k > n)
+	if (k < 0 || k > n)
 	{
 		return 0;
 	}
