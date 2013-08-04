@@ -212,15 +212,8 @@ int binomial (const int n, const int k)
 	}
 	else
 	{
-		/* compute all other cases by hand */
-		int rv = 1;
-
-		for (int i = 1; i <= k; i++)
-		{
-			rv *= (n - k + i) / i;
-		}
-
-		return rv;
+		/* compute all other cases recursively */
+		return binomial(n-1,k-1) + binomial(n-1,k);
 	}
 }
 
