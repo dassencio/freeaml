@@ -139,7 +139,7 @@ bool hessenberg_house< T >::factorize (const _mat1& A, _mat2& Q, _mat3& H) const
 
 			for (size_t i = 0; i < M; i++)
 			{
-				/* B <-- (I - bvv^*)H(p+1:m-1,p:m-1) */
+				/* B <-- (I - bvv^t)H(p+1:m-1,p:m-1) */
 				for (size_t j = 0; j <= M; j++)
 				{
 					B(i,j) = H(i+p+1,j+p);
@@ -150,7 +150,7 @@ bool hessenberg_house< T >::factorize (const _mat1& A, _mat2& Q, _mat3& H) const
 					}
 				}
 
-				/* C <-- (I - bvv^*)P(p+1:m-1,0:m-1) */
+				/* C <-- (I - bvv^t)P(p+1:m-1,0:m-1) */
 				for (size_t j = 0; j < m; j++)
 				{
 					C(i,j) = P(i+p+1,j);
@@ -179,7 +179,7 @@ bool hessenberg_house< T >::factorize (const _mat1& A, _mat2& Q, _mat3& H) const
 
 			mat< T > D(m, M, (T) 0);
 
-			/* D <-- H(0:m-1,p+1:m-1)(I - b^*vv^*) */
+			/* D <-- H(0:m-1,p+1:m-1)(I - b*vv^t) */
 			for (size_t i = 0; i < m; i++)
 			{
 				for (size_t j = 0; j < M; j++)
@@ -266,7 +266,7 @@ bool hessenberg_house< T >::factorize (const _mat1& A, _mat2& H) const
 
 			for (size_t i = 0; i < M; i++)
 			{
-				/* B <-- (I - bvv^*)H(p+1:m-1,p:m-1) */
+				/* B <-- (I - bvv^t)H(p+1:m-1,p:m-1) */
 				for (size_t j = 0; j <= M; j++)
 				{
 					B(i,j) = H(i+p+1,j+p);
@@ -289,7 +289,7 @@ bool hessenberg_house< T >::factorize (const _mat1& A, _mat2& H) const
 
 			mat< T > D(m, M, (T) 0);
 
-			/* D <-- H(0:m-1,p+1:m-1)(I - b^*vv^*) */
+			/* D <-- H(0:m-1,p+1:m-1)(I - b*vv^t) */
 			for (size_t i = 0; i < m; i++)
 			{
 				for (size_t j = 0; j < M; j++)

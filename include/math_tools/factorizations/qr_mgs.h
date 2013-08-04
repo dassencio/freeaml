@@ -99,7 +99,7 @@ bool qr_mgs< T >::factorize (const _mat1& A, _mat2& Q, _mat3& R) const
 
 		for (size_t j = 0; j < i; j++)
 		{
-			/* R_{ji} <--- q_j^* * q_i (dot product) */
+			/* R_{ji} <--- q_j^t * q_i (dot product) */
 			for (size_t k = 0; k < m; k++)
 			{
 				R(j,i) += Q(k,j) * Q(k,i);
