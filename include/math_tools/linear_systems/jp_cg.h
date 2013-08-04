@@ -74,6 +74,8 @@ public:
 	 * @param b the right-hand side vector
 	 * @return true if the residual tolerance could be achieved within the
 	 *         maximum number of iterations allowed, false otherwise
+	 * @note a Jacobi preconditioner can only be used if all diagonal
+	 *       elements of A are nonzero
 	 */
 	template < class _mat, class _vec >
 	bool solve (const _mat& A, _vec& x, const _vec& b);
