@@ -60,6 +60,7 @@ public:
 	 * @param U on success, an upper triangular nonsingular matrix
 	 * @return true if the factorization A = PLU could be built, false otherwise
 	 * @note the PLU factorization exists only if A is invertible
+	 * @note partial pivoting is used when building the PLU factorization
 	 */
 	template < class _mat1, class _mat2,
 	           class _mat3, class _mat4 >
