@@ -271,6 +271,11 @@ vec< T > operator* (const vec< T >& v, const sparse_mat< T >& A);
 template < class T >
 sparse_mat< T > operator* (const T& c, const sparse_mat< T >& A);
 
+/** @brief prints the matrix to a given stream (st) */
+template < class T >
+std::ostream& operator<< (std::ostream& st, const sparse_mat< T >& A);
+
+
 /** @brief returns the m × m identity matrix (stored as a sparse matrix) */
 template < class T >
 sparse_mat< T > sparse_identity_matrix (const size_t m);
@@ -932,6 +937,13 @@ template < class T >
 sparse_mat< T > operator* (const T& c, const sparse_mat< T >& A)
 {
 	return A*c;
+}
+
+
+template < class T >
+std::ostream& operator<< (std::ostream& st, const sparse_mat< T >& A)
+{
+	return A.print(st);
 }
 
 

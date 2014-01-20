@@ -231,6 +231,10 @@ vec< T > operator* (const vec< T >& v, const mat< T >& A);
 template < class T >
 mat< T > operator* (const T& c, const mat< T >& A);
 
+/** @brief prints the matrix to a given stream (st) */
+template < class T >
+std::ostream& operator<< (std::ostream& st, const mat< T >& A);
+
 /** @brief returns the m × m identity matrix (stored as a dense matrix) */
 template < class T >
 mat< T > dense_identity_matrix (const size_t m);
@@ -757,6 +761,13 @@ template < class T >
 mat< T > operator* (const T& c, const mat< T >& A)
 {
 	return A*c;
+}
+
+
+template < class T >
+std::ostream& operator<< (std::ostream& st, const mat< T >& A)
+{
+	return A.print(st);
 }
 
 
