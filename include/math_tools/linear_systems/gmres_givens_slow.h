@@ -27,8 +27,8 @@
  ******************************************************************************/
 
 
-#ifndef _freeAML_gmres_givens_h_
-#define _freeAML_gmres_givens_h_
+#ifndef _freeAML_gmres_givens_slow_h_
+#define _freeAML_gmres_givens_slow_h_
 
 
 #include "data_structures/vec.h"
@@ -45,7 +45,7 @@ namespace aml
 
 
 template < class T >
-class gmres_givens: public generic_iter< T >
+class gmres_givens_slow: public generic_iter< T >
 {
 
 public:
@@ -64,7 +64,7 @@ public:
 	 * @param max_iter maximum number of iterations allowed in one solve
 	 * @param residual_tol maximum residual tolerance allowed
 	 */
-	gmres_givens (const size_t max_iter, const T& residual_tol);
+	gmres_givens_slow (const size_t max_iter, const T& residual_tol);
 
 
 	/***********************************************************************
@@ -81,7 +81,7 @@ public:
 	 * @param b the right-hand side vector
 	 * @return true if the residual tolerance could be achieved within the
 	 *         maximum number of iterations allowed, false otherwise
-	 * @note this is a slow version of GMRES (gmres_givens_v2 is faster)
+	 * @note this is a slow version of GMRES (gmres_givens is faster)
 	 */
 	template < class _mat, class _vec >
 	bool solve (const _mat& A, _vec& x, const _vec& b);
@@ -109,7 +109,7 @@ private:
 	                        const _vec&   b,
 	                        const size_t  k) const;
 
-}; /* end of class gmres_givens */
+}; /* end of class gmres_givens_slow */
 
 
 /*******************************************************************************
@@ -119,7 +119,7 @@ private:
  ******************************************************************************/
 
 template < class T >
-gmres_givens< T >::gmres_givens(const size_t max_iter, const T& residual_tol):
+gmres_givens_slow< T >::gmres_givens_slow(const size_t max_iter, const T& residual_tol):
 
         gen_it_type(max_iter, residual_tol)
 {
@@ -129,7 +129,7 @@ gmres_givens< T >::gmres_givens(const size_t max_iter, const T& residual_tol):
 
 template < class T >
 template < class _mat, class _vec >
-bool gmres_givens< T >::solve (const _mat& A, _vec& x, const _vec& b)
+bool gmres_givens_slow< T >::solve (const _mat& A, _vec& x, const _vec& b)
 {
 	FREEAML_ASSERT(gen_it_type::check_dimensions(A,x,b));
 
@@ -226,11 +226,11 @@ bool gmres_givens< T >::solve (const _mat& A, _vec& x, const _vec& b)
 
 template < class T >
 template < class _mat1, class _mat2, class _vec >
-bool gmres_givens< T >::arnoldi_iteration (const _mat1&  A,
-                                                 _mat2&  H,
-                                                 _mat2&  Q,
-                                           const _vec&   b,
-                                           const size_t  k) const
+bool gmres_givens_slow< T >::arnoldi_iteration (const _mat1&  A,
+                                                _mat2&  H,
+                                                _mat2&  Q,
+                                                const _vec&   b,
+                                                const size_t  k) const
 {
 	size_t n = A.num_rows();
 
@@ -288,4 +288,4 @@ bool gmres_givens< T >::arnoldi_iteration (const _mat1&  A,
 
 } /* end of namespace aml */
 
-#endif /* _freeAML_gmres_givens_h_ */
+#endif /* _freeAML_gmres_givens_slow_h_ */
