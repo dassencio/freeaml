@@ -31,11 +31,11 @@
 #define _freeAML_gmres_givens_slow_h_
 
 
-#include "data_structures/vec.h"
-#include "data_structures/mat.h"
+#include <data_structures/vec.h>
+#include <data_structures/mat.h>
 
-#include "math_tools/factorizations/qr_givens.h"
-#include "math_tools/least_squares/qr.h"
+#include <math_tools/factorizations/qr_givens.h>
+#include <math_tools/least_squares/qr.h>
 
 #include "generic_iter.h"
 

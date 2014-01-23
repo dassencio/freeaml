@@ -33,7 +33,7 @@
 
 #include "cg.h"
 
-#include "data_structures/sparse_mat.h"
+#include <data_structures/sparse_mat.h>
 
 
 namespace aml

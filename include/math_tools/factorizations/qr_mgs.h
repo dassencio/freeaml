@@ -33,7 +33,7 @@
 
 #include <cmath>
 
-#include "general/debug.h"
+#include <general/debug.h>
 
 
 namespace aml

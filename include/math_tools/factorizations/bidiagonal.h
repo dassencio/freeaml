@@ -31,8 +31,8 @@
 #define _freeAML_bidiagonal_h_
 
 
-#include "data_structures/vec.h"
-#include "data_structures/mat.h"
+#include <data_structures/vec.h>
+#include <data_structures/mat.h>
 
 
 namespace aml

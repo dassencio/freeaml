@@ -37,8 +37,8 @@
 #include <cmath>
 #include <sstream>
 
-#include "general/debug.h"
-#include "general/math.h"
+#include <general/debug.h>
+#include <general/math.h>
 
 
 namespace aml

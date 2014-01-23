@@ -31,10 +31,10 @@
 #define _freeAML_gmres_givens_h_
 
 
-#include "general/math.h"
+#include <general/math.h>
 
-#include "data_structures/vec.h"
-#include "data_structures/mat.h"
+#include <data_structures/vec.h>
+#include <data_structures/mat.h>
 
 #include "generic_iter.h"
 

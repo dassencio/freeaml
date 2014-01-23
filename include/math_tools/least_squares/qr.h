@@ -33,7 +33,7 @@
 
 #include <cstdlib>
 
-#include "data_structures/mat.h"
+#include <data_structures/mat.h>
 
 
 namespace aml

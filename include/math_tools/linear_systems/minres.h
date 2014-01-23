@@ -31,7 +31,7 @@
 #define _freeAML_minres_h_
 
 
-#include "general/math.h"
+#include <general/math.h>
 
 #include "generic_iter.h"
 

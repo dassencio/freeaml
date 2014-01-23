@@ -31,8 +31,8 @@
 #define _freeAML_plu_rec_h_
 
 
-#include "data_structures/vec.h"
-#include "data_structures/sparse_mat.h"
+#include <data_structures/vec.h>
+#include <data_structures/sparse_mat.h>
 
 
 namespace aml
