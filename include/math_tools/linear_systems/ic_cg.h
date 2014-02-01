@@ -27,8 +27,8 @@
  ******************************************************************************/
 
 
-#ifndef _freeAML_iccg_h_
-#define _freeAML_iccg_h_
+#ifndef _freeAML_ic_cg_h_
+#define _freeAML_ic_cg_h_
 
 
 #include <cmath>
@@ -41,7 +41,7 @@ namespace aml
 
 
 template < class T >
-class iccg: public generic_iter< T >
+class ic_cg: public generic_iter< T >
 {
 
 public:
@@ -60,7 +60,7 @@ public:
 	 * @param max_iter maximum number of iterations allowed in one solve
 	 * @param residual_tol maximum residual tolerance allowed
 	 */
-	iccg (const size_t max_iter, const T& residual_tol);
+	ic_cg (const size_t max_iter, const T& residual_tol);
 
 
 	/***********************************************************************
@@ -107,7 +107,7 @@ private:
 	                                          _vec& z,
 	                                    const _vec& r) const;
 
-}; /* end of class iccg */
+}; /* end of class ic_cg */
 
 
 /*******************************************************************************
@@ -117,7 +117,7 @@ private:
  ******************************************************************************/
 
 template < class T >
-iccg< T >::iccg(const size_t max_iter, const T& residual_tol):
+ic_cg< T >::ic_cg(const size_t max_iter, const T& residual_tol):
 
         gen_it_type(max_iter, residual_tol)
 {
@@ -127,7 +127,7 @@ iccg< T >::iccg(const size_t max_iter, const T& residual_tol):
 
 template < class T >
 template < class _mat, class _vec >
-bool iccg< T >::solve (const _mat& A, _vec& x, const _vec& b)
+bool ic_cg< T >::solve (const _mat& A, _vec& x, const _vec& b)
 {
 	FREEAML_ASSERT(gen_it_type::check_dimensions(A,x,b));
 
@@ -197,7 +197,7 @@ bool iccg< T >::solve (const _mat& A, _vec& x, const _vec& b)
 
 template < class T >
 template < class _mat >
-bool iccg< T >::build_K (const _mat&  A, _mat& K) const
+bool ic_cg< T >::build_K (const _mat&  A, _mat& K) const
 {
 	typedef typename _mat::const_iterator const_iterator;
 
@@ -248,9 +248,9 @@ bool iccg< T >::build_K (const _mat&  A, _mat& K) const
 
 template < class T >
 template < class _mat, class _vec >
-bool iccg< T >::solve_preconditioner_equation (const _mat& K,
-                                                     _vec& z,
-                                               const _vec& r) const
+bool ic_cg< T >::solve_preconditioner_equation (const _mat& K,
+                                                      _vec& z,
+                                                const _vec& r) const
 {
 	typedef typename _mat::const_iterator const_iterator;
 
@@ -299,4 +299,4 @@ bool iccg< T >::solve_preconditioner_equation (const _mat& K,
 
 } /* end of namespace aml */
 
-#endif /* _freeAML_iccg_h_ */
+#endif /* _freeAML_ic_cg_h_ */
