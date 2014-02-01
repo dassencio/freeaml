@@ -27,8 +27,8 @@
  ******************************************************************************/
 
 
-#ifndef _freeAML_gepp_h_
-#define _freeAML_gepp_h_
+#ifndef _freeAML_ge_pp_h_
+#define _freeAML_ge_pp_h_
 
 
 #include <cmath>
@@ -49,7 +49,7 @@ namespace aml
 
 
 template < class T >
-class gepp
+class ge_pp
 {
 
 public:
@@ -65,7 +65,7 @@ public:
 	template < class _mat, class _vec >
 	bool solve (_mat A, _vec& x, _vec b) const;
 
-}; /* end of class gepp */
+}; /* end of class ge_pp */
 
 
 /*******************************************************************************
@@ -76,7 +76,7 @@ public:
 
 template < class T >
 template < class _mat, class _vec >
-bool gepp< T >::solve (_mat A, _vec& x, _vec b) const
+bool ge_pp< T >::solve (_mat A, _vec& x, _vec b) const
 {
 	FREEAML_ASSERT(A.is_square());
 	FREEAML_ASSERT(x.size() == b.size());
@@ -154,4 +154,4 @@ bool gepp< T >::solve (_mat A, _vec& x, _vec b) const
 
 } /* end of namespace aml */
 
-#endif /* _freeAML_gepp_h_ */
+#endif /* _freeAML_ge_pp_h_ */

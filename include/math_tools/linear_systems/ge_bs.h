@@ -27,8 +27,8 @@
  ******************************************************************************/
 
 
-#ifndef _freeAML_gebs_h_
-#define _freeAML_gebs_h_
+#ifndef _freeAML_ge_bs_h_
+#define _freeAML_ge_bs_h_
 
 
 #include <cmath>
@@ -49,7 +49,7 @@ namespace aml
 
 
 template < class T >
-class gebs
+class ge_bs
 {
 
 public:
@@ -65,7 +65,7 @@ public:
 	template < class _mat, class _vec >
 	bool solve (_mat A, _vec& x, _vec b) const;
 
-}; /* end of class gebs */
+}; /* end of class ge_bs */
 
 
 /*******************************************************************************
@@ -76,7 +76,7 @@ public:
 
 template < class T >
 template < class _mat, class _vec >
-bool gebs< T >::solve (_mat A, _vec& x, _vec b) const
+bool ge_bs< T >::solve (_mat A, _vec& x, _vec b) const
 {
 	FREEAML_ASSERT(A.is_square());
 	FREEAML_ASSERT(x.size() == b.size());
@@ -149,4 +149,4 @@ bool gebs< T >::solve (_mat A, _vec& x, _vec b) const
 
 } /* end of namespace aml */
 
-#endif /* _freeAML_gebs_h_ */
+#endif /* _freeAML_ge_bs_h_ */
