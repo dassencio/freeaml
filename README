@@ -3,45 +3,39 @@ DESCRIPTION
 
 freeAML is an easy-to-use, free and open-source Applied Mathematics Library.
 
-It contains many linear system solvers, least square solvers, matrix
-factorization algorithms and more. It was created based on the work I have done
-during my PhD at the UCLA Department of Mathematics.
+It contains lots of commonly used tools such as:
 
-I have not performed any tests with this library in a Windows environment; I
-only run tests inside of a Linux environment. I will not attempt to modify the
-code to make it compile with any Windows compiler, but please feel free to it
-if you wish.
+    - linear system solvers
+    - linear least squares solvers
+    - matrix factorization algorithms
 
-If you wish to contribute to this project in any way, go for it! :-)
+freeAML has an official webpage: http://freeaml.org
 
 
-INSTALLATION INSTRUCTIONS
-=========================
+LICENSE
+=======
 
-You do not need to compile the library to use it, but if you wish to generate
-the doxygen-based documentation, enter the 'doc' directory and run
+All code from freeAML is licensed under the FreeBSD license.
+
+
+INSTALLATION INSTRUCTIONS & EXAMPLES
+====================================
+
+Download instructions can be found on http://freeaml.org/?section=download. The
+library requires no installation: users can merely download it, include the
+desired header files in their program sources and start focusing on what matters
+to them.
+
+You can find many documented examples at http://freeaml.org/?section=examples.
+
+If you wish to generate the doxygen-based documentation for the library,
+enter the 'doc' directory and run (you might have to install doxygen if you
+have not done it already):
 
 $ doxygen Doxyfile
 
-If you do not have doxygen installed and if you are using a Debian-based
-distribution, open a terminal and run:
 
-$ sudo apt-get install doxygen
+CONTRIBUTORS & CONTACT INFORMATION
+==================================
 
-
-EXAMPLES
-========
-
-You can find examples at http://freeaml.org.
-
-
-CONTACT INFORMATION
-===================
-
-You can contact me directly at dassencio[at]freeaml[dot]org
-
-
-CONTRIBUTORS
-============
-
-Dr. Diego C. Assêncio
+Dr. Diego Assencio	dassencio[at]freeaml[dot]org
