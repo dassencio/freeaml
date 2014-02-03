@@ -34,8 +34,8 @@
 #include <data_structures/vec.h>
 #include <data_structures/mat.h>
 
-#include <math_tools/factorizations/qr_house.h>
-#include <math_tools/least_squares/qr.h>
+#include <factorizations/qr_house.h>
+#include <least_squares/qr.h>
 
 #include "generic_iter.h"
 
