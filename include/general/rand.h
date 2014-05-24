@@ -55,7 +55,7 @@ T rand (const T& a = (T) 0, const T& b = (T) 1)
 	if (!g_rand_initialized)
 	{
 		/* initialize the random number generator */
-		std::srand(time(0));
+		std::srand(std::time(0));
 
 		g_rand_initialized = true;
 	}
