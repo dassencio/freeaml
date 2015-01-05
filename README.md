@@ -42,4 +42,4 @@ have not done it already):
 Contributors & Contact Information
 ==================================
 
-Dr. Diego Assencio / dassencio[at]freeaml[dot]org
+Diego Assencio / diego@assencio.com
