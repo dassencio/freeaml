@@ -1,0 +1,27 @@
+language: cpp
+
+matrix:
+  include:
+    - os: linux
+      dist: trusty
+      compiler: gcc
+    - os: osx
+      compiler: clang
+
+git:
+  depth: 3
+
+script:
+  - cd tests
+  - mkdir build-with-openmp
+  - mkdir build-without-openmp
+  - cd build-with-openmp && cmake .. && make -j4 && ./run-tests
+  - cd ..
+  - cd build-without-openmp && cmake .. -DUSE_OPENMP=OFF && make -j4 && ./run-tests
+
+notifications:
+  email:
+    recipients:
+      - diego@assencio.com
+    on_success: change
+    on_failure: always
