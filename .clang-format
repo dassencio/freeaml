@@ -1,0 +1,9 @@
+BasedOnStyle: Google
+
+AccessModifierOffset: -4
+AllowShortBlocksOnASingleLine: false
+AllowShortFunctionsOnASingleLine: false
+BinPackParameters: false
+BreakBeforeBraces: Allman
+IndentWidth: 4
+SpaceAfterTemplateKeyword: false
