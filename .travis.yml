@@ -12,12 +12,8 @@ git:
   depth: 3
 
 script:
-  - cd tests
-  - mkdir build-with-openmp
-  - mkdir build-without-openmp
-  - cd build-with-openmp && cmake .. && make -j4 && ./run-tests
-  - cd ..
-  - cd build-without-openmp && cmake .. -DUSE_OPENMP=OFF && make -j4 && ./run-tests
+  - mkdir build-openmp-on  && (cd build-openmp-on  && cmake -DUSE_OPENMP=ON  .. && make -j4 && ./run-tests)
+  - mkdir build-openmp-off && (cd build-openmp-off && cmake -DUSE_OPENMP=OFF .. && make -j4 && ./run-tests)
 
 notifications:
   email:
