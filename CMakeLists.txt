@@ -17,6 +17,8 @@ if(USE_OPENMP)
     find_package(OpenMP)
     if(OPENMP_FOUND)
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
+    else()
+        message(FATAL_ERROR "OpenMP could not be found.")
     endif()
 endif()
 
