@@ -12,7 +12,7 @@ git:
   depth: 3
 
 script:
-  - mkdir build-openmp-on  && (cd build-openmp-on  && cmake -DUSE_OPENMP=ON  .. && make -j4 && ./run-tests)
+  - if [ "$TRAVIS_OS_NAME" != "osx" ]; then mkdir build-openmp-on && (cd build-openmp-on && cmake -DUSE_OPENMP=ON .. && make -j4 && ./run-tests); fi
   - mkdir build-openmp-off && (cd build-openmp-off && cmake -DUSE_OPENMP=OFF .. && make -j4 && ./run-tests)
 
 notifications:
