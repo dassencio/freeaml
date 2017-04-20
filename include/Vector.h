@@ -7,13 +7,16 @@
 namespace freeaml
 {
 /**
- * Vector<T> is an extension of std::vector<T> for mathematical applications.
+ * @brief @c Vector<T> is an extension of @c std::vector<T> for mathematical
+ * applications.
  *
- * This class overloads the + operator for adding vectors as well as the *
- * operator for supporting multiplication by scalar (both on the left and on
- * the right) or for computing the dot product between two vectors. Functions
- * for computing norms as well as other commonly-needed mathematical operations
- * are also provided.
+ * This class stores a sequence of elements of type @c T. It overloads the
+ * addition (+), the subtraction (-) and the multiplication (*) operators for
+ * supporting common vector operations such as vector addition, vector
+ * multiplication by scalar and vector dot product.
+ *
+ * Functions for computing @a L<SUP>p</SUP> norms as well as other commonly-used
+ * mathematical operations are also provided in the class.
  *
  * Support for OpenMP was added to the functions and operators which showed a
  * significant speedup when implemented using multiple threads.
@@ -25,103 +28,212 @@ public:
     using BaseVector = std::vector<T>;
     using size_type = typename BaseVector::size_type;
 
-    /** @brief default constructor */
+    /** @brief Constructs a vector with no elements. */
     Vector() = default;
 
-    /** @brief constructs the vector with the contents of init */
+    /**
+     * @brief Constructs a vector with the contents of an initializer list.
+     * @param init An initializer list holding elements of type @c T.
+     */
     Vector(std::initializer_list<T> init);
 
-    /** @brief constructs the vector with n default-initialized elements */
+    /**
+     * @brief Constructs a vector with default-initialized elements.
+     * @param n The length of the vector.
+     */
     Vector(size_type n);
 
-    /** @brief constructs the vector with n elements initialized to x */
+    /**
+     * @brief Constructs a vector with all elements initialized with a value.
+     * @param n The length of the vector.
+     * @param x The initializing value for every element of the vector.
+     */
     Vector(size_type n, const T& x);
 
-    /** @brief constructs the vector with the contents on range [first, last) */
+    /**
+     * @brief Constructs a vector with the contents of a range.
+     * @param first An iterator pointing to the first range element.
+     * @param last An iterator pointing to one-past-the-last range element.
+     */
     template<class InputIterator>
     Vector(InputIterator first, InputIterator last);
 
-    /** @brief constructs the vector as a copy of other */
-    Vector(const Vector& other) = default;
+    /**
+     * @brief Copy constructor.
+     * @param v The vector from which all elements will be copied.
+     */
+    Vector(const Vector& v) = default;
 
-    /** @brief constructs the vector by moving the contents of other to it */
-    Vector(Vector&& other) = default;
+    /**
+     * @brief Move constructor.
+     * @param v The vector from which all elements will be moved.
+     */
+    Vector(Vector&& v) = default;
 
-    /** @brief destructor */
+    /** @brief Destructor. */
     ~Vector() = default;
 
-    /** @brief copies the elements of other to the vector */
-    Vector& operator=(const Vector& other) = default;
+    /**
+     * @brief Copy-assignment operator.
+     * @param v The vector from which all elements will be copied.
+     * @return A reference to @c *this.
+     */
+    Vector& operator=(const Vector& v) = default;
 
-    /** @brief moves the contents of other to the vector */
-    Vector& operator=(Vector&& other) = default;
+    /**
+     * @brief Move-assignment operator.
+     * @param v The vector from which all elements will be moved.
+     * @return A reference to @c *this.
+     */
+    Vector& operator=(Vector&& v) = default;
 
-    /** @brief multiplies all elements of the vector by a scalar c */
+    /**
+     * @brief Multiplies all elements of the vector by a scalar.
+     * @param c A scalar.
+     * @return A reference to @c *this.
+     */
     Vector& operator*=(const T& c);
 
-    /** @brief computes the right-multiplication of the vector by a scalar c */
-    Vector operator*(const T& c) const;
-
-    /** @brief divides all elements of the vector by a scalar c */
+    /**
+     * @brief Divides all elements of the vector by a scalar.
+     * @param c A scalar.
+     * @return A reference to @c *this.
+     */
     Vector& operator/=(const T& c);
 
-    /** @brief computes the division of the vector by a scalar c */
-    Vector operator/(const T& c) const;
+    /**
+     * @brief Performs element-wise addition-assignment with another vector.
+     * @param v A vector.
+     * @return A reference to @c *this.
+     */
+    Vector& operator+=(const Vector& v);
 
-    /** @brief adds other to the vector (vector addition) */
-    Vector& operator+=(const Vector& other);
+    /**
+     * @brief Performs element-wise subtraction-assignment with another vector.
+     * @param v A vector.
+     * @return A reference to @c *this.
+     */
+    Vector& operator-=(const Vector& v);
 
-    /** @brief computes the result of adding other to the vector */
-    Vector operator+(const Vector& other) const;
-
-    /** @brief subtracts other from the vector (vector subtraction) */
-    Vector& operator-=(const Vector& other);
-
-    /** @brief computes the result of subtracting other from the vector */
-    Vector operator-(const Vector& other) const;
-
-    /** @brief computes the negation of the vector */
-    Vector operator-() const;
-
-    /** @brief computes the dot product of the vector with other */
-    T operator*(const Vector& other) const;
-
-    /** @brief computes the L^1-norm of the vector */
+    /**
+     * @brief Computes the @a L<SUP>1</SUP>-norm of the vector.
+     * @return The L<SUP>1</SUP>-norm of the vector.
+     */
     T l1_norm() const;
 
-    /** @brief computes the L^2-norm of the vector */
+    /**
+     * @brief Computes the @a L<SUP>2</SUP>-norm of the vector.
+     * @return The L<SUP>2</SUP>-norm of the vector.
+     */
     T l2_norm() const;
 
-    /** @brief computes the L^p-norm of the vector, for a given p value */
+    /**
+     * @brief Computes the @a L<SUP>p</SUP>-norm of the vector.
+     * @param p A scalar defining the norm to compute.
+     * @return The @a L<SUP>p</SUP>-norm of the vector.
+     */
     T lp_norm(const T& p) const;
 
-    /** @brief computes the L^inf-norm (or maximum norm) of the vector */
+    /**
+     * @brief Computes the @a L<SUP>∞</SUP>-norm of the vector.
+     * @return The @a L<SUP>∞</SUP>-norm of the vector.
+     */
     T linf_norm() const;
 
-    /** @brief computes the sum of all elements of the vector */
+    /**
+     * @brief Computes the sum of all elements of the vector.
+     * @return The sum of all elements of the vector.
+     */
     T sum() const;
 
-    /** @brief computes the arithmetic mean of the elements of the vector */
+    /**
+     * @brief Computes the arithmetic mean of the elements of the vector.
+     * @return The arithmetic mean of the elements of the vector.
+     */
     T mean() const;
 
 }; /* class Vector<T> */
 
-/** @brief computes the left-multiplication of a vector v by a scalar c */
+/**
+ * @brief Computes the multiplication of a vector by a scalar on the right.
+ * @param v A vector.
+ * @param c A scalar.
+ * @return A copy of @c v with all elements multiplied by @c c.
+ */
+template<typename T>
+Vector<T> operator*(const Vector<T>& v, const T& c);
+
+/**
+ * @brief Computes the multiplication of a vector by a scalar on the left.
+ * @param c A scalar.
+ * @param v A vector.
+ * @return A copy of @c v with all elements multiplied by @c c.
+ */
 template<typename T>
 Vector<T> operator*(const T& c, const Vector<T>& v);
 
-/** @brief prints the elements of a vector v on an output stream */
+/**
+ * @brief Computes the dot product of two equally-sized vectors.
+ * @param v1 A vector.
+ * @param v2 A vector.
+ * @return The dot product of @c v1 and @c v2.
+ */
+template<typename T>
+T operator*(const Vector<T>& v1, const Vector<T>& v2);
+
+/**
+ * @brief Computes the division of a vector by a scalar.
+ * @param v A vector.
+ * @param c A scalar.
+ * @return A copy of @c v with all elements divided by @c c.
+ */
+template<typename T>
+Vector<T> operator/(const Vector<T>& v, const T& c);
+
+/**
+ * @brief Computes the vectorial addition of two equally-sized vectors.
+ * @param v1 A vector.
+ * @param v2 A vector.
+ * @return The element-wise sum of @c v1 and @c v2.
+ */
+template<typename T>
+Vector<T> operator+(const Vector<T>& v1, const Vector<T>& v2);
+
+/**
+ * @brief Computes the vectorial difference of two equally-sized vectors.
+ * @param v1 A vector.
+ * @param v2 A vector.
+ * @return The element-wise difference between @c v1 and @c v2.
+ */
+template<typename T>
+Vector<T> operator-(const Vector<T>& v1, const Vector<T>& v2);
+
+/**
+ * @brief Computes the element-wise negation of a vector.
+ * @param v A vector.
+ * @return The element-wise negation of @c v.
+ */
+template<typename T>
+Vector<T> operator-(const Vector<T>& v);
+
+/**
+ * @brief Prints the elements of a vector to an output stream.
+ * @param stream An output stream to which the vector elements will be printed.
+ * @param v A vector whose elements will be printed.
+ * @return A reference to @c stream.
+ */
 template<typename T>
 std::ostream& operator<<(std::ostream& stream, const Vector<T>& v);
 
 /**
- * @brief generates a random vector with n elements within a given range
- * @param n the size of the vector to generate
- * @param lower_bound the lower bound for the sample interval
- * @param upper_bound the upper bound for the sample interval
- * @return the generated vector with n elements in [lower_bound, upper_bound]
- * @note this function was designed to work only with primitive integer and
- *       floating-point types (e.g. int, int32_t, float, double etc.)
+ * @brief Generates a random vector with @c n elements within a given range.
+ * @param n The size of the vector to generate.
+ * @param lower_bound The lower bound for the sample interval.
+ * @param upper_bound The upper bound for the sample interval.
+ * @return A vector with @c n elements sampled uniformly from
+ *         @c [lower_bound, upper_bound].
+ * @note This function was designed to work only with primitive integer and
+ *       floating-point types (e.g. @c int, @c float, @c double etc.).
  */
 template<typename T>
 Vector<T> random_vector(typename Vector<T>::size_type n,
@@ -172,13 +284,6 @@ Vector<T>& Vector<T>::operator*=(const T& c)
 }
 
 template<typename T>
-Vector<T> Vector<T>::operator*(const T& c) const
-{
-    Vector<T> v = *this;
-    return (v *= c);
-}
-
-template<typename T>
 Vector<T>& Vector<T>::operator/=(const T& c)
 {
     for (T& x : *this)
@@ -190,102 +295,29 @@ Vector<T>& Vector<T>::operator/=(const T& c)
 }
 
 template<typename T>
-Vector<T> Vector<T>::operator/(const T& c) const
+Vector<T>& Vector<T>::operator+=(const Vector<T>& v)
 {
-    Vector<T> v = *this;
-    return (v /= c);
-}
-
-template<typename T>
-Vector<T>& Vector<T>::operator+=(const Vector<T>& other)
-{
-    FREEAML_ASSERT((*this).size() == other.size());
+    FREEAML_ASSERT((*this).size() == v.size());
 
     for (size_type i = 0; i < (*this).size(); ++i)
     {
-        (*this)[i] += other[i];
+        (*this)[i] += v[i];
     }
 
     return *this;
 }
 
 template<typename T>
-Vector<T> Vector<T>::operator+(const Vector<T>& other) const
+Vector<T>& Vector<T>::operator-=(const Vector<T>& v)
 {
-    FREEAML_ASSERT((*this).size() == other.size());
-
-    Vector<T> v = *this;
-    return (v += other);
-}
-
-template<typename T>
-Vector<T>& Vector<T>::operator-=(const Vector<T>& other)
-{
-    FREEAML_ASSERT((*this).size() == other.size());
+    FREEAML_ASSERT((*this).size() == v.size());
 
     for (size_type i = 0; i < (*this).size(); ++i)
     {
-        (*this)[i] -= other[i];
+        (*this)[i] -= v[i];
     }
 
     return *this;
-}
-
-template<typename T>
-Vector<T> Vector<T>::operator-(const Vector<T>& other) const
-{
-    FREEAML_ASSERT((*this).size() == other.size());
-
-    Vector<T> v = *this;
-    return (v -= other);
-}
-
-template<typename T>
-Vector<T> Vector<T>::operator-() const
-{
-    Vector<T> v;
-    v.reserve((*this).size());
-
-    for (const T& x : *this)
-    {
-        v.push_back(-x);
-    }
-
-    return v;
-}
-
-template<typename T>
-T Vector<T>::operator*(const Vector<T>& other) const
-{
-    FREEAML_ASSERT((*this).size() == other.size());
-
-    T dot_product{};
-
-#ifdef _OPENMP
-#pragma omp parallel
-    {
-        T local_dot_product{};
-
-#pragma omp for nowait
-        for (size_type i = 0; i < (*this).size(); ++i)
-        {
-            local_dot_product += (*this)[i] * other[i];
-        }
-
-#pragma omp critical
-        {
-            dot_product += local_dot_product;
-        }
-    }
-#else
-    /* serial implementation */
-    for (size_type i = 0; i < (*this).size(); ++i)
-    {
-        dot_product += (*this)[i] * other[i];
-    }
-#endif /* #ifdef _OPENMP */
-
-    return dot_product;
 }
 
 template<typename T>
@@ -462,9 +494,91 @@ T Vector<T>::mean() const
 }
 
 template<typename T>
+Vector<T> operator*(const Vector<T>& v, const T& c)
+{
+    Vector<T> result = v;
+    return (result *= c);
+}
+
+template<typename T>
 Vector<T> operator*(const T& c, const Vector<T>& v)
 {
     return (v * c);
+}
+
+template<typename T>
+T operator*(const Vector<T>& v1, const Vector<T>& v2)
+{
+    FREEAML_ASSERT(v1.size() == v2.size());
+
+    using size_type = typename Vector<T>::size_type;
+
+    T dot_product{};
+
+#ifdef _OPENMP
+#pragma omp parallel
+    {
+        T local_dot_product{};
+
+#pragma omp for nowait
+        for (size_type i = 0; i < v1.size(); ++i)
+        {
+            local_dot_product += v1[i] * v2[i];
+        }
+
+#pragma omp critical
+        {
+            dot_product += local_dot_product;
+        }
+    }
+#else
+    /* serial implementation */
+    for (size_type i = 0; i < v1.size(); ++i)
+    {
+        dot_product += v1[i] * v2[i];
+    }
+#endif /* #ifdef _OPENMP */
+
+    return dot_product;
+}
+
+template<typename T>
+Vector<T> operator/(const Vector<T>& v, const T& c)
+{
+    Vector<T> result = v;
+    return (result /= c);
+}
+
+template<typename T>
+Vector<T> operator+(const Vector<T>& v1, const Vector<T>& v2)
+{
+    FREEAML_ASSERT(v1.size() == v2.size());
+
+    Vector<T> result = v1;
+    return (result += v2);
+}
+
+template<typename T>
+Vector<T> operator-(const Vector<T>& v1, const Vector<T>& v2)
+{
+    FREEAML_ASSERT(v1.size() == v2.size());
+
+    Vector<T> result = v1;
+    return (result -= v2);
+}
+
+template<typename T>
+Vector<T> operator-(const Vector<T>& v)
+{
+    Vector<T> result;
+    result.reserve(v.size());
+
+    for (const T& x : v)
+    {
+        result.push_back(-x);
+    }
+
+    return result;
 }
 
 template<typename T>
