@@ -33,5 +33,5 @@ set_target_properties(
     ${target}
     PROPERTIES
     COMPILE_FLAGS
-    "${CMAKE_CXX_FLAGS} -DFREEAML_DEBUG -O3 -Wall -Wextra -Werror"
+    "${CMAKE_CXX_FLAGS} -DFREEAML_DEBUG -O0 -Wall -Wextra -Werror"
 )
