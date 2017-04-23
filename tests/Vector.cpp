@@ -5,14 +5,14 @@ TEST(VectorTest, DefaultConstructor)
 {
     const freeaml::Vector<int> v;
 
-    ASSERT_EQ(v.size(), 0u);
+    EXPECT_EQ(v.size(), 0u);
 }
 
 TEST(VectorTest, ConstructorWithInitializerList)
 {
     const freeaml::Vector<int> v = {0, 1, 2, 3, 4};
 
-    ASSERT_EQ(v.size(), 5u);
+    EXPECT_EQ(v.size(), 5u);
 
     EXPECT_EQ(v[0], 0);
     EXPECT_EQ(v[1], 1);
@@ -25,7 +25,7 @@ TEST(VectorTest, ConstructorWithLength)
 {
     const freeaml::Vector<int> v(10);
 
-    ASSERT_EQ(v.size(), 10u);
+    EXPECT_EQ(v.size(), 10u);
 
     for (const int x : v)
     {
@@ -37,7 +37,7 @@ TEST(VectorTest, ConstructorWithLengthAndDefaultValue)
 {
     const freeaml::Vector<int> v(10, 5);
 
-    ASSERT_EQ(v.size(), 10u);
+    EXPECT_EQ(v.size(), 10u);
 
     for (const int x : v)
     {
@@ -50,7 +50,7 @@ TEST(VectorTest, ConstructorWithIteratorRange)
     const freeaml::Vector<int> v1 = {0, 1, 2, 3, 4};
     const freeaml::Vector<int> v2(v1.begin(), v1.end());
 
-    ASSERT_EQ(v1, v2);
+    EXPECT_EQ(v1, v2);
 }
 
 TEST(VectorTest, CopyConstructor)
@@ -58,7 +58,7 @@ TEST(VectorTest, CopyConstructor)
     const freeaml::Vector<int> v1 = {0, 1, 2, 3, 4};
     const freeaml::Vector<int> v2 = v1;
 
-    ASSERT_EQ(v1, v2);
+    EXPECT_EQ(v1, v2);
 }
 
 TEST(VectorTest, MoveConstructor)
@@ -66,7 +66,7 @@ TEST(VectorTest, MoveConstructor)
     freeaml::Vector<int> v1 = {0, 1, 2, 3, 4};
     const freeaml::Vector<int> v2 = std::move(v1);
 
-    ASSERT_EQ(v2, freeaml::Vector<int>({0, 1, 2, 3, 4}));
+    EXPECT_EQ(v2, freeaml::Vector<int>({0, 1, 2, 3, 4}));
 }
 
 TEST(VectorTest, CopyAssignment)
@@ -76,7 +76,7 @@ TEST(VectorTest, CopyAssignment)
 
     v2 = v1;
 
-    ASSERT_EQ(v1, v2);
+    EXPECT_EQ(v1, v2);
 }
 
 TEST(VectorTest, MoveAssignment)
@@ -86,7 +86,7 @@ TEST(VectorTest, MoveAssignment)
 
     v2 = std::move(v1);
 
-    ASSERT_EQ(v2, freeaml::Vector<int>({0, 1, 2, 3, 4}));
+    EXPECT_EQ(v2, freeaml::Vector<int>({0, 1, 2, 3, 4}));
 }
 
 TEST(VectorTest, MultiplicationByScalar)
@@ -94,8 +94,8 @@ TEST(VectorTest, MultiplicationByScalar)
     const freeaml::Vector<int> v1 = {0, 1, 2, 3, 4};
     const freeaml::Vector<int> v2 = {0, 2, 4, 6, 8}; /* 2 * v1 */
 
-    ASSERT_EQ(2 * v1, v2);
-    ASSERT_EQ(v1 * 2, v2);
+    EXPECT_EQ(2 * v1, v2);
+    EXPECT_EQ(v1 * 2, v2);
 }
 
 TEST(VectorTest, DivisionByScalar)
@@ -103,7 +103,7 @@ TEST(VectorTest, DivisionByScalar)
     const freeaml::Vector<int> v1 = {0, 1, 2, 3, 4};
     const freeaml::Vector<int> v2 = {0, 0, 1, 1, 2}; /* v1 / 2 */
 
-    ASSERT_EQ(v1 / 2, v2);
+    EXPECT_EQ(v1 / 2, v2);
 }
 
 TEST(VectorTest, VectorAddition)
@@ -113,8 +113,8 @@ TEST(VectorTest, VectorAddition)
     const freeaml::Vector<int> v3 = {1, 3, 5, 7, 9}; /* v1 + v2 */
 
     /* vector addition is commutative */
-    ASSERT_EQ(v1 + v2, v3);
-    ASSERT_EQ(v2 + v1, v3);
+    EXPECT_EQ(v1 + v2, v3);
+    EXPECT_EQ(v2 + v1, v3);
 }
 
 TEST(VectorTest, VectorSubtraction)
@@ -123,7 +123,7 @@ TEST(VectorTest, VectorSubtraction)
     const freeaml::Vector<int> v2 = {4, 3, 2, 1, 0};
     const freeaml::Vector<int> v3 = {-4, -2, 0, 2, 4}; /* v1 - v2 */
 
-    ASSERT_EQ(v1 - v2, v3);
+    EXPECT_EQ(v1 - v2, v3);
 }
 
 TEST(VectorTest, VectorNegation)
@@ -131,10 +131,10 @@ TEST(VectorTest, VectorNegation)
     const freeaml::Vector<int> v1 = {0, 1, 2, 3, 4};
     const freeaml::Vector<int> v2 = {0, -1, -2, -3, -4}; /* -v1 */
 
-    ASSERT_EQ(v1, -v2);
-    ASSERT_EQ(v2, -v1);
+    EXPECT_EQ(v1, -v2);
+    EXPECT_EQ(v2, -v1);
 
-    ASSERT_EQ(v1, -(-v1));
+    EXPECT_EQ(v1, -(-v1));
 }
 
 TEST(VectorTest, DotProduct)
@@ -143,8 +143,8 @@ TEST(VectorTest, DotProduct)
     const freeaml::Vector<int> v2 = {4, 3, 2, 1, 0};
 
     /* dot product is commutative */
-    ASSERT_EQ(v1 * v2, 10);
-    ASSERT_EQ(v2 * v1, 10);
+    EXPECT_EQ(v1 * v2, 10);
+    EXPECT_EQ(v2 * v1, 10);
 }
 
 TEST(VectorTest, Norms)
@@ -178,7 +178,7 @@ TEST(VectorTest, ElementSum)
 {
     const freeaml::Vector<int> v = {0, 1, 2, 3, 4};
 
-    ASSERT_EQ(v.sum(), 10);
+    EXPECT_EQ(v.sum(), 10);
 }
 
 TEST(VectorTest, MeanValue)
@@ -192,7 +192,7 @@ TEST(VectorTest, RandomIntegerVectorWithinDefaultRange)
 {
     const freeaml::Vector<int> v = freeaml::random_vector<int>(10);
 
-    ASSERT_EQ(v.size(), 10u);
+    EXPECT_EQ(v.size(), 10u);
 
     for (const int x : v)
     {
@@ -205,7 +205,7 @@ TEST(VectorTest, RandomIntegerVectorWithinSpecifiedRange)
 {
     const freeaml::Vector<int> v = freeaml::random_vector<int>(10, -5, 5);
 
-    ASSERT_EQ(v.size(), 10u);
+    EXPECT_EQ(v.size(), 10u);
 
     for (const int x : v)
     {
@@ -218,7 +218,7 @@ TEST(VectorTest, RandomFloatingPointVectorWithinDefaultRange)
 {
     const freeaml::Vector<double> v = freeaml::random_vector<double>(10);
 
-    ASSERT_EQ(v.size(), 10u);
+    EXPECT_EQ(v.size(), 10u);
 
     for (const double x : v)
     {
@@ -232,7 +232,7 @@ TEST(VectorTest, RandomFloatingPointVectorWithinSpecifiedRange)
     const freeaml::Vector<double> v =
         freeaml::random_vector<double>(10, -5.0, 5.0);
 
-    ASSERT_EQ(v.size(), 10u);
+    EXPECT_EQ(v.size(), 10u);
 
     for (const double x : v)
     {
