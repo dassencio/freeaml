@@ -226,7 +226,7 @@ template<typename T>
 std::ostream& operator<<(std::ostream& stream, const Vector<T>& v);
 
 /**
- * @brief Generates a random vector with @c n elements within a given range.
+ * @brief Generates a random vector with elements within a specified range.
  * @param n The size of the vector to generate.
  * @param lower_bound The lower bound for the sample interval.
  * @param upper_bound The upper bound for the sample interval.
