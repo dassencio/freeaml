@@ -214,7 +214,7 @@ TEST(VectorTest, MeanValue)
     ASSERT_LT(std::abs(v.mean() - 2.5), 1.e-10);
 }
 
-TEST(VectorTest, CreateRandomIntegerVectorWithinDefaultRange)
+TEST(VectorTest, RandomIntegerVectorWithinDefaultRange)
 {
     freeaml::Vector<int> v = freeaml::random_vector<int>(10);
 
@@ -227,7 +227,7 @@ TEST(VectorTest, CreateRandomIntegerVectorWithinDefaultRange)
     }
 }
 
-TEST(VectorTest, CreateRandomIntegerVectorWithinSpecifiedRange)
+TEST(VectorTest, RandomIntegerVectorWithinSpecifiedRange)
 {
     freeaml::Vector<int> v = freeaml::random_vector<int>(10, -5, 5);
 
@@ -240,7 +240,7 @@ TEST(VectorTest, CreateRandomIntegerVectorWithinSpecifiedRange)
     }
 }
 
-TEST(VectorTest, CreateRandomFloatingPointVectorWithinDefaultRange)
+TEST(VectorTest, RandomFloatingPointVectorWithinDefaultRange)
 {
     freeaml::Vector<double> v = freeaml::random_vector<double>(10);
 
@@ -253,7 +253,7 @@ TEST(VectorTest, CreateRandomFloatingPointVectorWithinDefaultRange)
     }
 }
 
-TEST(VectorTest, CreateRandomFloatingPointVectorWithinSpecifiedRange)
+TEST(VectorTest, RandomFloatingPointVectorWithinSpecifiedRange)
 {
     freeaml::Vector<double> v = freeaml::random_vector<double>(10, -5.0, 5.0);
 
