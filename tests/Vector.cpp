@@ -14,10 +14,11 @@ TEST(VectorTest, ConstructorWithInitializerList)
 
     ASSERT_EQ(v.size(), 5u);
 
-    for (int i = 0; i <= 4; ++i)
-    {
-        EXPECT_EQ(v[i], i);
-    }
+    EXPECT_EQ(v[0], 0);
+    EXPECT_EQ(v[1], 1);
+    EXPECT_EQ(v[2], 2);
+    EXPECT_EQ(v[3], 3);
+    EXPECT_EQ(v[4], 4);
 }
 
 TEST(VectorTest, ConstructorWithLength)
