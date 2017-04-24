@@ -133,7 +133,6 @@ TEST(VectorTest, VectorNegation)
 
     EXPECT_EQ(v1, -v2);
     EXPECT_EQ(v2, -v1);
-
     EXPECT_EQ(v1, -(-v1));
 }
 
