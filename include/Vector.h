@@ -29,7 +29,7 @@ public:
     using size_type = typename BaseVector::size_type;
 
     /** @brief Constructs a vector with no elements. */
-    Vector() = default;
+    Vector();
 
     /**
      * @brief Constructs a vector with the contents of an initializer list.
@@ -245,6 +245,12 @@ Vector<T> random_vector(typename Vector<T>::size_type n,
  *    FUNCTION DEFINITIONS
  *
  ******************************************************************************/
+
+template<typename T>
+Vector<T>::Vector()
+{
+    /* nothing needs to be done here */
+}
 
 template<typename T>
 Vector<T>::Vector(const std::initializer_list<T> init) : BaseVector(init)
