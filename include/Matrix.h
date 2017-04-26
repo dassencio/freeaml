@@ -8,11 +8,12 @@ namespace freeaml
  * @brief @c Matrix<T> is a class suited for representing dense matrices.
  *
  * This class stores a matrix of elements of type @c T. It overloads the
- * addition (+), the subtraction (-) and the multiplication (*) operators for
- * supporting common matrix operations such as matrix addition, matrix
- * multiplication by scalar and matrix multiplication by matrix or vector.
+ * addition (+), subtraction (-), multiplication (*) and division (/) operators
+ * for supporting common matrix operations such as matrix addition, matrix
+ * multiplication by scalar and matrix multiplication with another matrix or a
+ * vector.
  *
- * Some commonly-used mathematical operations are also provided in the class
+ * Some commonly used mathematical operations are also provided in the class
  * (e.g. determining the transpose of the matrix).
  *
  * Support for OpenMP was added to the functions and operators which showed a
@@ -112,14 +113,14 @@ public:
     /**
      * @brief Equality-comparison operator.
      * @param M A matrix to compare against.
-     * @return True if the matrix is equal to M, false otherwise.
+     * @return true if the matrix is equal to M, false otherwise.
      */
     bool operator==(const Matrix& M) const;
 
     /**
      * @brief Inequality-comparison operator.
      * @param M A matrix to compare against.
-     * @return True if the matrix is not equal to M, false otherwise.
+     * @return true if the matrix is not equal to M, false otherwise.
      */
     bool operator!=(const Matrix& M) const;
 
@@ -139,7 +140,7 @@ public:
 
     /**
      * @brief Performs element-wise addition-assignment with another matrix.
-     * @param M A vector.
+     * @param M A matrix.
      * @return A reference to @c *this.
      */
     Matrix& operator+=(const Matrix& M);
@@ -159,13 +160,13 @@ public:
 
     /**
      * @brief Checks if the matrix has the same number of rows and columns.
-     * @return True if the matrix is square, false otherwise.
+     * @return true if the matrix is square, false otherwise.
      */
     bool is_square() const;
 
     /**
      * @brief Checks if the matrix is symmetric.
-     * @return True if the matrix is symmetric, false otherwise.
+     * @return true if the matrix is symmetric, false otherwise.
      */
     bool is_symmetric() const;
 
@@ -183,7 +184,7 @@ public:
 
     /**
      * @brief Checks if the matrix is empty.
-     * @return True if the matrix is empty, false otherwise.
+     * @return true if the matrix is empty, false otherwise.
      */
     bool empty() const;
 
@@ -191,7 +192,7 @@ public:
      * @brief Resizes the matrix.
      * @param rows The new number of matrix rows.
      * @param cols The new number of matrix columns.
-     * @param x Initializing value for new elements of the matrix.
+     * @param x The initializing value for new elements of the matrix.
      */
     void resize(size_type rows, size_type cols, const T& x = T{});
 
@@ -270,16 +271,16 @@ template<typename T>
 Matrix<T> operator/(const Matrix<T>& M, const T& c);
 
 /**
- * @brief Computes the vectorial addition of two equally-sized matrices.
+ * @brief Computes the matrix addition of two equally-sized matrices.
  * @param M1 A matrix.
  * @param M2 A matrix.
  * @return The element-wise sum of @c M1 and @c M2.
  */
 template<typename T>
-Matrix<T> operator+(const Matrix<T>& v1, const Matrix<T>& v2);
+Matrix<T> operator+(const Matrix<T>& M1, const Matrix<T>& M2);
 
 /**
- * @brief Computes the vectorial difference of two equally-sized matrices.
+ * @brief Computes the matrix difference of two equally-sized matrices.
  * @param M1 A matrix.
  * @param M2 A matrix.
  * @return The element-wise difference between @c M1 and @c M2.
@@ -311,7 +312,7 @@ std::ostream& operator<<(std::ostream& stream, const Matrix<T>& M);
  * @param lower_bound The lower bound for the sample interval.
  * @param upper_bound The upper bound for the sample interval.
  * @return A @c rows × @c cols matrix with elements sampled uniformly from
- *         @c [lower_bound, upper_bound].
+ *         [@c lower_bound, @c upper_bound].
  * @note This function was designed to work only with primitive integer and
  *       floating-point types (e.g. @c int, @c float, @c double etc.).
  */
@@ -339,7 +340,7 @@ Matrix<T>::Matrix(std::initializer_list<std::initializer_list<T>> init)
 {
     if (cols_ == 0)
     {
-        rows_ = 0;
+        clear();
         return;
     }
 
@@ -349,7 +350,7 @@ Matrix<T>::Matrix(std::initializer_list<std::initializer_list<T>> init)
     {
         FREEAML_ASSERT(row.size() == cols_);
 
-        for (const auto& element : row)
+        for (const T& element : row)
         {
             elements_.push_back(element);
         }
@@ -364,8 +365,7 @@ Matrix<T>::Matrix(const size_type rows,
 {
     if (rows_ == 0 || cols_ == 0)
     {
-        rows_ = 0;
-        cols_ = 0;
+        clear();
     }
 }
 
@@ -379,8 +379,7 @@ Matrix<T>::Matrix(const size_type rows,
 
     if (rows_ == 0 || cols_ == 0)
     {
-        rows_ = 0;
-        cols_ = 0;
+        clear();
     }
 }
 
@@ -394,8 +393,7 @@ Matrix<T>::Matrix(const size_type rows,
 
     if (rows_ == 0 || cols_ == 0)
     {
-        rows_ = 0;
-        cols_ = 0;
+        clear();
     }
 }
 
@@ -433,14 +431,14 @@ template<typename T>
 Matrix<T>& Matrix<T>::operator*=(const T& c)
 {
     elements_ *= c;
-    return (*this);
+    return *this;
 }
 
 template<typename T>
 Matrix<T>& Matrix<T>::operator/=(const T& c)
 {
     elements_ /= c;
-    return (*this);
+    return *this;
 }
 
 template<typename T>
@@ -450,7 +448,7 @@ Matrix<T>& Matrix<T>::operator+=(const Matrix<T>& M)
     FREEAML_ASSERT(num_cols() == M.num_cols());
 
     elements_ += M.elements_;
-    return (*this);
+    return *this;
 }
 
 template<typename T>
@@ -460,7 +458,7 @@ Matrix<T>& Matrix<T>::operator-=(const Matrix<T>& M)
     FREEAML_ASSERT(num_cols() == M.num_cols());
 
     elements_ -= M.elements_;
-    return (*this);
+    return *this;
 }
 
 template<typename T>
@@ -485,13 +483,13 @@ Matrix<T> Matrix<T>::transpose() const
 template<typename T>
 bool Matrix<T>::is_square() const
 {
-    return (num_rows() == num_cols());
+    return num_rows() == num_cols();
 }
 
 template<typename T>
 bool Matrix<T>::is_symmetric() const
 {
-    if (!is_square())
+    if (is_square() == false)
     {
         return false;
     }
@@ -539,6 +537,12 @@ void Matrix<T>::resize(const size_type rows,
         return;
     }
 
+    if (rows == 0 || cols == 0)
+    {
+        clear();
+        return;
+    }
+
     Vector<T> elements;
     elements.reserve(rows * cols);
 
@@ -557,14 +561,11 @@ void Matrix<T>::resize(const size_type rows,
         }
     }
 
-    rows_ = cols > 0 ? rows : 0;
-    cols_ = rows > 0 ? cols : 0;
+    rows_ = rows;
+    cols_ = cols;
     elements_ = std::move(elements);
 }
 
-/**
- * @brief Clears the matrix.
- */
 template<typename T>
 void Matrix<T>::clear()
 {
@@ -583,13 +584,14 @@ template<typename T>
 Matrix<T> operator*(const Matrix<T>& M, const T& c)
 {
     Matrix<T> result = M;
-    return (result *= c);
+    result *= c;
+    return result;
 }
 
 template<typename T>
 Matrix<T> operator*(const T& c, const Matrix<T>& M)
 {
-    return (M * c);
+    return M * c;
 }
 
 template<typename T>
@@ -610,7 +612,6 @@ Matrix<T> operator*(const Matrix<T>& M1, const Matrix<T>& M2)
         {
             for (size_type j = 0; j < result.num_cols(); ++j)
             {
-                /* result_{i,j} = M1_{i,k} * M2_{k,j} (implicit sum over k) */
                 result(i, j) += M1(i, k) * M2(k, j);
             }
         }
@@ -631,7 +632,7 @@ Vector<T> operator*(const Matrix<T>& M, const Vector<T>& v)
 #ifdef _OPENMP
 #pragma omp parallel for
 #endif
-    for (size_type i = 0; i < M.num_rows(); ++i)
+    for (size_type i = 0; i < result.size(); ++i)
     {
         for (size_type j = 0; j < M.num_cols(); ++j)
         {
@@ -654,13 +655,14 @@ Vector<T> operator*(const Vector<T>& v, const Matrix<T>& M)
 #ifdef _OPENMP
 #pragma omp parallel for
 #endif
-    for (size_type j = 0; j < M.num_cols(); ++j)
+    for (size_type j = 0; j < result.size(); ++j)
     {
-        for (size_type i = 0; i < M.num_rows(); ++i)
+        for (size_type i = 0; i < v.size(); ++i)
         {
             result[j] += v[i] * M(i, j);
         }
     }
+
     return result;
 }
 
@@ -668,21 +670,24 @@ template<typename T>
 Matrix<T> operator/(const Matrix<T>& M, const T& c)
 {
     Matrix<T> result = M;
-    return (result /= c);
+    result /= c;
+    return result;
 }
 
 template<typename T>
 Matrix<T> operator+(const Matrix<T>& M1, const Matrix<T>& M2)
 {
     Matrix<T> result = M1;
-    return (result += M2);
+    result += M2;
+    return result;
 }
 
 template<typename T>
 Matrix<T> operator-(const Matrix<T>& M1, const Matrix<T>& M2)
 {
     Matrix<T> result = M1;
-    return (result -= M2);
+    result -= M2;
+    return result;
 }
 
 template<typename T>
@@ -702,7 +707,7 @@ std::ostream& operator<<(std::ostream& stream, const Matrix<T>& M)
 
         for (size_type j = 0; j < M.num_cols(); ++j)
         {
-            stream << M(i, j) << (j + 1 < M.num_cols() ? ", " : "");
+            stream << M(i, j) << (j + 1 == M.num_cols() ? "" : ", ");
         }
 
         stream << (i + 1 == M.num_rows() ? "]]\n" : "]\n");
@@ -712,8 +717,8 @@ std::ostream& operator<<(std::ostream& stream, const Matrix<T>& M)
 }
 
 template<typename T>
-Matrix<T> random_matrix(typename Matrix<T>::size_type rows,
-                        typename Matrix<T>::size_type cols,
+Matrix<T> random_matrix(const typename Matrix<T>::size_type rows,
+                        const typename Matrix<T>::size_type cols,
                         const T& lower_bound /* = T{0} */,
                         const T& upper_bound /* = T{1} */)
 {

@@ -11,11 +11,11 @@ namespace freeaml
  * applications.
  *
  * This class stores a sequence of elements of type @c T. It overloads the
- * addition (+), the subtraction (-) and the multiplication (*) operators for
- * supporting common vector operations such as vector addition, vector
+ * addition (+), subtraction (-), multiplication (*) and division (/) operators
+ * for supporting common vector operations such as vector addition, vector
  * multiplication by scalar and vector dot product.
  *
- * Functions for computing @a L<SUP>p</SUP> norms as well as other commonly-used
+ * Functions for computing @a L<SUP>p</SUP> norms as well as other commonly used
  * mathematical operations are also provided in the class.
  *
  * Support for OpenMP was added to the functions and operators which showed a
@@ -231,7 +231,7 @@ std::ostream& operator<<(std::ostream& stream, const Vector<T>& v);
  * @param lower_bound The lower bound for the sample interval.
  * @param upper_bound The upper bound for the sample interval.
  * @return A vector with @c n elements sampled uniformly from
- *         @c [lower_bound, upper_bound].
+ *         [@c lower_bound, @c upper_bound].
  * @note This function was designed to work only with primitive integer and
  *       floating-point types (e.g. @c int, @c float, @c double etc.).
  */
@@ -503,13 +503,14 @@ template<typename T>
 Vector<T> operator*(const Vector<T>& v, const T& c)
 {
     Vector<T> result = v;
-    return (result *= c);
+    result *= c;
+    return result;
 }
 
 template<typename T>
 Vector<T> operator*(const T& c, const Vector<T>& v)
 {
-    return (v * c);
+    return v * c;
 }
 
 template<typename T>
@@ -552,7 +553,8 @@ template<typename T>
 Vector<T> operator/(const Vector<T>& v, const T& c)
 {
     Vector<T> result = v;
-    return (result /= c);
+    result /= c;
+    return result;
 }
 
 template<typename T>
@@ -561,7 +563,8 @@ Vector<T> operator+(const Vector<T>& v1, const Vector<T>& v2)
     FREEAML_ASSERT(v1.size() == v2.size());
 
     Vector<T> result = v1;
-    return (result += v2);
+    result += v2;
+    return result;
 }
 
 template<typename T>
@@ -570,7 +573,8 @@ Vector<T> operator-(const Vector<T>& v1, const Vector<T>& v2)
     FREEAML_ASSERT(v1.size() == v2.size());
 
     Vector<T> result = v1;
-    return (result -= v2);
+    result -= v2;
+    return result;
 }
 
 template<typename T>
@@ -594,7 +598,7 @@ std::ostream& operator<<(std::ostream& stream, const Vector<T>& v)
 
     for (typename Vector<T>::size_type i = 0; i < v.size(); ++i)
     {
-        stream << v[i] << (i + 1 < v.size() ? ", " : "");
+        stream << v[i] << (i + 1 == v.size() ? "" : ", ");
     }
 
     stream << "]\n";
