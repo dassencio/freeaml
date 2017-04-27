@@ -6,9 +6,10 @@ TEST(VectorKPI, DotProduct)
 {
     KPI_BEGIN();
 
-    freeaml::Vector<double> v = freeaml::random_vector<double>(100000000);
+    freeaml::Vector<double> v1 = freeaml::random_vector<double>(100000000);
+    freeaml::Vector<double> v2 = freeaml::random_vector<double>(100000000);
 
-    KPI_MEASURE(v * v);
+    KPI_MEASURE(v1 * v2);
 }
 
 TEST(VectorKPI, L1Norm)

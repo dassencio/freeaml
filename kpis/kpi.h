@@ -6,9 +6,9 @@
 #endif /* _OPENMP */
 
 /**
- * @brief Macro which must be added at the beginning of every KPI test. If
- *        OpenMP is enabled, it will run each KPI test using all possible number
- *        of threads (defined by omp_get_max_threads()).
+ * @brief Macro which must be added at the beginning of every KPI test.
+ * @note If OpenMP is enabled, this macro will make each KPI test run using
+ *       every possible number of threads (defined by omp_get_max_threads()).
  */
 #ifdef _OPENMP
 #define KPI_BEGIN()                              \
@@ -25,8 +25,8 @@
 #endif /* _OPENMP */
 
 /**
- * @brief Computes and prints the execution time of an expression
- * @param expression An expression which will be executed.
+ * @brief Computes and prints the execution time of an expression.
+ * @param expression A C++ expression.
  */
 #ifdef _OPENMP
 #define KPI_MEASURE(expression)                                              \
