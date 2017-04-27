@@ -48,3 +48,4 @@ enable_testing()
 
 add_subdirectory(contrib)
 add_subdirectory(tests)
+add_subdirectory(kpis)
