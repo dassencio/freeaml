@@ -3,8 +3,8 @@ cmake_minimum_required(VERSION 3.1)
 project(freeAML CXX)
 
 # set the project version number
-set(VERSION_MAJOR 2 "Project major version number.")
-set(VERSION_MINOR 0 "Project minor version number.")
+set(VERSION_MAJOR 2)
+set(VERSION_MINOR 0)
 
 # require C++11
 set(CMAKE_CXX_STANDARD 11)
