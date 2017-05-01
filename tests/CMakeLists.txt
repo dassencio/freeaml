@@ -5,6 +5,7 @@ set(target run-tests)
 add_executable(
     ${target}
     Matrix.cpp
+    SparseMatrix.cpp
     Vector.cpp
 )
 
