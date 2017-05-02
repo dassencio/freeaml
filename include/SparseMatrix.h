@@ -590,6 +590,9 @@ SparseMatrix<T>& SparseMatrix<T>::operator+=(const SparseMatrix<T>& M)
     FREEAML_ASSERT(num_rows() == M.num_rows());
     FREEAML_ASSERT(num_cols() == M.num_cols());
 
+#ifdef _OPENMP
+#pragma omp parallel for
+#endif /* _OPENMP */
     for (size_type i = 0; i < num_rows(); ++i)
     {
         for (const Element& element : M.elements_[i])
@@ -607,6 +610,9 @@ SparseMatrix<T>& SparseMatrix<T>::operator-=(const SparseMatrix<T>& M)
     FREEAML_ASSERT(num_rows() == M.num_rows());
     FREEAML_ASSERT(num_cols() == M.num_cols());
 
+#ifdef _OPENMP
+#pragma omp parallel for
+#endif /* _OPENMP */
     for (size_type i = 0; i < num_rows(); ++i)
     {
         for (const Element& element : M.elements_[i])

@@ -5,6 +5,7 @@ set(target run-kpis)
 add_executable(
     ${target}
     Matrix.cpp
+    SparseMatrix.cpp
     Vector.cpp
 )
 
