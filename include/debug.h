@@ -4,8 +4,8 @@
 #include <iostream>
 
 /**
- * @brief terminates the program if a given condition fails
- * @param condition the condition which will be tested
+ * @brief Terminates the program if a given condition fails.
+ * @param condition The condition which will be tested.
  */
 #ifdef FREEAML_DEBUG
 #define FREEAML_ASSERT(condition) \

@@ -123,7 +123,9 @@ TEST(VectorTest, VectorSubtraction)
     const freeaml::Vector<int> v2 = {4, 3, 2, 1, 0};
     const freeaml::Vector<int> v3 = {-4, -2, 0, 2, 4}; /* v1 - v2 */
 
+    /* vector subtraction is anticommutative */
     EXPECT_EQ(v1 - v2, v3);
+    EXPECT_EQ(v2 - v1, -v3);
 }
 
 TEST(VectorTest, VectorNegation)

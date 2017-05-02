@@ -218,8 +218,8 @@ Vector<T> operator-(const Vector<T>& v);
 
 /**
  * @brief Prints the elements of a vector to an output stream.
- * @param stream An output stream to which the vector elements will be printed.
- * @param v A vector whose elements will be printed.
+ * @param stream An output stream.
+ * @param v A vector.
  * @return A reference to @c stream.
  */
 template<typename T>
@@ -231,7 +231,7 @@ std::ostream& operator<<(std::ostream& stream, const Vector<T>& v);
  * @param lower_bound The lower bound for the sample interval.
  * @param upper_bound The upper bound for the sample interval.
  * @return A vector with @c n elements sampled uniformly from
- *         [@c lower_bound, @c upper_bound].
+ *         <tt>[lower_bound, upper_bound]</tt>.
  * @note This function was designed to work only with primitive integer and
  *       floating-point types (e.g. @c int, @c float, @c double etc.).
  */
@@ -611,6 +611,8 @@ Vector<T> random_vector(const typename Vector<T>::size_type n,
                         const T& lower_bound /* = T{0} */,
                         const T& upper_bound /* = T{1} */)
 {
+    FREEAML_ASSERT(lower_bound < upper_bound);
+
     using DistributionType =
         typename std::conditional<std::is_integral<T>::value,
                                   std::uniform_int_distribution<T>,

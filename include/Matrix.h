@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Vector.h"
+#include <Vector.h>
 
 namespace freeaml
 {
@@ -24,7 +24,6 @@ class Matrix
 {
 public:
     using size_type = typename Vector<T>::size_type;
-    using value_type = typename Vector<T>::value_type;
     using reference = typename Vector<T>::reference;
     using const_reference = typename Vector<T>::const_reference;
 
@@ -44,7 +43,7 @@ public:
      * @brief Constructs a matrix with the elements of a vector.
      * @param rows The number of matrix rows.
      * @param cols The number of matrix columns.
-     * @param elements A vector holding the @c rows × @c cols matrix elements
+     * @param elements A vector holding the <tt>rows × cols</tt> matrix elements
      *        in row-major order (i.e., the elements on the first matrix row
      *        followed by the elements on the second matrix row and so on).
      */
@@ -54,7 +53,7 @@ public:
      * @brief Constructs a matrix with the elements of a vector.
      * @param rows The number of matrix rows.
      * @param cols The number of matrix columns.
-     * @param elements A vector holding the @c rows × @c cols matrix elements
+     * @param elements A vector holding the <tt>rows × cols</tt> matrix elements
      *        in row-major order (i.e., the elements on the first matrix row
      *        followed by the elements on the second matrix row and so on).
      */
@@ -84,7 +83,7 @@ public:
      * @brief Returns a reference to a matrix element.
      * @param i The row of the matrix element.
      * @param j The column of the matrix element.
-     * @return A reference to the element (i,j) of the matrix.
+     * @return A reference to the element <tt>(i,j)</tt> of the matrix.
      */
     reference operator()(size_type i, size_type j);
 
@@ -92,7 +91,7 @@ public:
      * @brief Returns a const reference to a matrix element.
      * @param i The row of the matrix element.
      * @param j The column of the matrix element.
-     * @return A const reference to the element (i,j) of the matrix.
+     * @return A const reference to the element <tt>(i,j)</tt> of the matrix.
      */
     const_reference operator()(size_type i, size_type j) const;
 
@@ -113,14 +112,14 @@ public:
     /**
      * @brief Equality-comparison operator.
      * @param M A matrix to compare against.
-     * @return true if the matrix is equal to M, false otherwise.
+     * @return @c true if the matrix is equal to @c M, @c false otherwise.
      */
     bool operator==(const Matrix& M) const;
 
     /**
      * @brief Inequality-comparison operator.
      * @param M A matrix to compare against.
-     * @return true if the matrix is not equal to M, false otherwise.
+     * @return @c true if the matrix is not equal to @c M, @c false otherwise.
      */
     bool operator!=(const Matrix& M) const;
 
@@ -160,13 +159,13 @@ public:
 
     /**
      * @brief Checks if the matrix has the same number of rows and columns.
-     * @return true if the matrix is square, false otherwise.
+     * @return @c true if the matrix is square, @c false otherwise.
      */
     bool is_square() const;
 
     /**
      * @brief Checks if the matrix is symmetric.
-     * @return true if the matrix is symmetric, false otherwise.
+     * @return @c true if the matrix is symmetric, @c false otherwise.
      */
     bool is_symmetric() const;
 
@@ -184,7 +183,7 @@ public:
 
     /**
      * @brief Checks if the matrix is empty.
-     * @return true if the matrix is empty, false otherwise.
+     * @return @c true if the matrix is empty, @c false otherwise.
      */
     bool empty() const;
 
@@ -298,8 +297,8 @@ Matrix<T> operator-(const Matrix<T>& M);
 
 /**
  * @brief Prints the elements of a matrix to an output stream.
- * @param stream An output stream to which the matrix elements will be printed.
- * @param M A matrix whose elements will be printed.
+ * @param stream An output stream.
+ * @param M A matrix.
  * @return A reference to @c stream.
  */
 template<typename T>
@@ -311,8 +310,8 @@ std::ostream& operator<<(std::ostream& stream, const Matrix<T>& M);
  * @param cols The number of matrix columns.
  * @param lower_bound The lower bound for the sample interval.
  * @param upper_bound The upper bound for the sample interval.
- * @return A @c rows × @c cols matrix with elements sampled uniformly from
- *         [@c lower_bound, @c upper_bound].
+ * @return A <tt>rows × cols</tt> matrix with elements sampled uniformly from
+ *         <tt>[lower_bound, upper_bound]</tt>.
  * @note This function was designed to work only with primitive integer and
  *       floating-point types (e.g. @c int, @c float, @c double etc.).
  */
@@ -468,7 +467,7 @@ Matrix<T> Matrix<T>::transpose() const
 
 #ifdef _OPENMP
 #pragma omp parallel for
-#endif
+#endif /* _OPENMP */
     for (size_type i = 0; i < num_rows(); ++i)
     {
         for (size_type j = 0; j < num_cols(); ++j)
@@ -605,7 +604,7 @@ Matrix<T> operator*(const Matrix<T>& M1, const Matrix<T>& M2)
 
 #ifdef _OPENMP
 #pragma omp parallel for
-#endif
+#endif /* _OPENMP */
     for (size_type i = 0; i < result.num_rows(); ++i)
     {
         for (size_type k = 0; k < M1.num_cols(); ++k)
@@ -631,7 +630,7 @@ Vector<T> operator*(const Matrix<T>& M, const Vector<T>& v)
 
 #ifdef _OPENMP
 #pragma omp parallel for
-#endif
+#endif /* _OPENMP */
     for (size_type i = 0; i < result.size(); ++i)
     {
         for (size_type j = 0; j < M.num_cols(); ++j)
@@ -654,7 +653,7 @@ Vector<T> operator*(const Vector<T>& v, const Matrix<T>& M)
 
 #ifdef _OPENMP
 #pragma omp parallel for
-#endif
+#endif /* _OPENMP */
     for (size_type j = 0; j < result.size(); ++j)
     {
         for (size_type i = 0; i < v.size(); ++i)

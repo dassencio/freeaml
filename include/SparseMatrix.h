@@ -128,14 +128,14 @@ public:
     /**
      * @brief Equality-comparison operator.
      * @param M A matrix to compare against.
-     * @return true if the matrix is equal to M, false otherwise.
+     * @return @c true if the matrix is equal to @c M, @c false otherwise.
      */
     bool operator==(const SparseMatrix& M) const;
 
     /**
      * @brief Inequality-comparison operator.
      * @param M A matrix to compare against.
-     * @return true if the matrix is not equal to M, false otherwise.
+     * @return @c true if the matrix is not equal to @c M, @c false otherwise.
      */
     bool operator!=(const SparseMatrix& M) const;
 
@@ -175,13 +175,13 @@ public:
 
     /**
      * @brief Checks if the matrix has the same number of rows and columns.
-     * @return true if the matrix is square, false otherwise.
+     * @return @c true if the matrix is square, @c false otherwise.
      */
     bool is_square() const;
 
     /**
      * @brief Checks if the matrix is symmetric.
-     * @return true if the matrix is symmetric, false otherwise.
+     * @return @c true if the matrix is symmetric, @c false otherwise.
      */
     bool is_symmetric() const;
 
@@ -199,7 +199,7 @@ public:
 
     /**
      * @brief Checks if the matrix is empty.
-     * @return true if the matrix is empty, false otherwise.
+     * @return @c true if the matrix is empty, @c false otherwise.
      */
     bool empty() const;
 
@@ -1064,6 +1064,7 @@ SparseMatrix<T> random_sparse_matrix(
     const T& upper_bound /* = T{1} */)
 {
     FREEAML_ASSERT(nonzero <= rows * cols);
+    FREEAML_ASSERT(lower_bound < upper_bound);
 
     if (rows == 0 || cols == 0)
     {

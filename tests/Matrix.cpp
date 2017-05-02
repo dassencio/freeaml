@@ -38,7 +38,7 @@ TEST(MatrixTest, ConstructorWithInitializerList)
 
 TEST(MatrixTest, ConstructorWithVector)
 {
-    freeaml::Matrix<int> M1(0, 0, freeaml::Vector<int>{});
+    const freeaml::Matrix<int> M1(0, 0, freeaml::Vector<int>{});
 
     EXPECT_EQ(M1.num_rows(), 0u);
     EXPECT_EQ(M1.num_cols(), 0u);
@@ -46,7 +46,7 @@ TEST(MatrixTest, ConstructorWithVector)
     freeaml::Vector<int> elements = {0, 1, 2, 3, 4, 5};
 
     /*
-     * M1 = M2 = [[ 0 1 2 ]
+     * M2 = M3 = [[ 0 1 2 ]
      *            [ 3 4 5 ]]
      */
     const freeaml::Matrix<int> M2(2, 3, elements);
@@ -193,7 +193,9 @@ TEST(MatrixTest, MatrixSubtraction)
     const freeaml::Matrix<int> M2 = {{5, 4, 3}, {2, 1, 0}};
     const freeaml::Matrix<int> M3 = {{-5, -3, -1}, {1, 3, 5}}; /* M1 - M2 */
 
+    /* matrix subtraction is anticommutative */
     EXPECT_EQ(M1 - M2, M3);
+    EXPECT_EQ(M2 - M1, -M3);
 }
 
 TEST(MatrixTest, MatrixNegation)
