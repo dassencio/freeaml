@@ -26,7 +26,7 @@ TEST(SparseMatrixKPI, SparseMatrixMatrixMultiplication)
     KPI_MEASURE(M1 * M2);
 }
 
-TEST(SparseMatrixKPI, SparseMatrixSparseMatrixMultiplication)
+TEST(SparseMatrixKPI, MatrixSparseMatrixMultiplication)
 {
     KPI_BEGIN();
 
