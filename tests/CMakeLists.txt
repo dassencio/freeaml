@@ -4,6 +4,7 @@ set(target run-tests)
 # source files for generating the target
 add_executable(
     ${target}
+    Jacobi.cpp
     Matrix.cpp
     SparseMatrix.cpp
     Vector.cpp
