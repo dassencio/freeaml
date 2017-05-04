@@ -1055,7 +1055,7 @@ std::ostream& operator<<(std::ostream& stream, const SparseMatrix<T>& M)
             stream << M(i, j) << (j + 1 == M.num_cols() ? "" : ", ");
         }
 
-        stream << (i + 1 == M.num_rows() ? "]]\n" : "]\n");
+        stream << (i + 1 == M.num_rows() ? "]]" : "],");
     }
 
     return stream;

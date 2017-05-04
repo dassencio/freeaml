@@ -601,7 +601,7 @@ std::ostream& operator<<(std::ostream& stream, const Vector<T>& v)
         stream << v[i] << (i + 1 == v.size() ? "" : ", ");
     }
 
-    stream << "]\n";
+    stream << "]";
 
     return stream;
 }
