@@ -44,7 +44,7 @@ public:
      * @brief Checks if the dimensions of the matrix and vectors which define a
      *        linear system are correct.
      * @param A The linear system matrix.
-     * @param x The solution vector (on which the solution will be written).
+     * @param x The solution vector.
      * @param b The right-hand side of the linear system.
      * @return @c true if @c A is square and has the same number of rows as @c x
      *         and @c b, @c false otherwise.

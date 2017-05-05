@@ -4,6 +4,7 @@ set(target run-tests)
 # source files for generating the target
 add_executable(
     ${target}
+    BiconjugateGradientStabilized.cpp
     Jacobi.cpp
     Matrix.cpp
     SparseMatrix.cpp

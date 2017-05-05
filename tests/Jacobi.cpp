@@ -24,16 +24,18 @@ TEST(JacobiTest, Solve4x4LinearSystem)
      */
     freeaml::Jacobi<double> lss(50, 1e-7);
 
-    EXPECT_TRUE(lss.solve(A, x, b));
+    /* solve the linear system */
+    bool status = lss.solve(A, x, b);
 
-    /* check if the residual tolerance required was really achieved */
-    EXPECT_LE((A * x - b).l2_norm(), lss.residual_tolerance());
+    EXPECT_TRUE(status);
 
-    /* check if the number of iterations performed did not exceed the limit */
+    double residual = (A * x - b).l2_norm();
+
+    EXPECT_LE(residual, lss.residual_tolerance());
     EXPECT_LE(lss.num_iterations(), lss.max_iterations());
 
     std::cout << "Solution obtained: " << x << "\n"
-              << "Residual achieved: " << (A * x - b).l2_norm() << "\n"
+              << "Residual achieved: " << residual << "\n"
               << "Iterations performed: " << lss.num_iterations() << "\n";
 }
 
@@ -80,15 +82,17 @@ TEST(JacobiTest, Solve5x5LinearSystem)
      */
     freeaml::Jacobi<double> lss(100, 1e-8);
 
-    EXPECT_TRUE(lss.solve(A, x, b));
+    /* solve the linear system */
+    bool status = lss.solve(A, x, b);
 
-    /* check if the residual tolerance required was really achieved */
-    EXPECT_LE((A * x - b).l2_norm(), lss.residual_tolerance());
+    EXPECT_TRUE(status);
 
-    /* check if the number of iterations performed did not exceed the limit */
+    double residual = (A * x - b).l2_norm();
+
+    EXPECT_LE(residual, lss.residual_tolerance());
     EXPECT_LE(lss.num_iterations(), lss.max_iterations());
 
     std::cout << "Solution obtained: " << x << "\n"
-              << "Residual achieved: " << (A * x - b).l2_norm() << "\n"
+              << "Residual achieved: " << residual << "\n"
               << "Iterations performed: " << lss.num_iterations() << "\n";
 }

@@ -21,7 +21,7 @@ public:
     /**
      * @brief Solves a linear system using the Jacobi method.
      * @param A The linear system matrix.
-     * @param x The solution vector (on which the solution will be written).
+     * @param x The vector on which the solution will be written.
      * @param b The right-hand side of the linear system.
      * @return @c true if the residual tolerance could be achieved within the
      *         maximum number of iterations allowed, @c false otherwise.
@@ -32,7 +32,7 @@ public:
     /**
      * @brief Performes a fixed number of Jacobi iterations for a linear system.
      * @param A The linear system matrix.
-     * @param x The solution vector (on which the solution will be written).
+     * @param x The vector on which the solution will be written.
      * @param b The right-hand side of the linear system.
      * @param n The number of iterations that will be performed.
      * @note This function simply performs @c n Jacobi iterations without taking
