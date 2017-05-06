@@ -5,6 +5,7 @@ set(target run-tests)
 add_executable(
     ${target}
     BiconjugateGradientStabilized.cpp
+    ConjugateGradient.cpp
     Jacobi.cpp
     Matrix.cpp
     SparseMatrix.cpp

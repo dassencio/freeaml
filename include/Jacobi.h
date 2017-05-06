@@ -56,7 +56,7 @@ template<typename T>
 Jacobi<T>::Jacobi(const size_type max_iterations, const T& residual_tolerance)
     : BaseSolver(max_iterations, residual_tolerance)
 {
-    /* nothing needs to  be done here */
+    /* nothing needs to be done here */
 }
 
 template<typename T>

@@ -1,28 +1,27 @@
 #pragma once
 
 #include <IterativeLinearSystemSolverBase.h>
+#include <cmath>
 
 namespace freeaml
 {
 template<typename T>
-class BiconjugateGradientStabilized : public IterativeLinearSystemSolverBase<T>
+class ConjugateGradient : public IterativeLinearSystemSolverBase<T>
 {
 public:
     using BaseSolver = IterativeLinearSystemSolverBase<T>;
     using size_type = typename BaseSolver::size_type;
 
     /**
-     * @brief Constructs a linear system solver which uses the biconjugate
-     *        gradient stabilized method (BiCGSTAB).
+     * @brief Constructs a linear system solver which uses the conjugate
+     *        gradient method (CG).
      * @param max_iterations The maximum number of iterations allowed.
      * @param residual_tolerance The maximum residual tolerance allowed.
      */
-    BiconjugateGradientStabilized(size_type max_iterations,
-                                  const T& residual_tolerance);
+    ConjugateGradient(size_type max_iterations, const T& residual_tolerance);
 
     /**
-     * @brief Solves a linear system using the biconjugate gradient stabilized
-     *        method (BiCGSTAB).
+     * @brief Solves a linear system using the conjugate gradient method (CG).
      * @param A The linear system matrix.
      * @param x The vector on which the solution will be written.
      * @param b The right-hand side of the linear system.
@@ -32,7 +31,7 @@ public:
     template<typename MatrixType, typename VectorType>
     bool solve(const MatrixType& A, VectorType& x, const VectorType& b);
 
-}; /* class BiconjugateGradientStabilized<T> */
+}; /* class ConjugateGradient<T> */
 
 /*******************************************************************************
  *
@@ -41,8 +40,8 @@ public:
  ******************************************************************************/
 
 template<typename T>
-BiconjugateGradientStabilized<T>::BiconjugateGradientStabilized(
-    const size_type max_iterations, const T& residual_tolerance)
+ConjugateGradient<T>::ConjugateGradient(const size_type max_iterations,
+                                        const T& residual_tolerance)
     : BaseSolver(max_iterations, residual_tolerance)
 {
     /* nothing needs to be done here */
@@ -50,52 +49,42 @@ BiconjugateGradientStabilized<T>::BiconjugateGradientStabilized(
 
 template<typename T>
 template<typename MatrixType, typename VectorType>
-bool BiconjugateGradientStabilized<T>::solve(const MatrixType& A,
-                                             VectorType& x,
-                                             const VectorType& b)
+bool ConjugateGradient<T>::solve(const MatrixType& A,
+                                 VectorType& x,
+                                 const VectorType& b)
 {
     FREEAML_ASSERT(BaseSolver::check_dimensions(A, x, b));
 
     /* r = residual vector */
     VectorType r = b - A * x;
 
-    VectorType u = r;
+    T rr = r * r;
 
-    T rho{1};
-    T alpha{1};
-    T omega{1};
-
-    VectorType p(b.size(), T{0});
-    VectorType v(b.size(), T{0});
+    VectorType p = r;
+    VectorType q = A * r;
 
     (*this).num_iterations_ = 0;
 
     while ((*this).num_iterations_ < (*this).max_iterations())
     {
-        T old_rho = rho;
+        T alpha = rr / (p * q);
 
-        rho = u * r;
+        x += alpha * p;
+        r -= alpha * q;
 
-        T beta = (rho * alpha) / (old_rho * omega);
+        T old_rr = rr;
 
-        p = r + beta * (p - omega * v);
-        v = A * p;
+        rr = r * r;
 
-        alpha = rho / (u * v);
+        T beta = rr / old_rr;
 
-        VectorType s = r - alpha * v;
-        VectorType t = A * s;
-
-        omega = (t * s) / (t * t);
-
-        x += alpha * p + omega * s;
-
-        r = s - omega * t;
+        p = r + (beta * p);
+        q = A * r + (beta * q);
 
         ++(*this).num_iterations_;
 
         /* if the residual is within the maximum tolerance, stop */
-        if (r.l2_norm() <= (*this).residual_tolerance())
+        if (std::sqrt(rr) <= (*this).residual_tolerance())
         {
             return true;
         }
