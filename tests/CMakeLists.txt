@@ -9,6 +9,7 @@ add_executable(
     Jacobi.cpp
     Matrix.cpp
     SparseMatrix.cpp
+    SuccessiveOverRelaxation.cpp
     Vector.cpp
 )
 
