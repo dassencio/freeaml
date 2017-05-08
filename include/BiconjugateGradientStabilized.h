@@ -15,7 +15,7 @@ public:
      * @brief Constructs a linear system solver which uses the biconjugate
      *        gradient stabilized method (BiCGSTAB).
      * @param max_iterations The maximum number of iterations allowed.
-     * @param residual_tolerance The maximum residual tolerance allowed.
+     * @param residual_tolerance The residual tolerance.
      */
     BiconjugateGradientStabilized(size_type max_iterations,
                                   const T& residual_tolerance);

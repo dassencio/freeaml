@@ -17,7 +17,7 @@ public:
     /**
      * @brief Constructs an iterative linear system solver.
      * @param max_iterations The maximum number of iterations allowed.
-     * @param residual_tolerance The maximum residual tolerance allowed.
+     * @param residual_tolerance The residual tolerance.
      */
     IterativeLinearSystemSolverBase(size_type max_iterations,
                                     const T& residual_tolerance);

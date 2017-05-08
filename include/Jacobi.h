@@ -14,7 +14,7 @@ public:
     /**
      * @brief Constructs a linear system solver which uses the Jacobi method.
      * @param max_iterations The maximum number of iterations allowed.
-     * @param residual_tolerance The maximum residual tolerance allowed.
+     * @param residual_tolerance The residual tolerance.
      */
     Jacobi(size_type max_iterations, const T& residual_tolerance);
 
@@ -30,7 +30,7 @@ public:
     bool solve(const MatrixType& A, VectorType& x, const VectorType& b);
 
     /**
-     * @brief Performes a fixed number of Jacobi iterations for a linear system.
+     * @brief Performs a fixed number of Jacobi iterations for a linear system.
      * @param A The linear system matrix.
      * @param x The vector on which the solution will be written.
      * @param b The right-hand side of the linear system.

@@ -15,7 +15,7 @@ public:
      * @brief Constructs a linear system solver which uses the successive
      *        over-relaxation method (SOR).
      * @param max_iterations The maximum number of iterations allowed.
-     * @param residual_tolerance The maximum residual tolerance allowed.
+     * @param residual_tolerance The residual tolerance.
      * @param omega The relaxation factor.
      */
     SuccessiveOverRelaxation(size_type max_iterations,
