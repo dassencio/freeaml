@@ -6,6 +6,7 @@ add_executable(
     ${target}
     BiconjugateGradientStabilized.cpp
     ConjugateGradient.cpp
+    GaussianElimination.cpp
     GaussSeidel.cpp
     Jacobi.cpp
     Matrix.cpp
