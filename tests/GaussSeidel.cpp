@@ -18,9 +18,9 @@ TEST(GaussSeidelTest, Solve4x4LinearSystem)
     freeaml::Vector<double> b = {6.0, 25.0, -11.0, 15.0};
 
     /*
-     * Linear system solver: Gauss-Seidel
-     * Maximum number of iterations: 15
-     * Residual tolerance required: 1e-7
+     * linear system solver: Gauss-Seidel
+     * maximum number of iterations: 15
+     * residual tolerance required: 1e-7
      */
     freeaml::GaussSeidel<double> lss(15, 1e-7);
 
@@ -34,9 +34,10 @@ TEST(GaussSeidelTest, Solve4x4LinearSystem)
     EXPECT_LE(residual, lss.residual_tolerance());
     EXPECT_LE(lss.num_iterations(), lss.max_iterations());
 
-    std::cout << "Solution obtained: " << x << "\n"
-              << "Residual achieved: " << residual << "\n"
-              << "Iterations performed: " << lss.num_iterations() << "\n";
+    /* exact solution */
+    freeaml::Vector<double> y = {1.0, 2.0, -1.0, 1.0};
+
+    EXPECT_LE((x - y).l2_norm(), 1.e-7);
 }
 
 TEST(GaussSeidelTest, Iterate4x4LinearSystem)
@@ -56,8 +57,10 @@ TEST(GaussSeidelTest, Iterate4x4LinearSystem)
     /* perform 10 Gauss-Seidel iterations on the linear system */
     freeaml::GaussSeidel<double>::iterate(A, x, b, 10);
 
-    std::cout << "Solution obtained: " << x << "\n"
-              << "Residual achieved: " << (A * x - b).l2_norm() << "\n";
+    /* exact solution */
+    freeaml::Vector<double> y = {1.0, 2.0, -1.0, 1.0};
+
+    EXPECT_LE((x - y).l2_norm(), 1.e-7);
 }
 
 TEST(GaussSeidelTest, Solve5x5LinearSystem)
@@ -76,9 +79,9 @@ TEST(GaussSeidelTest, Solve5x5LinearSystem)
     freeaml::Vector<double> b = {13.13, 18.15, 3.74, 14.76, 18.46};
 
     /*
-     * Linear system solver: Gauss-Seidel
-     * Maximum number of iterations: 20
-     * Residual tolerance required: 1e-8
+     * linear system solver: Gauss-Seidel
+     * maximum number of iterations: 20
+     * residual tolerance required: 1e-8
      */
     freeaml::GaussSeidel<double> lss(20, 1e-8);
 
@@ -92,7 +95,8 @@ TEST(GaussSeidelTest, Solve5x5LinearSystem)
     EXPECT_LE(residual, lss.residual_tolerance());
     EXPECT_LE(lss.num_iterations(), lss.max_iterations());
 
-    std::cout << "Solution obtained: " << x << "\n"
-              << "Residual achieved: " << residual << "\n"
-              << "Iterations performed: " << lss.num_iterations() << "\n";
+    /* exact solution */
+    freeaml::Vector<double> y = {1.0, 2.0, -1.0, 3.0, 4.0};
+
+    EXPECT_LE((x - y).l2_norm(), 1.e-7);
 }

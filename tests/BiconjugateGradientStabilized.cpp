@@ -18,9 +18,9 @@ TEST(BiconjugateGradientStabilizedTest, Solve4x4LinearSystem)
     freeaml::Vector<double> b = {8.79, -0.49, 8.00, 9.54};
 
     /*
-     * Linear system solver: biconjugate gradient stabilized
-     * Maximum number of iterations: 4
-     * Residual tolerance required: 1e-5
+     * linear system solver: biconjugate gradient stabilized
+     * maximum number of iterations: 4
+     * residual tolerance required: 1e-5
      */
     freeaml::BiconjugateGradientStabilized<double> lss(4, 1e-5);
 
@@ -34,9 +34,10 @@ TEST(BiconjugateGradientStabilizedTest, Solve4x4LinearSystem)
     EXPECT_LE(residual, lss.residual_tolerance());
     EXPECT_LE(lss.num_iterations(), lss.max_iterations());
 
-    std::cout << "Solution obtained: " << x << "\n"
-              << "Residual achieved: " << residual << "\n"
-              << "Iterations performed: " << lss.num_iterations() << "\n";
+    /* exact solution */
+    freeaml::Vector<double> y = {1.0, 2.0, -1.0, 1.0};
+
+    EXPECT_LE((x - y).l2_norm(), 1.e-5);
 }
 
 TEST(BiconjugateGradientStabilizedTest, Solve5x5LinearSystem)
@@ -55,9 +56,9 @@ TEST(BiconjugateGradientStabilizedTest, Solve5x5LinearSystem)
     freeaml::Vector<double> b = {30.98, 13.03, 9.02, 12.69, 24.13};
 
     /*
-     * Linear system solver: biconjugate gradient stabilized
-     * Maximum number of iterations: 5
-     * Residual tolerance required: 1e-6
+     * linear system solver: biconjugate gradient stabilized
+     * maximum number of iterations: 5
+     * residual tolerance required: 1e-6
      */
     freeaml::BiconjugateGradientStabilized<double> lss(5, 1e-6);
 
@@ -71,7 +72,8 @@ TEST(BiconjugateGradientStabilizedTest, Solve5x5LinearSystem)
     EXPECT_LE(residual, lss.residual_tolerance());
     EXPECT_LE(lss.num_iterations(), lss.max_iterations());
 
-    std::cout << "Solution obtained: " << x << "\n"
-              << "Residual achieved: " << residual << "\n"
-              << "Iterations performed: " << lss.num_iterations() << "\n";
+    /* exact solution */
+    freeaml::Vector<double> y = {1.0, 2.0, -1.0, 3.0, 4.0};
+
+    EXPECT_LE((x - y).l2_norm(), 1.e-5);
 }

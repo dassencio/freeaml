@@ -65,7 +65,7 @@ bool SuccessiveOverRelaxation<T>::solve(const MatrixType& A,
                                         VectorType& x,
                                         const VectorType& b)
 {
-    FREEAML_ASSERT(BaseSolver::check_dimensions(A, x, b));
+    FREEAML_ASSERT(BaseSolver::check_dimensions(A, x, b) == true);
 
     VectorType x0 = x;
 
@@ -116,4 +116,4 @@ const T& SuccessiveOverRelaxation<T>::omega() const
     return omega_;
 }
 
-} /* namespace aml */
+} /* namespace freeaml */

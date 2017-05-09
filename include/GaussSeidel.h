@@ -68,7 +68,7 @@ bool GaussSeidel<T>::solve(const MatrixType& A,
                            VectorType& x,
                            const VectorType& b)
 {
-    FREEAML_ASSERT(BaseSolver::check_dimensions(A, x, b));
+    FREEAML_ASSERT(BaseSolver::check_dimensions(A, x, b) == true);
 
     (*this).num_iterations_ = 0;
 
@@ -114,7 +114,7 @@ void GaussSeidel<T>::iterate(const MatrixType& A,
                              const VectorType& b,
                              const size_type n)
 {
-    FREEAML_ASSERT(BaseSolver::check_dimensions(A, x, b));
+    FREEAML_ASSERT(BaseSolver::check_dimensions(A, x, b) == true);
 
     size_type num_iterations = 0;
 
@@ -145,4 +145,4 @@ void GaussSeidel<T>::iterate(const MatrixType& A,
     }
 }
 
-} /* namespace aml */
+} /* namespace freeaml */

@@ -18,9 +18,9 @@ TEST(ConjugateGradientTest, Solve4x4LinearSystem)
     freeaml::Vector<double> b = {6.0, 25.0, -11.0, 15.0};
 
     /*
-     * Linear system solver: conjugate gradient
-     * Maximum number of iterations: 4
-     * Residual tolerance required: 1e-7
+     * linear system solver: conjugate gradient
+     * maximum number of iterations: 4
+     * residual tolerance required: 1e-7
      */
     freeaml::ConjugateGradient<double> lss(4, 1e-7);
 
@@ -34,9 +34,10 @@ TEST(ConjugateGradientTest, Solve4x4LinearSystem)
     EXPECT_LE(residual, lss.residual_tolerance());
     EXPECT_LE(lss.num_iterations(), lss.max_iterations());
 
-    std::cout << "Solution obtained: " << x << "\n"
-              << "Residual achieved: " << residual << "\n"
-              << "Iterations performed: " << lss.num_iterations() << "\n";
+    /* exact solution */
+    freeaml::Vector<double> y = {1.0, 2.0, -1.0, 1.0};
+
+    EXPECT_LE((x - y).l2_norm(), 1.e-7);
 }
 
 TEST(ConjugateGradientTest, Solve5x5LinearSystem)
@@ -55,9 +56,9 @@ TEST(ConjugateGradientTest, Solve5x5LinearSystem)
     freeaml::Vector<double> b = {13.13, 18.15, 3.74, 14.76, 18.46};
 
     /*
-     * Linear system solver: conjugate gradient
-     * Maximum number of iterations: 5
-     * Residual tolerance required: 1e-8
+     * linear system solver: conjugate gradient
+     * maximum number of iterations: 5
+     * residual tolerance required: 1e-8
      */
     freeaml::ConjugateGradient<double> lss(5, 1e-8);
 
@@ -71,7 +72,8 @@ TEST(ConjugateGradientTest, Solve5x5LinearSystem)
     EXPECT_LE(residual, lss.residual_tolerance());
     EXPECT_LE(lss.num_iterations(), lss.max_iterations());
 
-    std::cout << "Solution obtained: " << x << "\n"
-              << "Residual achieved: " << residual << "\n"
-              << "Iterations performed: " << lss.num_iterations() << "\n";
+    /* exact solution */
+    freeaml::Vector<double> y = {1.0, 2.0, -1.0, 3.0, 4.0};
+
+    EXPECT_LE((x - y).l2_norm(), 1.e-7);
 }

@@ -63,7 +63,7 @@ template<typename T>
 template<typename MatrixType, typename VectorType>
 bool Jacobi<T>::solve(const MatrixType& A, VectorType& x, const VectorType& b)
 {
-    FREEAML_ASSERT(BaseSolver::check_dimensions(A, x, b));
+    FREEAML_ASSERT(BaseSolver::check_dimensions(A, x, b) == true);
 
     /* r = residual vector */
     VectorType r = b - A * x;
@@ -100,7 +100,7 @@ void Jacobi<T>::iterate(const MatrixType& A,
                         const VectorType& b,
                         const size_type n)
 {
-    FREEAML_ASSERT(BaseSolver::check_dimensions(A, x, b));
+    FREEAML_ASSERT(BaseSolver::check_dimensions(A, x, b) == true);
 
     /* r = residual vector */
     VectorType r = b - A * x;

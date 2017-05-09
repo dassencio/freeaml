@@ -54,7 +54,7 @@ bool BiconjugateGradientStabilized<T>::solve(const MatrixType& A,
                                              VectorType& x,
                                              const VectorType& b)
 {
-    FREEAML_ASSERT(BaseSolver::check_dimensions(A, x, b));
+    FREEAML_ASSERT(BaseSolver::check_dimensions(A, x, b) == true);
 
     /* r = residual vector */
     VectorType r = b - A * x;

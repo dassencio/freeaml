@@ -18,10 +18,10 @@ TEST(SuccessiveOverRelaxationTest, Solve4x4LinearSystem)
     freeaml::Vector<double> b = {6.0, 25.0, -11.0, 15.0};
 
     /*
-     * Linear system solver: successive over-relaxation
-     * Maximum number of iterations: 50
-     * Residual tolerance required: 1e-7
-     * Relaxation factor: 1.5
+     * linear system solver: successive over-relaxation
+     * maximum number of iterations: 50
+     * residual tolerance required: 1e-7
+     * relaxation factor: 1.5
      */
     freeaml::SuccessiveOverRelaxation<double> lss(50, 1e-7, 1.5);
 
@@ -35,9 +35,10 @@ TEST(SuccessiveOverRelaxationTest, Solve4x4LinearSystem)
     EXPECT_LE(residual, lss.residual_tolerance());
     EXPECT_LE(lss.num_iterations(), lss.max_iterations());
 
-    std::cout << "Solution obtained: " << x << "\n"
-              << "Residual achieved: " << residual << "\n"
-              << "Iterations performed: " << lss.num_iterations() << "\n";
+    /* exact solution */
+    freeaml::Vector<double> y = {1.0, 2.0, -1.0, 1.0};
+
+    EXPECT_LE((x - y).l2_norm(), 1.e-7);
 }
 
 TEST(SuccessiveOverRelaxationTest, Solve5x5LinearSystem)
@@ -56,10 +57,10 @@ TEST(SuccessiveOverRelaxationTest, Solve5x5LinearSystem)
     freeaml::Vector<double> b = {13.13, 18.15, 3.74, 14.76, 18.46};
 
     /*
-     * Linear system solver: successive over-relaxation
-     * Maximum number of iterations: 50
-     * Residual tolerance required: 1e-8
-     * Relaxation factor: 1.25
+     * linear system solver: successive over-relaxation
+     * maximum number of iterations: 50
+     * residual tolerance required: 1e-8
+     * relaxation factor: 1.25
      */
     freeaml::SuccessiveOverRelaxation<double> lss(50, 1e-8, 1.25);
 
@@ -73,7 +74,8 @@ TEST(SuccessiveOverRelaxationTest, Solve5x5LinearSystem)
     EXPECT_LE(residual, lss.residual_tolerance());
     EXPECT_LE(lss.num_iterations(), lss.max_iterations());
 
-    std::cout << "Solution obtained: " << x << "\n"
-              << "Residual achieved: " << residual << "\n"
-              << "Iterations performed: " << lss.num_iterations() << "\n";
+    /* exact solution */
+    freeaml::Vector<double> y = {1.0, 2.0, -1.0, 3.0, 4.0};
+
+    EXPECT_LE((x - y).l2_norm(), 1.e-7);
 }
