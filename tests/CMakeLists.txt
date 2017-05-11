@@ -10,6 +10,7 @@ add_executable(
     GaussSeidel.cpp
     Jacobi.cpp
     Matrix.cpp
+    MinimumResidual.cpp
     SparseMatrix.cpp
     SuccessiveOverRelaxation.cpp
     Vector.cpp
