@@ -20,7 +20,7 @@ TEST(GaussSeidelTest, Solve4x4LinearSystem)
     /*
      * linear system solver: Gauss-Seidel
      * maximum number of iterations: 15
-     * residual tolerance required: 1e-7
+     * residual tolerance: 1e-7
      */
     freeaml::GaussSeidel<double> lss(15, 1e-7);
 
@@ -81,7 +81,7 @@ TEST(GaussSeidelTest, Solve5x5LinearSystem)
     /*
      * linear system solver: Gauss-Seidel
      * maximum number of iterations: 20
-     * residual tolerance required: 1e-8
+     * residual tolerance: 1e-8
      */
     freeaml::GaussSeidel<double> lss(20, 1e-8);
 

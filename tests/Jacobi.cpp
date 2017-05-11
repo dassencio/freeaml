@@ -20,7 +20,7 @@ TEST(JacobiTest, Solve4x4LinearSystem)
     /*
      * linear system solver: Jacobi
      * maximum number of iterations: 50
-     * residual tolerance required: 1e-7
+     * residual tolerance: 1e-7
      */
     freeaml::Jacobi<double> lss(50, 1e-7);
 
@@ -81,7 +81,7 @@ TEST(JacobiTest, Solve5x5LinearSystem)
     /*
      * linear system solver: Jacobi
      * maximum number of iterations: 100
-     * residual tolerance required: 1e-8
+     * residual tolerance: 1e-8
      */
     freeaml::Jacobi<double> lss(100, 1e-8);
 

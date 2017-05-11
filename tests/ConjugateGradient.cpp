@@ -20,7 +20,7 @@ TEST(ConjugateGradientTest, Solve4x4LinearSystem)
     /*
      * linear system solver: conjugate gradient
      * maximum number of iterations: 4
-     * residual tolerance required: 1e-7
+     * residual tolerance: 1e-7
      */
     freeaml::ConjugateGradient<double> lss(4, 1e-7);
 
@@ -58,7 +58,7 @@ TEST(ConjugateGradientTest, Solve5x5LinearSystem)
     /*
      * linear system solver: conjugate gradient
      * maximum number of iterations: 5
-     * residual tolerance required: 1e-8
+     * residual tolerance: 1e-8
      */
     freeaml::ConjugateGradient<double> lss(5, 1e-8);
 

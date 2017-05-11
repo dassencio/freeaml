@@ -20,7 +20,7 @@ TEST(SuccessiveOverRelaxationTest, Solve4x4LinearSystem)
     /*
      * linear system solver: successive over-relaxation
      * maximum number of iterations: 50
-     * residual tolerance required: 1e-7
+     * residual tolerance: 1e-7
      * relaxation factor: 1.5
      */
     freeaml::SuccessiveOverRelaxation<double> lss(50, 1e-7, 1.5);
@@ -59,7 +59,7 @@ TEST(SuccessiveOverRelaxationTest, Solve5x5LinearSystem)
     /*
      * linear system solver: successive over-relaxation
      * maximum number of iterations: 50
-     * residual tolerance required: 1e-8
+     * residual tolerance: 1e-8
      * relaxation factor: 1.25
      */
     freeaml::SuccessiveOverRelaxation<double> lss(50, 1e-8, 1.25);

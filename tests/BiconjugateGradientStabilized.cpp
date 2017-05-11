@@ -20,7 +20,7 @@ TEST(BiconjugateGradientStabilizedTest, Solve4x4LinearSystem)
     /*
      * linear system solver: biconjugate gradient stabilized
      * maximum number of iterations: 4
-     * residual tolerance required: 1e-5
+     * residual tolerance: 1e-5
      */
     freeaml::BiconjugateGradientStabilized<double> lss(4, 1e-5);
 
@@ -58,7 +58,7 @@ TEST(BiconjugateGradientStabilizedTest, Solve5x5LinearSystem)
     /*
      * linear system solver: biconjugate gradient stabilized
      * maximum number of iterations: 5
-     * residual tolerance required: 1e-6
+     * residual tolerance: 1e-6
      */
     freeaml::BiconjugateGradientStabilized<double> lss(5, 1e-6);
 
