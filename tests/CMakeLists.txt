@@ -12,6 +12,7 @@ add_executable(
     Matrix.cpp
     MinimumResidual.cpp
     SparseMatrix.cpp
+    SteepestDescent.cpp
     SuccessiveOverRelaxation.cpp
     Vector.cpp
 )
