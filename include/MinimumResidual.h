@@ -212,7 +212,7 @@ bool MinimumResidual<T>::solve(const MatrixType& A,
 
         ++(*this).num_iterations_;
 
-        /* if the residual is within the maximum tolerance, stop */
+        /* if the residual is within the specified tolerance, stop */
         if (std::abs(t1) <= (*this).residual_tolerance())
         {
             return true;

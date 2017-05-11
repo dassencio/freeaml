@@ -83,7 +83,7 @@ bool Jacobi<T>::solve(const MatrixType& A, VectorType& x, const VectorType& b)
 
         ++(*this).num_iterations_;
 
-        /* if the residual is within the maximum tolerance, stop */
+        /* if the residual is within the specified tolerance, stop */
         if (r.l2_norm() <= (*this).residual_tolerance())
         {
             return true;
