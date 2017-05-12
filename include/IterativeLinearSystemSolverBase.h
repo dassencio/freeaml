@@ -2,12 +2,12 @@
 
 #include <debug.h>
 
+namespace freeaml
+{
 /**
  * @brief Base class defining the properties required by all iterative linear
  *        system solvers.
  */
-namespace freeaml
-{
 template<typename T>
 class IterativeLinearSystemSolverBase
 {

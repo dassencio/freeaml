@@ -15,7 +15,7 @@ namespace freeaml
  * for supporting common vector operations such as vector addition, vector
  * multiplication by scalar and vector dot product.
  *
- * Functions for computing @a L<SUP>p</SUP> norms as well as other commonly used
+ * Functions for computing @a L<sup>p</sup> norms as well as other commonly used
  * mathematical operations are also provided in the class.
  *
  * Support for OpenMP was added to the functions and operators which showed a
@@ -116,27 +116,27 @@ public:
     Vector& operator-=(const Vector& v);
 
     /**
-     * @brief Computes the @a L<SUP>1</SUP>-norm of the vector.
-     * @return The L<SUP>1</SUP>-norm of the vector.
+     * @brief Computes the @a L<sup>1</sup>-norm of the vector.
+     * @return The @a L<sup>1</sup>-norm of the vector.
      */
     T l1_norm() const;
 
     /**
-     * @brief Computes the @a L<SUP>2</SUP>-norm of the vector.
-     * @return The L<SUP>2</SUP>-norm of the vector.
+     * @brief Computes the @a L<sup>2</sup>-norm of the vector.
+     * @return The @a L<sup>2</sup>-norm of the vector.
      */
     T l2_norm() const;
 
     /**
-     * @brief Computes the @a L<SUP>p</SUP>-norm of the vector.
+     * @brief Computes the @a L<sup>p</sup>-norm of the vector.
      * @param p A scalar defining the norm to compute.
-     * @return The @a L<SUP>p</SUP>-norm of the vector.
+     * @return The @a L<sup>p</sup>-norm of the vector.
      */
     T lp_norm(const T& p) const;
 
     /**
-     * @brief Computes the @a L<SUP>∞</SUP>-norm of the vector.
-     * @return The @a L<SUP>∞</SUP>-norm of the vector.
+     * @brief Computes the @a L<sup>∞</sup>-norm of the vector.
+     * @return The @a L<sup>∞</sup>-norm of the vector.
      */
     T linf_norm() const;
 
