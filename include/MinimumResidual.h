@@ -151,7 +151,7 @@ bool MinimumResidual<T>::solve(const MatrixType& A,
              * rotate (epsilon_k,delta_k) using G(k-2,k-1) to obtain epsilon_k;
              * delta_k is temporary
              */
-            givens_rotation(ek, dk, c1, s1);
+            givens_rotation(c1, s1, ek, dk);
 
             m3 -= ek * m1;
         }
@@ -161,7 +161,7 @@ bool MinimumResidual<T>::solve(const MatrixType& A,
              * rotate (delta_k,gamma_k) using G(k-1,k) to obtain delta_k;
              * gamma_k is temporary
              */
-            givens_rotation(dk, gk, c2, s2);
+            givens_rotation(c2, s2, dk, gk);
 
             m3 -= dk * m2;
         }
@@ -176,7 +176,7 @@ bool MinimumResidual<T>::solve(const MatrixType& A,
          * rotate (gamma_k,zeta_k) using G(k,k+1) to obtain gamma_k and zero out
          * beta_{k+1} on T
          */
-        givens_rotation(gk, zk, c3, s3);
+        givens_rotation(c3, s3, gk, zk);
 
         m3 /= gk;
 
@@ -190,7 +190,7 @@ bool MinimumResidual<T>::solve(const MatrixType& A,
          * apply the Givens rotation G(k,k+1) to the last two nonzero elements
          * of the right-hand side: t_{k+1} <-- t_k*s_k and t_k <-- t_k*c_k
          */
-        givens_rotation(t1, t2, c3, s3);
+        givens_rotation(c3, s3, t1, t2);
 
         x += t1 * m3;
 
