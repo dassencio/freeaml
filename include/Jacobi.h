@@ -105,16 +105,14 @@ void Jacobi<T>::iterate(const MatrixType& A,
     /* r = residual vector */
     VectorType r = b - A * x;
 
-    size_type num_iterations = 0;
-
-    while (num_iterations < n)
+    for (size_type num_iterations = 0; num_iterations < n; ++num_iterations)
     {
         for (size_type i = 0; i < x.size(); ++i)
         {
+            FREEAML_ASSERT(A(i,i) != T{0});
+
             x[i] += r[i] / A(i, i);
         }
-
-        ++num_iterations;
 
         r = b - A * x;
     }

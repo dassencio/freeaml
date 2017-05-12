@@ -116,9 +116,7 @@ void GaussSeidel<T>::iterate(const MatrixType& A,
 {
     FREEAML_ASSERT(BaseSolver::check_dimensions(A, x, b) == true);
 
-    size_type num_iterations = 0;
-
-    while (num_iterations < n)
+    for (size_type num_iterations = 0; num_iterations < n; ++num_iterations)
     {
         for (size_type i = 0; i < x.size(); ++i)
         {
@@ -140,8 +138,6 @@ void GaussSeidel<T>::iterate(const MatrixType& A,
 
             x[i] = (b[i] - c1 - c2) / A(i, i);
         }
-
-        ++num_iterations;
     }
 }
 
