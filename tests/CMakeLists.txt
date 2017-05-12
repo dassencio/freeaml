@@ -15,6 +15,7 @@ add_executable(
     SteepestDescent.cpp
     SuccessiveOverRelaxation.cpp
     Vector.cpp
+    WeightedJacobi.cpp
 )
 
 # link the target to Google Test
