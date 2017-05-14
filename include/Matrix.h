@@ -605,11 +605,11 @@ Matrix<T> operator*(const Matrix<T>& M1, const Matrix<T>& M2)
 #ifdef _OPENMP
 #pragma omp parallel for
 #endif /* _OPENMP */
-    for (size_type i = 0; i < result.num_rows(); ++i)
+    for (size_type i = 0; i < M1.num_rows(); ++i)
     {
         for (size_type k = 0; k < M1.num_cols(); ++k)
         {
-            for (size_type j = 0; j < result.num_cols(); ++j)
+            for (size_type j = 0; j < M2.num_cols(); ++j)
             {
                 result(i, j) += M1(i, k) * M2(k, j);
             }
@@ -631,7 +631,7 @@ Vector<T> operator*(const Matrix<T>& M, const Vector<T>& v)
 #ifdef _OPENMP
 #pragma omp parallel for
 #endif /* _OPENMP */
-    for (size_type i = 0; i < result.size(); ++i)
+    for (size_type i = 0; i < M.num_rows(); ++i)
     {
         for (size_type j = 0; j < M.num_cols(); ++j)
         {
@@ -654,7 +654,7 @@ Vector<T> operator*(const Vector<T>& v, const Matrix<T>& M)
 #ifdef _OPENMP
 #pragma omp parallel for
 #endif /* _OPENMP */
-    for (size_type j = 0; j < result.size(); ++j)
+    for (size_type j = 0; j < M.num_cols(); ++j)
     {
         for (size_type i = 0; i < v.size(); ++i)
         {
