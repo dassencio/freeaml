@@ -497,17 +497,18 @@ T& SparseMatrix<T>::operator()(const size_type i, const size_type j)
 {
     FREEAML_ASSERT(i < num_rows() && j < num_cols());
 
-    for (Element& element : elements_[i])
+    auto iterator = std::lower_bound(
+        elements_[i].begin(), elements_[i].end(), Element(j, T{}),
+        [](const Element& element1, const Element& element2) {
+            return element1.first < element2.first;
+        });
+
+    if (iterator == elements_[i].end() || iterator->first != j)
     {
-        if (element.first == j)
-        {
-            return element.second;
-        }
+        iterator = elements_[i].insert(iterator, Element(j, T{}));
     }
 
-    elements_[i].push_back(Element(j, T{}));
-
-    return elements_[i].back().second;
+    return iterator->second;
 }
 
 template<typename T>
@@ -515,17 +516,20 @@ const T& SparseMatrix<T>::operator()(const size_type i, const size_type j) const
 {
     FREEAML_ASSERT(i < num_rows() && j < num_cols());
 
-    static T zero = T{};
+    static const T zero = T{};
 
-    for (const Element& element : elements_[i])
+    auto iterator = std::lower_bound(
+        elements_[i].begin(), elements_[i].end(), Element(j, T{}),
+        [](const Element& element1, const Element& element2) {
+            return element1.first < element2.first;
+        });
+
+    if (iterator == elements_[i].end() || iterator->first != j)
     {
-        if (element.first == j)
-        {
-            return element.second;
-        }
+        return zero;
     }
 
-    return zero;
+    return iterator->second;
 }
 
 template<typename T>
