@@ -41,7 +41,7 @@ public:
      * @brief Constructs a vector with default-initialized elements.
      * @param n The length of the vector.
      */
-    Vector(size_type n);
+    explicit Vector(size_type n);
 
     /**
      * @brief Constructs a vector with all elements initialized with a value.
