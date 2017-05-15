@@ -60,7 +60,7 @@ public:
 private:
     const T omega_;
 
-}; /* WeightedJacobi<T> */
+}; /* class WeightedJacobi<T> */
 
 /*******************************************************************************
  *

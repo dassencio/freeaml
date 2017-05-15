@@ -31,7 +31,7 @@ public:
     template<typename MatrixType, typename VectorType>
     bool solve(const MatrixType& A, VectorType& x, const VectorType& b);
 
-}; /* MinimumResidual<T> */
+}; /* class MinimumResidual<T> */
 
 /*******************************************************************************
  *

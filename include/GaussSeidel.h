@@ -46,7 +46,7 @@ public:
                         const VectorType& b,
                         size_type n);
 
-}; /* GaussSeidel<T> */
+}; /* class GaussSeidel<T> */
 
 /*******************************************************************************
  *

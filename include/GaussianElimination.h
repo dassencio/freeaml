@@ -40,7 +40,7 @@ public:
 private:
     const bool enable_partial_pivoting_; /* true: enable partial pivoting */
 
-}; /* GaussianElimination<T> */
+}; /* class GaussianElimination<T> */
 
 /*******************************************************************************
  *

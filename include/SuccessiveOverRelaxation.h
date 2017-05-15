@@ -43,7 +43,7 @@ public:
 private:
     const T omega_;
 
-}; /* SuccessiveOverRelaxation<T> */
+}; /* class SuccessiveOverRelaxation<T> */
 
 /*******************************************************************************
  *
