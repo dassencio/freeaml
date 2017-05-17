@@ -3,6 +3,7 @@ BasedOnStyle: Google
 AccessModifierOffset: -4
 AllowShortBlocksOnASingleLine: false
 AllowShortFunctionsOnASingleLine: false
+BinPackArguments: false
 BinPackParameters: false
 BreakBeforeBraces: Allman
 IndentWidth: 4

@@ -13,6 +13,7 @@ add_executable(
     Jacobi.cpp
     Matrix.cpp
     MinimumResidual.cpp
+    NormalEquations.cpp
     SparseMatrix.cpp
     SteepestDescent.cpp
     SuccessiveOverRelaxation.cpp
