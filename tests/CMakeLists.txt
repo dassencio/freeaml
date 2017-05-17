@@ -8,6 +8,7 @@ add_executable(
     ConjugateGradient.cpp
     GaussianElimination.cpp
     GaussSeidel.cpp
+    GeneralizedMinimumResidual.cpp
     IncompleteCholeskyConjugateGradient.cpp
     Jacobi.cpp
     Matrix.cpp
