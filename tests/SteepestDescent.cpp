@@ -1,5 +1,5 @@
-#include <SteepestDescent.h>
 #include <Matrix.h>
+#include <SteepestDescent.h>
 #include <Vector.h>
 #include <gtest/gtest.h>
 
