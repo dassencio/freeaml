@@ -55,7 +55,7 @@ bool MinimumResidual<T>::solve(const MatrixType& A,
 {
     FREEAML_ASSERT(BaseSolver::check_dimensions(A, x, b) == true);
 
-    size_type n = A.num_rows();
+    const size_type n = A.num_rows();
 
     /* in this algorithm, the initial guess is the zero vector */
     std::fill(x.begin(), x.end(), T{0});

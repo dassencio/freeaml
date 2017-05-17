@@ -87,7 +87,7 @@ bool IncompleteCholeskyConjugateGradient<T>::solve(const SparseMatrix<T>& A,
 
     (*this).num_iterations_ = 0;
 
-    size_type n = A.num_rows();
+    const size_type n = A.num_rows();
 
     SparseMatrix<T> K(n, n);
 

@@ -63,7 +63,7 @@ bool GaussianElimination<T>::solve(MatrixType A, VectorType& x, VectorType b)
     FREEAML_ASSERT(
         IterativeLinearSystemSolverBase<T>::check_dimensions(A, x, b) == true);
 
-    size_type n = A.num_rows();
+    const size_type n = A.num_rows();
 
     freeaml::Vector<size_type> row(n, 0);
 
