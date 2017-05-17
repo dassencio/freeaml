@@ -530,9 +530,11 @@ void Matrix<T>::resize(const size_type rows,
                        const size_type cols,
                        const T& x /* = T{} */)
 {
-    /* if there is no need for resizing, do nothing */
-    if (rows == num_rows() && cols == num_cols())
+    /* optimized case: if we are only changing the number of rows */
+    if (cols == num_cols())
     {
+        elements_.resize(rows * cols, x);
+        rows_ = rows;
         return;
     }
 
