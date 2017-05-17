@@ -1,21 +1,22 @@
 #include <GaussianElimination.h>
 #include <Matrix.h>
+#include <SparseMatrix.h>
 #include <Vector.h>
 #include <gtest/gtest.h>
 
 TEST(GaussianEliminationTest, Solve4x4LinearSystem)
 {
     /* linear system matrix */
-    freeaml::Matrix<double> A = {{3.11, 4.20, 4.25, 1.53},
-                                 {1.59, 0.31, 3.00, 0.30},
-                                 {4.63, 0.25, 1.51, 4.38},
-                                 {3.70, 2.47, 2.94, 3.84}};
+    freeaml::SparseMatrix<double> A = {{3.11, 4.20, 4.25, 0.00},
+                                       {0.00, 0.00, 0.00, 0.30},
+                                       {4.63, 0.00, 1.51, 4.38},
+                                       {3.70, 0.00, 0.00, 3.84}};
 
     /* solution vector (initially set to zero) */
     freeaml::Vector<double> x = {0.0, 0.0, 0.0, 0.0};
 
     /* right-hand side */
-    freeaml::Vector<double> b = {8.79, -0.49, 8.00, 9.54};
+    freeaml::Vector<double> b = {7.26, 0.3, 7.5, 7.54};
 
     /* linear system solver: Gaussian elimination without partial pivoting */
     freeaml::GaussianElimination<double> lss(false);

@@ -1,4 +1,5 @@
 #include <Matrix.h>
+#include <SparseMatrix.h>
 #include <SuccessiveOverRelaxation.h>
 #include <Vector.h>
 #include <gtest/gtest.h>
@@ -6,10 +7,10 @@
 TEST(SuccessiveOverRelaxationTest, Solve4x4LinearSystem)
 {
     /* linear system matrix */
-    freeaml::Matrix<double> A = {{10.0, -1.0, 2.0, 0.0},
-                                 {-1.0, 11.0, -1.0, 3.0},
-                                 {2.0, -1.0, 10.0, -1.0},
-                                 {0.0, 3.0, -1.0, 8.0}};
+    freeaml::SparseMatrix<double> A = {{10.0, -1.0, 2.0, 0.0},
+                                       {-1.0, 11.0, -1.0, 3.0},
+                                       {2.0, -1.0, 10.0, -1.0},
+                                       {0.0, 3.0, -1.0, 8.0}};
 
     /* solution vector (initially set to zero) */
     freeaml::Vector<double> x = {0.0, 0.0, 0.0, 0.0};

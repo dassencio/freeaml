@@ -1,21 +1,22 @@
 #include <Matrix.h>
 #include <MinimumResidual.h>
+#include <SparseMatrix.h>
 #include <Vector.h>
 #include <gtest/gtest.h>
 
 TEST(MinimumResidualTest, Solve4x4LinearSystem)
 {
     /* linear system matrix */
-    freeaml::Matrix<double> A = {{4.41, 1.36, 1.43, 3.09},
-                                 {1.36, 4.64, 2.36, 0.50},
-                                 {1.43, 2.36, 3.23, 0.92},
-                                 {3.09, 0.50, 0.92, 0.87}};
+    freeaml::SparseMatrix<double> A = {{4.41, 0.00, 1.43, 0.00},
+                                       {0.00, 4.64, 2.36, 0.50},
+                                       {1.43, 2.36, 3.23, 0.92},
+                                       {0.00, 0.50, 0.92, 0.00}};
 
     /* solution vector (initially set to zero) */
     freeaml::Vector<double> x = {0.0, 0.0, 0.0, 0.0};
 
     /* right-hand side */
-    freeaml::Vector<double> b = {8.79, 8.78, 3.84, 4.04};
+    freeaml::Vector<double> b = {2.98, 7.42, 3.84, 0.08};
 
     /*
      * linear system solver: minimum residual
