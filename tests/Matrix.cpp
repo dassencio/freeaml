@@ -218,6 +218,13 @@ TEST(MatrixTest, MatrixTranspose)
     EXPECT_EQ(M1.transpose().transpose(), M1);
 }
 
+TEST(MatrixTest, MaxNorm)
+{
+    const freeaml::Matrix<int> M = {{0, -1, 2}, {-5, 4, -3}};
+
+    EXPECT_EQ(M.max_norm(), 5);
+}
+
 TEST(MatrixTest, IsSquare)
 {
     const freeaml::Matrix<int> M1 = {{0, 1, 2}, {3, 4, 5}};

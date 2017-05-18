@@ -174,6 +174,12 @@ public:
     SparseMatrix transpose() const;
 
     /**
+     * @brief Computes the max-norm of the matrix.
+     * @return The magnitude of the largest-in-magnitude matrix element.
+     */
+    T max_norm() const;
+
+    /**
      * @brief Checks if the matrix has the same number of rows and columns.
      * @return @c true if the matrix is square, @c false otherwise.
      */
@@ -643,6 +649,44 @@ SparseMatrix<T> SparseMatrix<T>::transpose() const
     }
 
     return result;
+}
+
+template<typename T>
+T SparseMatrix<T>::max_norm() const
+{
+    T norm{};
+
+#ifdef _OPENMP
+#pragma omp parallel
+    {
+        T local_norm{};
+
+#pragma omp for nowait
+        for (size_type i = 0; i < num_rows(); ++i)
+        {
+            for (const Element& element : elements_[i])
+            {
+                local_norm = std::max(local_norm, std::abs(element.second));
+            }
+        }
+
+#pragma omp critical
+        {
+            norm = std::max(local_norm, norm);
+        }
+    }
+#else
+    /* serial implementation */
+    for (size_type i = 0; i < num_rows(); ++i)
+    {
+        for (const Element& element : elements_[i])
+        {
+            norm = std::max(norm, std::abs(element.second));
+        }
+    }
+#endif /* #ifdef _OPENMP */
+
+    return norm;
 }
 
 template<typename T>

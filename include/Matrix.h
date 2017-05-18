@@ -158,6 +158,12 @@ public:
     Matrix transpose() const;
 
     /**
+     * @brief Computes the max-norm of the matrix.
+     * @return The magnitude of the largest-in-magnitude matrix element.
+     */
+    T max_norm() const;
+
+    /**
      * @brief Checks if the matrix has the same number of rows and columns.
      * @return @c true if the matrix is square, @c false otherwise.
      */
@@ -477,6 +483,12 @@ Matrix<T> Matrix<T>::transpose() const
     }
 
     return result;
+}
+
+template<typename T>
+T Matrix<T>::max_norm() const
+{
+    return elements_.linf_norm();
 }
 
 template<typename T>

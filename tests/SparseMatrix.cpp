@@ -226,6 +226,13 @@ TEST(SparseMatrixTest, MatrixTranspose)
     EXPECT_EQ(M1.transpose().transpose(), M1);
 }
 
+TEST(SparseMatrixTest, MaxNorm)
+{
+    const freeaml::SparseMatrix<int> M = {{0, -1, 2}, {-5, 4, -3}};
+
+    EXPECT_EQ(M.max_norm(), 5);
+}
+
 TEST(SparseMatrixTest, IsSquare)
 {
     const freeaml::SparseMatrix<int> M1 = {{0, 1, 2}, {3, 4, 5}};

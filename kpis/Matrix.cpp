@@ -45,3 +45,13 @@ TEST(MatrixKPI, MatrixTranspose)
 
     KPI_MEASURE(M.transpose());
 }
+
+TEST(MatrixKPI, MatrixMaxNorm)
+{
+    KPI_BEGIN();
+
+    const freeaml::Matrix<double> M =
+        freeaml::random_matrix<double>(10000, 10000);
+
+    KPI_MEASURE(M.max_norm());
+}

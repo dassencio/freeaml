@@ -83,3 +83,13 @@ TEST(SparseMatrixKPI, SparseMatrixSparseMatrixSubtraction)
 
     KPI_MEASURE(M1 - M2);
 }
+
+TEST(SparseMatrixKPI, MaxNorm)
+{
+    KPI_BEGIN();
+
+    const freeaml::SparseMatrix<double> M =
+        freeaml::random_sparse_matrix<double>(30000, 30000, 10000000);
+
+    KPI_MEASURE(M.max_norm());
+}
