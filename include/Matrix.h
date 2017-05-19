@@ -327,6 +327,14 @@ Matrix<T> random_matrix(typename Matrix<T>::size_type rows,
                         const T& lower_bound = T{0},
                         const T& upper_bound = T{1});
 
+/**
+ * @brief Generates an identity matrix.
+ * @param rows The number of matrix rows.
+ * @return A @c rows × @c rows identity matrix.
+ */
+template<typename T>
+Matrix<T> identity_matrix(const typename Matrix<T>::size_type rows);
+
 /*******************************************************************************
  *
  *    FUNCTION DEFINITIONS
@@ -737,6 +745,21 @@ Matrix<T> random_matrix(const typename Matrix<T>::size_type rows,
 {
     return Matrix<T>(rows, cols,
                      random_vector<T>(rows * cols, lower_bound, upper_bound));
+}
+
+template<typename T>
+Matrix<T> identity_matrix(const typename Matrix<T>::size_type rows)
+{
+    using size_type = typename Matrix<T>::size_type;
+
+    Matrix<T> I(rows, rows);
+
+    for (size_type i = 0; i < rows; ++i)
+    {
+        I(i, i) = T{1};
+    }
+
+    return I;
 }
 
 } /* namespace freeaml */

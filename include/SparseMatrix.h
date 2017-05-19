@@ -417,6 +417,15 @@ SparseMatrix<T> random_sparse_matrix(
     const T& lower_bound = T{0},
     const T& upper_bound = T{1});
 
+/**
+ * @brief Generates an identity matrix stored as a sparse matrix.
+ * @param rows The number of matrix rows.
+ * @return A @c rows × @c rows identity matrix stored as a sparse matrix.
+ */
+template<typename T>
+SparseMatrix<T> identity_sparse_matrix(
+    const typename SparseMatrix<T>::size_type rows);
+
 /*******************************************************************************
  *
  *    FUNCTION DEFINITIONS
@@ -1159,6 +1168,22 @@ SparseMatrix<T> random_sparse_matrix(
     }
 
     return result;
+}
+
+template<typename T>
+SparseMatrix<T> identity_sparse_matrix(
+    const typename SparseMatrix<T>::size_type rows)
+{
+    using size_type = typename SparseMatrix<T>::size_type;
+
+    SparseMatrix<T> I(rows, rows);
+
+    for (size_type i = 0; i < rows; ++i)
+    {
+        I(i, i) = T{1};
+    }
+
+    return I;
 }
 
 } /* namespace freeaml */
