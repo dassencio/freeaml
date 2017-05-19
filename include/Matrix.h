@@ -23,6 +23,7 @@ template<typename T>
 class Matrix
 {
 public:
+    using value_type = typename Vector<T>::value_type;
     using size_type = typename Vector<T>::size_type;
     using reference = typename Vector<T>::reference;
     using const_reference = typename Vector<T>::const_reference;

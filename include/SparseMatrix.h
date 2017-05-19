@@ -43,6 +43,7 @@ template<typename T>
 class SparseMatrix
 {
 public:
+    using value_type = typename Vector<T>::value_type;
     using size_type = typename Vector<T>::size_type;
     using Element = std::pair<size_type, T>;
     using SparseRow = Vector<Element>;

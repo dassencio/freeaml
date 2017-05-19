@@ -5,6 +5,7 @@ set(target run-tests)
 add_executable(
     ${target}
     BiconjugateGradientStabilized.cpp
+    BidiagonalFactorization.cpp
     ConjugateGradient.cpp
     GaussianElimination.cpp
     GaussSeidel.cpp
