@@ -100,7 +100,7 @@ bool IncompleteCholeskyConjugateGradient<T>::solve(const SparseMatrix<T>& A,
     /* r = residual vector */
     VectorType r = b - A * x;
 
-    VectorType z(n, T{0});
+    VectorType z(n);
 
     /* z = (KK^t)^(-1)r */
     solve_preconditioner_equation(K, z, r);
@@ -206,7 +206,7 @@ void IncompleteCholeskyConjugateGradient<T>::solve_preconditioner_equation(
 
     std::fill(z.begin(), z.end(), T{0});
 
-    VectorType w(n, T{0});
+    VectorType w(n);
 
     const SparseMatrix<T> Kt = K.transpose();
 

@@ -61,8 +61,8 @@ bool GeneralizedMinimumResidual<T>::solve(const MatrixType& A,
 
     const size_type n = A.num_rows();
 
-    Matrix<T> Q(1, n, T{0});
-    Matrix<T> H(1, n, T{0});
+    Matrix<T> Q(1, n);
+    Matrix<T> H(1, n);
 
     const T norm_b = b.l2_norm();
 
@@ -72,7 +72,7 @@ bool GeneralizedMinimumResidual<T>::solve(const MatrixType& A,
         Q(0, j) = b[j] / norm_b;
     }
 
-    VectorType f(n, T{0});
+    VectorType f(n);
 
     /* f = (norm_b, 0, ... 0) */
     f[0] = norm_b;
@@ -82,8 +82,8 @@ bool GeneralizedMinimumResidual<T>::solve(const MatrixType& A,
      * rotations applied (not all elements of these vectors will be used if
      * convergence happens in less than n iterations)
      */
-    VectorType c(n, T{0});
-    VectorType s(n, T{0});
+    VectorType c(n);
+    VectorType s(n);
 
     (*this).num_iterations_ = 0;
 
@@ -91,11 +91,11 @@ bool GeneralizedMinimumResidual<T>::solve(const MatrixType& A,
     {
         size_type k = (*this).num_iterations_;
 
-        Q.resize(k + 2, n, T{0});
-        H.resize(k + 2, n, T{0});
+        Q.resize(k + 2, n);
+        H.resize(k + 2, n);
 
         /* build q_k as the k-th row of Q */
-        VectorType q_k(n, T{0});
+        VectorType q_k(n);
 
         for (size_type j = 0; j < n; ++j)
         {
@@ -173,7 +173,7 @@ bool GeneralizedMinimumResidual<T>::solve(const MatrixType& A,
          */
         if (k + 1 == n || std::abs(f[k + 1]) <= (*this).residual_tolerance())
         {
-            VectorType lambda(k + 1, T{0});
+            VectorType lambda(k + 1);
 
             /* solve H_{0:k,0:k}*lambda = f */
             size_type i = k + 1;

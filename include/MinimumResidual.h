@@ -61,14 +61,14 @@ bool MinimumResidual<T>::solve(const MatrixType& A,
     std::fill(x.begin(), x.end(), T{0});
 
     /*  q_{k-1}, q_k and q_{k+1}, k is the iteration number */
-    VectorType q1(n, T{0});
-    VectorType q2(n, T{0});
-    VectorType q3(n, T{0});
+    VectorType q1(n);
+    VectorType q2(n);
+    VectorType q3(n);
 
     /* m_{k-2}, m_{k-1} and m_k */
-    VectorType m1(n, T{0});
-    VectorType m2(n, T{0});
-    VectorType m3(n, T{0});
+    VectorType m1(n);
+    VectorType m2(n);
+    VectorType m3(n);
 
     /*
      * alpha_k, beta_k, beta_{k+1} (these represent the only nonzero elements

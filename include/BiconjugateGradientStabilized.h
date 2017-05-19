@@ -65,8 +65,8 @@ bool BiconjugateGradientStabilized<T>::solve(const MatrixType& A,
     T alpha = T{1};
     T omega = T{1};
 
-    VectorType p(b.size(), T{0});
-    VectorType v(b.size(), T{0});
+    VectorType p(b.size());
+    VectorType v(b.size());
 
     (*this).num_iterations_ = 0;
 
