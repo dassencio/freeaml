@@ -10,7 +10,7 @@ template<typename T>
 class GaussianElimination
 {
 public:
-    using size_type = size_t;
+    using size_type = typename Vector<T>::size_type;
 
     /**
      * @brief Constructs a linear system solver which uses the Gaussian

@@ -12,7 +12,7 @@ template<typename T>
 class IterativeLinearSystemSolverBase
 {
 public:
-    using size_type = size_t;
+    using size_type = std::size_t;
 
     /**
      * @brief Constructs an iterative linear system solver.
