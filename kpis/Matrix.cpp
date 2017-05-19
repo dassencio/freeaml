@@ -46,7 +46,7 @@ TEST(MatrixKPI, MatrixTranspose)
     KPI_MEASURE(M.transpose());
 }
 
-TEST(MatrixKPI, MatrixMaxNorm)
+TEST(MatrixKPI, MaxNorm)
 {
     KPI_BEGIN();
 
