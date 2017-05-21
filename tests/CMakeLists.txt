@@ -17,6 +17,7 @@ add_executable(
     MinimumResidual.cpp
     NormalEquations.cpp
     QRFactorization.cpp
+    QRSolver.cpp
     SparseMatrix.cpp
     SteepestDescent.cpp
     SuccessiveOverRelaxation.cpp

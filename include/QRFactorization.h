@@ -15,7 +15,8 @@ public:
      * @param Q on success, an orthogonal matrix.
      * @param R on success, an upper triangular matrix with nonnegative diagonal
      *        entries.
-     * @note This QR factorization implementation is based on Givens rotations.
+     * @note The number of rows of @c A must be larger than or equal to its
+     *       number of columns.
      */
     template<typename MatrixType1, typename MatrixType2, typename MatrixType3>
     static void factorize(MatrixType1 A, MatrixType2& Q, MatrixType3& R);
