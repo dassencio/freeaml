@@ -4,7 +4,7 @@
 #include <Vector.h>
 #include <gtest/gtest.h>
 
-TEST(BidiagonalFactorization, Factorize4x4Matrix)
+TEST(BidiagonalFactorizationTest, Factorize4x4Matrix)
 {
     /* matrix to be factorized */
     freeaml::Matrix<double> A = {{3.11, 4.20, 4.25, 1.73},
@@ -35,7 +35,7 @@ TEST(BidiagonalFactorization, Factorize4x4Matrix)
     EXPECT_LE((VtV - I).max_norm(), 1.e-10);
 }
 
-TEST(BidiagonalFactorization, Factorize6x4Matrix)
+TEST(BidiagonalFactorizationTest, Factorize6x4Matrix)
 {
     /* matrix to be factorized */
     freeaml::Matrix<double> A = {{3.11, 4.20, 4.25, 1.73},
@@ -69,7 +69,7 @@ TEST(BidiagonalFactorization, Factorize6x4Matrix)
     EXPECT_LE((VtV - I4).max_norm(), 1.e-10);
 }
 
-TEST(BidiagonalFactorization, Factorize4x6Matrix)
+TEST(BidiagonalFactorizationTest, Factorize4x6Matrix)
 {
     /* matrix to be factorized */
     freeaml::Matrix<double> A = {{2.02, 0.07, 3.56, 0.96, 3.09, 2.93},
