@@ -4,7 +4,7 @@
 #include <Vector.h>
 #include <gtest/gtest.h>
 
-TEST(GaussianEliminationTest, Solve4x4LinearSystem)
+TEST(GaussianEliminationTest, Solve4x4LinearSystemWithoutPartialPivoting)
 {
     /* linear system matrix */
     freeaml::SparseMatrix<double> A = {{3.11, 4.20, 4.25, 0.00},
@@ -32,7 +32,7 @@ TEST(GaussianEliminationTest, Solve4x4LinearSystem)
     EXPECT_LE((x - y).l2_norm(), 1.e-10);
 }
 
-TEST(GaussianEliminationTest, Solve5x5LinearSystem)
+TEST(GaussianEliminationTest, Solve5x5LinearSystemWithPartialPivoting)
 {
     /* linear system matrix */
     freeaml::Matrix<double> A = {{2.78, 1.57, 2.68, 4.38, 3.65},
