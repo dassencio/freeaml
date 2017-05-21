@@ -19,7 +19,7 @@ TEST(GaussianEliminationTest, Solve4x4LinearSystem)
     freeaml::Vector<double> b = {7.26, 0.3, 7.5, 7.54};
 
     /* linear system solver: Gaussian elimination without partial pivoting */
-    freeaml::GaussianElimination<double> lss(false);
+    freeaml::GaussianElimination lss(false);
 
     /* solve the linear system */
     bool status = lss.solve(A, x, b);
@@ -48,7 +48,7 @@ TEST(GaussianEliminationTest, Solve5x5LinearSystem)
     freeaml::Vector<double> b = {30.98, 13.03, 9.02, 12.69, 24.13};
 
     /* linear system solver: Gaussian elimination with partial pivoting */
-    freeaml::GaussianElimination<double> lss(true);
+    freeaml::GaussianElimination lss(true);
 
     /* solve the linear system */
     bool status = lss.solve(A, x, b);

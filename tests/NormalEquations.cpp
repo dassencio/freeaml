@@ -28,7 +28,7 @@ TEST(NormalEquations, Solve5x3LinearLeastSquaresProblem)
     freeaml::ConjugateGradient<double> lss(3, 1e-6);
 
     /* solve the linear least-squares problem using the normal equations */
-    bool status = freeaml::NormalEquations<double>::solve(A, x, b, lss);
+    bool status = freeaml::NormalEquations::solve(A, x, b, lss);
 
     EXPECT_TRUE(status);
 
@@ -62,7 +62,7 @@ TEST(NormalEquations, Solve6x4LinearLeastSquaresProblem)
     freeaml::ConjugateGradient<double> lss(4, 1e-7);
 
     /* solve the linear least-squares problem using the normal equations */
-    bool status = freeaml::NormalEquations<double>::solve(A, x, b, lss);
+    bool status = freeaml::NormalEquations::solve(A, x, b, lss);
 
     EXPECT_TRUE(status);
 

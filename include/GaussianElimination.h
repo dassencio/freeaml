@@ -6,12 +6,9 @@
 
 namespace freeaml
 {
-template<typename T>
 class GaussianElimination
 {
 public:
-    using size_type = typename Vector<T>::size_type;
-
     /**
      * @brief Constructs a linear system solver which uses the Gaussian
      *        elimination method.
@@ -40,7 +37,7 @@ public:
 private:
     const bool enable_partial_pivoting_; /* true: enable partial pivoting */
 
-}; /* class GaussianElimination<T> */
+}; /* class GaussianElimination */
 
 /*******************************************************************************
  *
@@ -48,18 +45,19 @@ private:
  *
  ******************************************************************************/
 
-template<typename T>
-GaussianElimination<T>::GaussianElimination(
+GaussianElimination::GaussianElimination(
     const bool enable_partial_pivoting /* = true */)
     : enable_partial_pivoting_(enable_partial_pivoting)
 {
     /* nothing needs to be done here */
 }
 
-template<typename T>
 template<typename MatrixType, typename VectorType>
-bool GaussianElimination<T>::solve(MatrixType A, VectorType& x, VectorType b)
+bool GaussianElimination::solve(MatrixType A, VectorType& x, VectorType b)
 {
+    using T = typename MatrixType::value_type;
+    using size_type = typename MatrixType::size_type;
+
     FREEAML_ASSERT(
         IterativeLinearSystemSolverBase<T>::check_dimensions(A, x, b) == true);
 
@@ -153,8 +151,7 @@ bool GaussianElimination<T>::solve(MatrixType A, VectorType& x, VectorType b)
     return true;
 }
 
-template<typename T>
-bool GaussianElimination<T>::is_partial_pivoting_enabled() const
+bool GaussianElimination::is_partial_pivoting_enabled() const
 {
     return enable_partial_pivoting_;
 }

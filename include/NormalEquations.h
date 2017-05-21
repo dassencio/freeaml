@@ -2,7 +2,6 @@
 
 namespace freeaml
 {
-template<typename T>
 class NormalEquations
 {
 public:
@@ -20,7 +19,7 @@ public:
                       const VectorType& b,
                       LinSysSolver& lss);
 
-}; /* NormalEquations<T> */
+}; /* NormalEquations */
 
 /*******************************************************************************
  *
@@ -28,12 +27,11 @@ public:
  *
  ******************************************************************************/
 
-template<typename T>
 template<typename MatrixType, typename VectorType, typename LinSysSolver>
-bool NormalEquations<T>::solve(const MatrixType& A,
-                               VectorType& x,
-                               const VectorType& b,
-                               LinSysSolver& lss)
+bool NormalEquations::solve(const MatrixType& A,
+                            VectorType& x,
+                            const VectorType& b,
+                            LinSysSolver& lss)
 {
     MatrixType At = A.transpose();
 
