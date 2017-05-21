@@ -3,7 +3,7 @@
 #include <Vector.h>
 #include <gtest/gtest.h>
 
-TEST(QRFactorization, Factorize4x4Matrix)
+TEST(QRFactorizationTest, Factorize4x4Matrix)
 {
     /* matrix to be factorized */
     freeaml::Matrix<double> A = {{3.11, 4.20, 4.25, 1.73},
@@ -26,7 +26,7 @@ TEST(QRFactorization, Factorize4x4Matrix)
     EXPECT_LE((QtQ - I).max_norm(), 1.e-10);
 }
 
-TEST(QRFactorization, Factorize6x4Matrix)
+TEST(QRFactorizationTest, Factorize6x4Matrix)
 {
     /* matrix to be factorized */
     freeaml::Matrix<double> A = {{3.11, 4.20, 4.25, 1.73},

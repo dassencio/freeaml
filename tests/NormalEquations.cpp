@@ -5,7 +5,7 @@
 #include <Vector.h>
 #include <gtest/gtest.h>
 
-TEST(NormalEquations, Solve5x3LinearLeastSquaresProblem)
+TEST(NormalEquationsTest, Solve5x3LinearLeastSquaresProblem)
 {
     /* linear least-squares problem matrix */
     freeaml::SparseMatrix<double> A = {{3.47, 2.71, 0.00},
@@ -38,7 +38,7 @@ TEST(NormalEquations, Solve5x3LinearLeastSquaresProblem)
     EXPECT_LE((x - y).l2_norm(), 1.e-6);
 }
 
-TEST(NormalEquations, Solve6x4LinearLeastSquaresProblem)
+TEST(NormalEquationsTest, Solve6x4LinearLeastSquaresProblem)
 {
     /* linear least-squares problem matrix */
     freeaml::Matrix<double> A = {{1.62, 0.43, 2.70, 4.45},

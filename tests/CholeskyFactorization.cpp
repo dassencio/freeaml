@@ -4,7 +4,7 @@
 #include <Vector.h>
 #include <gtest/gtest.h>
 
-TEST(CholeskyFactorization, Factorize4x4Matrix)
+TEST(CholeskyFactorizationTest, Factorize4x4Matrix)
 {
     /* matrix to be factorized */
     freeaml::SparseMatrix<double> A = {{10.0, -1.0, 2.0, 0.0},
@@ -25,7 +25,7 @@ TEST(CholeskyFactorization, Factorize4x4Matrix)
     EXPECT_LE((A - LLt).max_norm(), 1.e-10);
 }
 
-TEST(CholeskyFactorization, Factorize5x5Matrix)
+TEST(CholeskyFactorizationTest, Factorize5x5Matrix)
 {
     /* matrix to be factorized */
     freeaml::Matrix<double> A = {{1.49, 1.35, 1.25, 0.43, 1.49},
