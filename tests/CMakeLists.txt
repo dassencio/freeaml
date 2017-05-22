@@ -16,6 +16,7 @@ add_executable(
     Matrix.cpp
     MinimumResidual.cpp
     NormalEquations.cpp
+    PLUFactorization.cpp
     QRFactorization.cpp
     QRSolver.cpp
     SparseMatrix.cpp
