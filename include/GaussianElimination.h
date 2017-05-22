@@ -85,7 +85,7 @@ bool GaussianElimination::solve(MatrixType A, VectorType& x, VectorType b)
          *
          *      find the first p such that A(row[p],i) != 0 for i <= p < n
          */
-        if (enable_partial_pivoting_ == true)
+        if (is_partial_pivoting_enabled() == true)
         {
             for (size_type q = i + 1; q < n; ++q)
             {

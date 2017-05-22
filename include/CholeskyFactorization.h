@@ -12,7 +12,7 @@ public:
      *        symmetric matrix.
      * @param A The matrix which will be factorized.
      * @param L On success, a lower triangular matrix with positive diagonal
-     *        entries such that <tt>A = LL<sup>t</sup></tt>.
+     *        elements such that <tt>A = LL<sup>t</sup></tt>.
      * @return @c true if the factorization <tt>A = LL<sup>t</sup></tt> could be
      *         built, @c false otherwise.
      */
