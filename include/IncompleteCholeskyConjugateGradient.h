@@ -1,7 +1,7 @@
 #pragma once
 
 #include <IterativeLinearSystemSolverBase.h>
-#include <SparseMatrix.h>
+#include <cmath>
 
 namespace freeaml
 {
@@ -31,8 +31,8 @@ public:
      * @return @c true if the residual tolerance could be achieved within the
      *         maximum number of iterations allowed, @c false otherwise.
      */
-    template<typename VectorType>
-    bool solve(const SparseMatrix<T>& A, VectorType& x, const VectorType& b);
+    template<typename MatrixType, typename VectorType>
+    bool solve(const MatrixType& A, VectorType& x, const VectorType& b);
 
 private:
     /**
@@ -45,8 +45,8 @@ private:
      *        @c K will be written.
      * @return true if @c K could be built successfully, @c false otherwise.
      */
-    bool build_preconditioner(const SparseMatrix<T>& A,
-                              SparseMatrix<T>& K) const;
+    template<typename MatrixType>
+    bool build_preconditioner(const MatrixType& A, MatrixType& K) const;
 
     /**
      * @brief Solves the incomplete-Cholesky preconditioner equation
@@ -56,8 +56,8 @@ private:
      * @param r The right-hand side vector (in our case, a residual vector).
      *
      */
-    template<typename VectorType>
-    void solve_preconditioner_equation(const SparseMatrix<T>& K,
+    template<typename MatrixType, typename VectorType>
+    void solve_preconditioner_equation(const MatrixType& K,
                                        VectorType& z,
                                        const VectorType& r) const;
 
@@ -78,8 +78,8 @@ IncompleteCholeskyConjugateGradient<T>::IncompleteCholeskyConjugateGradient(
 }
 
 template<typename T>
-template<typename VectorType>
-bool IncompleteCholeskyConjugateGradient<T>::solve(const SparseMatrix<T>& A,
+template<typename MatrixType, typename VectorType>
+bool IncompleteCholeskyConjugateGradient<T>::solve(const MatrixType& A,
                                                    VectorType& x,
                                                    const VectorType& b)
 {
@@ -89,7 +89,7 @@ bool IncompleteCholeskyConjugateGradient<T>::solve(const SparseMatrix<T>& A,
 
     const size_type n = A.num_rows();
 
-    SparseMatrix<T> K(n, n);
+    MatrixType K(n, n);
 
     /* the incomplete Cholesky preconditioner is KK^t */
     if (build_preconditioner(A, K) == false)
@@ -137,8 +137,9 @@ bool IncompleteCholeskyConjugateGradient<T>::solve(const SparseMatrix<T>& A,
 }
 
 template<typename T>
+template<typename MatrixType>
 bool IncompleteCholeskyConjugateGradient<T>::build_preconditioner(
-    const SparseMatrix<T>& A, SparseMatrix<T>& K) const
+    const MatrixType& A, MatrixType& K) const
 {
     const size_type n = A.num_rows();
 
@@ -170,7 +171,7 @@ bool IncompleteCholeskyConjugateGradient<T>::build_preconditioner(
         }
 
         /* const reference to K (for safe element access) */
-        const SparseMatrix<T>& cK = K;
+        const MatrixType& cK = K;
 
         for (size_type i = j + 1; i < n; ++i)
         {
@@ -197,9 +198,9 @@ bool IncompleteCholeskyConjugateGradient<T>::build_preconditioner(
 }
 
 template<typename T>
-template<typename VectorType>
+template<typename MatrixType, typename VectorType>
 void IncompleteCholeskyConjugateGradient<T>::solve_preconditioner_equation(
-    const SparseMatrix<T>& K, VectorType& z, const VectorType& r) const
+    const MatrixType& K, VectorType& z, const VectorType& r) const
 {
     /* K is an n × n matrix */
     const size_type n = K.num_rows();
@@ -208,7 +209,7 @@ void IncompleteCholeskyConjugateGradient<T>::solve_preconditioner_equation(
 
     VectorType w(n);
 
-    const SparseMatrix<T> Kt = K.transpose();
+    const MatrixType Kt = K.transpose();
 
     /* perform forward substitution to solve Kw = b, with w = (K^t)z */
     for (size_type i = 0; i < n; ++i)
