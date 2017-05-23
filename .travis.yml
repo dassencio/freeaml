@@ -19,7 +19,7 @@ matrix:
       script:
          - mkdir build && cd build && cmake -DUSE_OPENMP=OFF .. && make -j4
          - make test
-         - OMP_NUM_THREADS=8 ./run-kpis
+         - ./run-kpis
 
     # build the Doxygen-based documentation on Linux
     - os: linux
@@ -37,7 +37,7 @@ matrix:
       script:
          - mkdir build && cd build && cmake -DUSE_OPENMP=OFF .. && make -j4
          - make test
-         - OMP_NUM_THREADS=8 ./run-kpis
+         - ./run-kpis
 
     # build the Doxygen-based documentation on OS X
     - os: osx

@@ -31,8 +31,9 @@
 #ifdef _OPENMP
 #define KPI_MEASURE(expression)                                              \
     auto t1 = std::chrono::steady_clock::now();                              \
-    auto result = (expression);                                              \
-    (void)result;                                                            \
+    const auto& result = (expression);                                       \
+    const volatile void* unused = reinterpret_cast<const void*>(&result);    \
+    (void)unused;                                                            \
     auto t2 = std::chrono::steady_clock::now();                              \
     auto dt = std::chrono::duration<double, std::nano>(t2 - t1).count();     \
     std::cout << "Time taken with " << i << " threads (ns): " << dt << "\n"; \
@@ -40,13 +41,14 @@
     }                                                                        \
     while (0)
 #else
-#define KPI_MEASURE(expression)                                          \
-    auto t1 = std::chrono::steady_clock::now();                          \
-    auto result = (expression);                                          \
-    (void)result;                                                        \
-    auto t2 = std::chrono::steady_clock::now();                          \
-    auto dt = std::chrono::duration<double, std::nano>(t2 - t1).count(); \
-    std::cout << "Time taken (ns): " << dt << "\n";                      \
-    }                                                                    \
+#define KPI_MEASURE(expression)                                           \
+    auto t1 = std::chrono::steady_clock::now();                           \
+    const auto& result = (expression);                                    \
+    const volatile void* unused = reinterpret_cast<const void*>(&result); \
+    (void)unused;                                                         \
+    auto t2 = std::chrono::steady_clock::now();                           \
+    auto dt = std::chrono::duration<double, std::nano>(t2 - t1).count();  \
+    std::cout << "Time taken (ns): " << dt << "\n";                       \
+    }                                                                     \
     while (0)
 #endif /* _OPENMP */
