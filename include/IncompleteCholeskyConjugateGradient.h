@@ -202,7 +202,7 @@ void IncompleteCholeskyConjugateGradient<T>::solve_preconditioner_equation(
     const SparseMatrix<T>& K, VectorType& z, const VectorType& r) const
 {
     /* K is an n × n matrix */
-    size_type n = K.num_rows();
+    const size_type n = K.num_rows();
 
     std::fill(z.begin(), z.end(), T{0});
 
