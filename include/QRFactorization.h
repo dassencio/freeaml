@@ -12,8 +12,8 @@ public:
     /**
      * @brief Computes the QR factorization of a matrix.
      * @param A The matrix which will be factorized.
-     * @param Q On success, an orthogonal matrix.
-     * @param R On success, an upper triangular matrix with nonnegative diagonal
+     * @param Q At the end, an orthogonal matrix.
+     * @param R At the end, an upper triangular matrix with nonnegative diagonal
      *        elements.
      * @note The number of rows of @c A must be larger than or equal to its
      *       number of columns.

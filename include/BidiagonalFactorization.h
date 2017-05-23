@@ -161,7 +161,7 @@ bool BidiagonalFactorization::factorize(MatrixType1 A,
 
             /*
              * define the Householder transformation for uR which projects it
-             * onto e_0 = (1,0,...0)
+             * onto e_0 = (1, 0, ..., 0)
              */
             Vector<T> vR;
 
