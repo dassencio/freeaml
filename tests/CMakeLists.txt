@@ -11,6 +11,7 @@ add_executable(
     GaussianElimination.cpp
     GaussSeidel.cpp
     GeneralizedMinimumResidual.cpp
+    HessenbergFactorization.cpp
     IncompleteCholeskyConjugateGradient.cpp
     Jacobi.cpp
     Matrix.cpp
