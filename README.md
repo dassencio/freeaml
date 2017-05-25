@@ -25,8 +25,9 @@ desired header files into your project.
 License
 =======
 
-All code from freeAML is licensed under the FreeBSD license. See the `LICENSE`
-file for more information.
+All code from freeAML is licensed under the FreeBSD license. See the
+[`LICENSE`](https://github.com/dassencio/freeaml/tree/master/LICENSE) file for
+more information.
 
 
 Available tools
