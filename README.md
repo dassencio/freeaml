@@ -25,7 +25,7 @@ desired header files into your project.
 License
 =======
 
-All code from freeAML is licensed under the FreeBSD license. See the
+All code from this project is licensed under the FreeBSD license. See the
 [`LICENSE`](https://github.com/dassencio/freeaml/tree/master/LICENSE) file for
 more information.
 
@@ -99,8 +99,7 @@ the following commands in sequence:
     ./run-tests
 
 If you do not wish to use OpenMP, simply replace `ON` with `OFF` on the command
-above. You may omit `-DUSE_OPENMP=ON` on the `cmake` command above since OpenMP
-is enabled by default.
+above.
 
 
 Doxygen documentation
