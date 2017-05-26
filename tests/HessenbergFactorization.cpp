@@ -30,6 +30,28 @@ TEST(HessenbergFactorizationTest, Factorize4x4Matrix)
     EXPECT_LE((QtQ - I).max_norm(), 1.e-10);
 }
 
+TEST(HessenbergFactorizationTest, Factorize4x4MatrixWithoutQ)
+{
+    /* matrix to be factorized */
+    freeaml::SparseMatrix<double> A = {{0.00, 4.20, 4.25, 0.00},
+                                       {2.73, 1.23, 3.89, 2.11},
+                                       {4.63, 0.00, 0.00, 0.00},
+                                       {3.70, 0.00, 0.31, 3.84}};
+
+    freeaml::Matrix<double> H;
+
+    /* compute the Hessenberg matrix H for A (always succeeds) */
+    freeaml::HessenbergFactorization::factorize(A, H);
+
+    /* exact Hessenberg matrix for A */
+    freeaml::Matrix<double> Y = {{0.00, 4.77, 0.85, -3.49},
+                                 {6.52, 3.22, -0.20, 1.55},
+                                 {0.00, 3.91, -0.73, 0.15},
+                                 {0.00, 0.00, 0.73, 2.57}};
+
+    EXPECT_LE((H - Y).max_norm(), 1.e-2);
+}
+
 TEST(HessenbergFactorizationTest, Factorize5x5Matrix)
 {
     /* matrix to be factorized */

@@ -179,7 +179,7 @@ void HessenbergFactorization::factorize(const MatrixType1& A, MatrixType2& H)
     const size_type n = A.num_rows();
 
     /* H <-- A */
-    H = MatrixType3(n, n, A.flatten());
+    H = MatrixType2(n, n, A.flatten());
 
     /*
      * for each column p of H which must have the portion below its subdiagonal
