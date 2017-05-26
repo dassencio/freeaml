@@ -1,5 +1,6 @@
 #pragma once
 
+#include <Matrix.h>
 #include <Vector.h>
 
 namespace freeaml
@@ -30,7 +31,7 @@ public:
              typename MatrixType2,
              typename MatrixType3,
              typename MatrixType4>
-    bool factorize(MatrixType1 A,
+    bool factorize(const MatrixType1& A,
                    MatrixType2& P,
                    MatrixType3& L,
                    MatrixType4& U) const;
@@ -63,7 +64,7 @@ template<typename MatrixType1,
          typename MatrixType2,
          typename MatrixType3,
          typename MatrixType4>
-bool PLUFactorization::factorize(MatrixType1 A,
+bool PLUFactorization::factorize(const MatrixType1& A,
                                  MatrixType2& P,
                                  MatrixType3& L,
                                  MatrixType4& U) const
@@ -74,6 +75,9 @@ bool PLUFactorization::factorize(MatrixType1 A,
     using size_type = typename MatrixType1::size_type;
 
     const size_type n = A.num_rows();
+
+    /* use a copy of A to prevent performance issues if A is sparse */
+    Matrix<T> K(n, n, A.flatten());
 
     /* assign the correct dimensions to P, L and U */
     P = MatrixType2(n, n);
@@ -89,7 +93,7 @@ bool PLUFactorization::factorize(MatrixType1 A,
         perm[p] = p;
     }
 
-    /* for each row i of A (except for the last one) */
+    /* for each row i of K (except for the last one) */
     for (size_type i = 0; i + 1 < n; ++i)
     {
         size_type p = i;
@@ -97,52 +101,52 @@ bool PLUFactorization::factorize(MatrixType1 A,
         /*
          * if partial pivoting is enabled:
          *
-         *      find p such that |A(p,i)| = max_q|A(perm[q],i)| for i <= q < n
+         *      find p such that |K(p,i)| = max_q|K(perm[q],i)| for i <= q < n
          *
          * if partial pivoting is disabled:
          *
-         *      find the first p such that A(perm[p],i) != 0 for i <= p < n
+         *      find the first p such that K(perm[p],i) != 0 for i <= p < n
          */
         if (is_partial_pivoting_enabled() == true)
         {
             for (size_type q = i + 1; q < n; ++q)
             {
-                if (std::abs(A(perm[p], i)) < std::abs(A(perm[q], i)))
+                if (std::abs(K(perm[p], i)) < std::abs(K(perm[q], i)))
                 {
                     p = q;
                 }
             }
 
-            /* if A_(perm[p],i) = 0, A is not invertible */
-            if (A(perm[p], i) == T{0})
+            /* if K(perm[p],i) = 0, K (A) is not invertible */
+            if (K(perm[p], i) == T{0})
             {
                 return false;
             }
         }
         else
         {
-            while (p < n && A(perm[p], i) == T{0})
+            while (p < n && K(perm[p], i) == T{0})
             {
                 ++p;
             }
 
-            /* if p reaches n, A is not invertible */
+            /* if p reaches n, K (A) is not invertible */
             if (p == n)
             {
                 return false;
             }
         }
 
-        /* "swap" rows i and p of A */
+        /* "swap" rows i and p of K */
         std::swap(perm[p], perm[i]);
 
         for (size_type j = i + 1; j < n; ++j)
         {
-            A(perm[j], i) /= A(perm[i], i);
+            K(perm[j], i) /= K(perm[i], i);
 
             for (size_type l = i + 1; l < n; ++l)
             {
-                A(perm[j], l) -= A(perm[j], i) * A(perm[i], l);
+                K(perm[j], l) -= K(perm[j], i) * K(perm[i], l);
             }
         }
     }
@@ -160,7 +164,7 @@ bool PLUFactorization::factorize(MatrixType1 A,
 
         for (size_type j = 0; j < i; ++j)
         {
-            L(i, j) = A(perm[i], j);
+            L(i, j) = K(perm[i], j);
         }
     }
 
@@ -169,7 +173,7 @@ bool PLUFactorization::factorize(MatrixType1 A,
     {
         for (size_type j = i; j < n; ++j)
         {
-            U(i, j) = A(perm[i], j);
+            U(i, j) = K(perm[i], j);
         }
     }
 

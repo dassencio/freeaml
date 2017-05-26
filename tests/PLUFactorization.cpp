@@ -7,10 +7,10 @@
 TEST(PLUFactorizationTest, Factorize4x4MatrixWithoutPartialPivoting)
 {
     /* matrix to be factorized */
-    freeaml::Matrix<double> A = {{0.00, 4.20, 4.25, 1.73},
-                                 {0.00, 1.23, 3.89, 2.11},
-                                 {4.63, 0.00, 1.51, 2.67},
-                                 {3.70, 0.00, 0.31, 3.84}};
+    freeaml::SparseMatrix<double> A = {{0.00, 4.20, 4.25, 1.73},
+                                       {0.00, 1.23, 3.89, 2.11},
+                                       {4.63, 0.00, 1.51, 2.67},
+                                       {3.70, 0.00, 0.31, 3.84}};
 
     freeaml::SparseMatrix<double> P;
     freeaml::Matrix<double> L, U;
