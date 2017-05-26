@@ -1,6 +1,7 @@
 #pragma once
 
 #include <IterativeLinearSystemSolverBase.h>
+#include <Matrix.h>
 #include <Vector.h>
 #include <cmath>
 
@@ -26,7 +27,7 @@ public:
      *         @c A is invertible), @c false otherwise.
      */
     template<typename MatrixType, typename VectorType>
-    bool solve(MatrixType A, VectorType& x, VectorType b);
+    bool solve(const MatrixType& A, VectorType& x, VectorType b);
 
     /**
      * @brief Gets the state set for the partial pivoting technique.
@@ -53,7 +54,9 @@ GaussianElimination::GaussianElimination(
 }
 
 template<typename MatrixType, typename VectorType>
-bool GaussianElimination::solve(MatrixType A, VectorType& x, VectorType b)
+bool GaussianElimination::solve(const MatrixType& A,
+                                VectorType& x,
+                                VectorType b)
 {
     using T = typename MatrixType::value_type;
     using size_type = typename MatrixType::size_type;
@@ -63,15 +66,18 @@ bool GaussianElimination::solve(MatrixType A, VectorType& x, VectorType b)
 
     const size_type n = A.num_rows();
 
+    /* use a copy of A to prevent performance issues if A is sparse */
+    Matrix<T> K(n, n, A.flatten());
+
     freeaml::Vector<size_type> row(n, 0);
 
-    /* row index vector: used for "swapping" rows of A */
+    /* row index vector: used for "swapping" rows of K */
     for (size_type i = 0; i < n; ++i)
     {
         row[i] = i;
     }
 
-    /* for each row i of the matrix A */
+    /* for each row i of the matrix K */
     for (size_type i = 0; i < n; ++i)
     {
         size_type p = i;
@@ -79,52 +85,52 @@ bool GaussianElimination::solve(MatrixType A, VectorType& x, VectorType b)
         /*
          * if partial pivoting is enabled:
          *
-         *      find p such that |A(p,i)| = max_q|A(row[q],i)| for i <= q < n
+         *      find p such that |K(p,i)| = max_q|K(row[q],i)| for i <= q < n
          *
          * if partial pivoting is disabled:
          *
-         *      find the first p such that A(row[p],i) != 0 for i <= p < n
+         *      find the first p such that K(row[p],i) != 0 for i <= p < n
          */
         if (is_partial_pivoting_enabled() == true)
         {
             for (size_type q = i + 1; q < n; ++q)
             {
-                if (std::abs(A(row[p], i)) < std::abs(A(row[q], i)))
+                if (std::abs(K(row[p], i)) < std::abs(K(row[q], i)))
                 {
                     p = q;
                 }
             }
 
-            /* if A_(row[p],i) = 0, A is not invertible */
-            if (A(row[p], i) == T{0})
+            /* if K(row[p],i) = 0, K (A) is not invertible */
+            if (K(row[p], i) == T{0})
             {
                 return false;
             }
         }
         else
         {
-            while (p < n && A(row[p], i) == T{0})
+            while (p < n && K(row[p], i) == T{0})
             {
                 ++p;
             }
 
-            /* if p reaches n, A is not invertible */
+            /* if p reaches n, K (A) is not invertible */
             if (p == n)
             {
                 return false;
             }
         }
 
-        /* "swap" rows i and p of A */
+        /* "swap" rows i and p of K */
         std::swap(row[p], row[i]);
 
         for (size_type j = i + 1; j < n; ++j)
         {
-            T m = A(row[j], i) / A(row[i], i);
+            T m = K(row[j], i) / K(row[i], i);
 
             for (size_type l = i + 1; l < n; ++l)
             {
-                A(row[j], l) -= m * A(row[i], l);
+                K(row[j], l) -= m * K(row[i], l);
             }
 
             b[row[j]] -= m * b[row[i]];
@@ -142,10 +148,10 @@ bool GaussianElimination::solve(MatrixType A, VectorType& x, VectorType b)
 
         for (size_type j = i + 1; j < n; ++j)
         {
-            y += A(row[i], j) * x[j];
+            y += K(row[i], j) * x[j];
         }
 
-        x[i] = (b[row[i]] - y) / A(row[i], i);
+        x[i] = (b[row[i]] - y) / K(row[i], i);
     }
 
     return true;
