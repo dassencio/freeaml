@@ -24,7 +24,7 @@ public:
              typename MatrixType2,
              typename MatrixType3,
              typename MatrixType4>
-    static bool factorize(MatrixType1 A,
+    static bool factorize(const MatrixType1& A,
                           MatrixType2& U,
                           MatrixType3& Z,
                           MatrixType4& V);
@@ -41,7 +41,7 @@ template<typename MatrixType1,
          typename MatrixType2,
          typename MatrixType3,
          typename MatrixType4>
-bool BidiagonalFactorization::factorize(MatrixType1 A,
+bool BidiagonalFactorization::factorize(const MatrixType1& A,
                                         MatrixType2& U,
                                         MatrixType3& Z,
                                         MatrixType4& V)
@@ -51,6 +51,9 @@ bool BidiagonalFactorization::factorize(MatrixType1 A,
 
     const size_type m = A.num_rows();
     const size_type n = A.num_cols();
+
+    /* use a copy of A to prevent performance issues if A is sparse */
+    Matrix<T> K(m, n, A.flatten());
 
     /*
      * assign the correct dimensions to U and V (U and V will be products of
@@ -82,12 +85,12 @@ bool BidiagonalFactorization::factorize(MatrixType1 A,
         size_type M = m - p;
         size_type N = n - p;
 
-        /* let uL := A(p:m-1, p) */
+        /* let uL := K(p:m-1, p) */
         Vector<T> uL(M);
 
         for (size_type i = 0; i < M; ++i)
         {
-            uL[i] = A(i + p, p);
+            uL[i] = K(i + p, p);
         }
 
         /*
@@ -109,14 +112,14 @@ bool BidiagonalFactorization::factorize(MatrixType1 A,
 
             for (size_type i = 0; i < M; ++i)
             {
-                /* B <-- (I - bvv^t)A(p:m-1, p:n-1), where v = vL */
+                /* B <-- (I - bvv^t)K(p:m-1, p:n-1), where v = vL */
                 for (size_type j = 0; j < N; ++j)
                 {
-                    B(i, j) = A(i + p, j + p);
+                    B(i, j) = K(i + p, j + p);
 
                     for (size_type k = 0; k < M; ++k)
                     {
-                        B(i, j) -= b * vL[i] * vL[k] * A(k + p, j + p);
+                        B(i, j) -= b * vL[i] * vL[k] * K(k + p, j + p);
                     }
                 }
 
@@ -134,10 +137,10 @@ bool BidiagonalFactorization::factorize(MatrixType1 A,
 
             for (size_type i = 0; i < M; ++i)
             {
-                /* A(p:m-1, p:n-1) <-- -c*B */
+                /* K(p:m-1, p:n-1) <-- -c*B */
                 for (size_type j = 0; j < N; ++j)
                 {
-                    A(i + p, j + p) = -c * B(i, j);
+                    K(i + p, j + p) = -c * B(i, j);
                 }
 
                 /* U(p:m-1, 0:m-1) <-- -c*C */
@@ -151,12 +154,12 @@ bool BidiagonalFactorization::factorize(MatrixType1 A,
         /* if V needs to be updated (the "last" V is just the identity) */
         if (N > 1)
         {
-            /* let uR := A(p, p+1:n-1) */
+            /* let uR := K(p, p+1:n-1) */
             Vector<T> uR(N - 1);
 
             for (size_type j = 0; j < N - 1; ++j)
             {
-                uR[j] = A(p, p + j + 1);
+                uR[j] = K(p, p + j + 1);
             }
 
             /*
@@ -178,14 +181,14 @@ bool BidiagonalFactorization::factorize(MatrixType1 A,
 
                 for (size_type j = 0; j < N - 1; ++j)
                 {
-                    /* D <-- A(p:m-1, p+1:n-1)(I - b(vv^t)^t), where v = vR */
+                    /* D <-- K(p:m-1, p+1:n-1)(I - b(vv^t)^t), where v = vR */
                     for (size_type i = 0; i < M; ++i)
                     {
-                        D(i, j) = A(p + i, p + j + 1);
+                        D(i, j) = K(p + i, p + j + 1);
 
                         for (size_type k = 0; k < N - 1; ++k)
                         {
-                            D(i, j) -= A(p + i, p + k + 1) * b * vR[k] * vR[j];
+                            D(i, j) -= K(p + i, p + k + 1) * b * vR[k] * vR[j];
                         }
                     }
 
@@ -203,10 +206,10 @@ bool BidiagonalFactorization::factorize(MatrixType1 A,
 
                 for (size_type j = 0; j < N - 1; ++j)
                 {
-                    /* A(p:m-1, p+1:n-1) <-- -c*D */
+                    /* K(p:m-1, p+1:n-1) <-- -c*D */
                     for (size_type i = 0; i < M; ++i)
                     {
-                        A(p + i, p + j + 1) = -c * D(i, j);
+                        K(p + i, p + j + 1) = -c * D(i, j);
                     }
 
                     /* V(0:n-1, p+1:n-1) <-- -c*E */
@@ -220,18 +223,18 @@ bool BidiagonalFactorization::factorize(MatrixType1 A,
     }
 
     /*
-     * Z <-- A (at this point, A is the upper biadiagonal form of the original
+     * Z <-- K (at this point, K is the upper biadiagonal form of the original
      * matrix A)
      */
     Z = MatrixType3(m, n);
 
     for (size_type i = 0; i < d; ++i)
     {
-        Z(i, i) = A(i, i);
+        Z(i, i) = K(i, i);
 
         if (i + 1 < n)
         {
-            Z(i, i + 1) = A(i, i + 1);
+            Z(i, i + 1) = K(i, i + 1);
         }
     }
 
