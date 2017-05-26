@@ -1,15 +1,16 @@
 #include <Matrix.h>
 #include <QRFactorization.h>
+#include <SparseMatrix.h>
 #include <Vector.h>
 #include <gtest/gtest.h>
 
 TEST(QRFactorizationTest, Factorize4x4Matrix)
 {
     /* matrix to be factorized */
-    freeaml::Matrix<double> A = {{3.11, 4.20, 4.25, 1.73},
-                                 {2.73, 1.23, 3.89, 2.11},
-                                 {4.63, 0.00, 1.51, 2.67},
-                                 {3.70, 0.00, 0.31, 3.84}};
+    freeaml::SparseMatrix<double> A = {{3.11, 4.20, 0.00, 1.73},
+                                       {2.73, 1.23, 3.89, 0.00},
+                                       {4.63, 0.00, 1.51, 2.67},
+                                       {3.70, 0.00, 0.31, 3.84}};
 
     freeaml::Matrix<double> Q, R;
 
