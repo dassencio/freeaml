@@ -57,7 +57,7 @@ TEST(IncompleteCholeskyConjugateGradientTest, Solve5x5LinearSystem)
     freeaml::Vector<double> b = {4.78, 13.19, 6.2, 17.68, 27.67};
 
     /*
-     * linear system solver: conjugate gradient with incomplete Cholesky
+     * linear system solver: conjugate gradient with incomplete-Cholesky
      *                       preconditioning
      * maximum number of iterations: 5
      * residual tolerance: 1e-8

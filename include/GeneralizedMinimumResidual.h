@@ -74,7 +74,7 @@ bool GeneralizedMinimumResidual<T>::solve(const MatrixType& A,
 
     VectorType f(n);
 
-    /* f = (norm_b, 0, ... 0) */
+    /* f = (norm_b, 0, ..., 0) */
     f[0] = norm_b;
 
     /*
@@ -109,7 +109,7 @@ bool GeneralizedMinimumResidual<T>::solve(const MatrixType& A,
         VectorType z = A * q_k;
 
         /*
-         * project out the components of z parallel to {q_0,q_1,...,q_k} and
+         * project out the components of z parallel to {q_0, q_1, ..., q_k} and
          * build h_k (the k-th column of H)
          */
         for (size_type i = 0; i <= k; ++i)

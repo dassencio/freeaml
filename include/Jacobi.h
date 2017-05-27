@@ -109,7 +109,7 @@ void Jacobi<T>::iterate(const MatrixType& A,
     {
         for (size_type i = 0; i < x.size(); ++i)
         {
-            FREEAML_ASSERT(A(i,i) != T{0});
+            FREEAML_ASSERT(A(i, i) != T{0});
 
             x[i] += r[i] / A(i, i);
         }

@@ -21,7 +21,7 @@ public:
      * @param P On success, a permutation matrix.
      * @param L On success, a lower triangular matrix with all diagonal elements
      *        equal to one (1).
-     * @param U On success, an nonsingular upper triangular matrix.
+     * @param U On success, a nonsingular upper triangular matrix.
      * @return @c true if the factorization <tt>A = PLU</tt> could be built,
      *         @c false otherwise.
      * @note The PLU factorization of @c A exists if and only if @c A is

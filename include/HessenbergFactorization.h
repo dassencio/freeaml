@@ -86,7 +86,7 @@ void HessenbergFactorization::factorize(const MatrixType1& A,
 
         /*
          * define the Householder transformation for u which projects it onto
-         * e_0 = (1, 0,..., 0)
+         * e_0 = (1, 0, ..., 0)
          */
         Vector<T> v;
 
@@ -199,7 +199,7 @@ void HessenbergFactorization::factorize(const MatrixType1& A, MatrixType2& H)
 
         /*
          * define the Householder transformation for u which projects it onto
-         * e_0 = (1, 0,..., 0)
+         * e_0 = (1, 0, ..., 0)
          */
         Vector<T> v;
 
