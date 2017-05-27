@@ -1,6 +1,7 @@
 #pragma once
 
 #include <IterativeLinearSystemSolverBase.h>
+#include <SparseMatrix.h>
 #include <cmath>
 
 namespace freeaml
@@ -25,11 +26,12 @@ public:
     /**
      * @brief Solves a linear system using the conjugate gradient method (CG)
      *        with incomplete-Cholesky preconditioning.
-     * @param A The linear system matrix (must be sparse).
+     * @param A The linear system matrix.
      * @param x The vector on which the solution will be written.
      * @param b The right-hand side of the linear system.
      * @return @c true if the residual tolerance could be achieved within the
      *         maximum number of iterations allowed, @c false otherwise.
+     * @note This method should only be used if @c A is sparse.
      */
     template<typename MatrixType, typename VectorType>
     bool solve(const MatrixType& A, VectorType& x, const VectorType& b);
@@ -37,16 +39,15 @@ public:
 private:
     /**
      * @brief Builds the (sparse) lower triangular matrix @c K which defines the
-     *        incomplete Cholesky factorization of a sparse matrix @c A, i.e.,
-     *        the matrix @c K such that <tt>KK<sup>t</sup></tt> approximates
-     *        @c A.
-     * @param A A symmetric sparse matrix.
+     *        incomplete Cholesky factorization of a matrix @c A, i.e., the
+     *        matrix @c K such that <tt>KK<sup>t</sup></tt> approximates @c A.
+     * @param A A matrix.
      * @param K The matrix on which the incomplete Cholesky factorization matrix
-     *        @c K will be written.
+     *        @c K will be written (@c A is assumed to be sparse).
      * @return true if @c K could be built successfully, @c false otherwise.
      */
     template<typename MatrixType>
-    bool build_preconditioner(const MatrixType& A, MatrixType& K) const;
+    bool build_preconditioner(const MatrixType& A, SparseMatrix<T>& K) const;
 
     /**
      * @brief Solves the incomplete-Cholesky preconditioner equation
@@ -56,8 +57,8 @@ private:
      * @param r The right-hand side vector (in our case, a residual vector).
      *
      */
-    template<typename MatrixType, typename VectorType>
-    void solve_preconditioner_equation(const MatrixType& K,
+    template<typename VectorType>
+    void solve_preconditioner_equation(const SparseMatrix<T>& K,
                                        VectorType& z,
                                        const VectorType& r) const;
 
@@ -89,7 +90,7 @@ bool IncompleteCholeskyConjugateGradient<T>::solve(const MatrixType& A,
 
     const size_type n = A.num_rows();
 
-    MatrixType K(n, n);
+    SparseMatrix<T> K(n, n);
 
     /* the incomplete Cholesky preconditioner is KK^t */
     if (build_preconditioner(A, K) == false)
@@ -139,7 +140,7 @@ bool IncompleteCholeskyConjugateGradient<T>::solve(const MatrixType& A,
 template<typename T>
 template<typename MatrixType>
 bool IncompleteCholeskyConjugateGradient<T>::build_preconditioner(
-    const MatrixType& A, MatrixType& K) const
+    const MatrixType& A, SparseMatrix<T>& K) const
 {
     const size_type n = A.num_rows();
 
@@ -171,7 +172,7 @@ bool IncompleteCholeskyConjugateGradient<T>::build_preconditioner(
         }
 
         /* const reference to K (for safe element access) */
-        const MatrixType& cK = K;
+        const SparseMatrix<T>& cK = K;
 
         for (size_type i = j + 1; i < n; ++i)
         {
@@ -198,9 +199,9 @@ bool IncompleteCholeskyConjugateGradient<T>::build_preconditioner(
 }
 
 template<typename T>
-template<typename MatrixType, typename VectorType>
+template<typename VectorType>
 void IncompleteCholeskyConjugateGradient<T>::solve_preconditioner_equation(
-    const MatrixType& K, VectorType& z, const VectorType& r) const
+    const SparseMatrix<T>& K, VectorType& z, const VectorType& r) const
 {
     /* K is an n × n matrix */
     const size_type n = K.num_rows();
@@ -209,7 +210,7 @@ void IncompleteCholeskyConjugateGradient<T>::solve_preconditioner_equation(
 
     VectorType w(n);
 
-    const MatrixType Kt = K.transpose();
+    const SparseMatrix<T> Kt = K.transpose();
 
     /* perform forward substitution to solve Kw = b, with w = (K^t)z */
     for (size_type i = 0; i < n; ++i)
