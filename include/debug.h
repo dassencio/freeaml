@@ -8,16 +8,16 @@
  * @param condition The condition which will be tested.
  */
 #ifdef FREEAML_DEBUG
-#define FREEAML_ASSERT(condition) \
-    if ((condition) == false) \
-    { \
-        std::cerr << "\n\n" \
-                  << "---- ASSERTION FAILED ----\n\n" \
-                  << "  condition : " << #condition << "\n" \
-                  << "  function  : " << __func__ << "\n" \
-                  << "  file      : " << __FILE__ << "\n" \
+#define FREEAML_ASSERT(condition)                            \
+    if ((condition) == false)                                \
+    {                                                        \
+        std::cerr << "\n\n"                                  \
+                  << "---- ASSERTION FAILED ----\n\n"        \
+                  << "  condition : " << #condition << "\n"  \
+                  << "  function  : " << __func__ << "\n"    \
+                  << "  file      : " << __FILE__ << "\n"    \
                   << "  line      : " << __LINE__ << "\n\n"; \
-        exit(EXIT_FAILURE); \
+        exit(EXIT_FAILURE);                                  \
     }
 #else
 #define FREEAML_ASSERT(condition)
