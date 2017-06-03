@@ -56,7 +56,7 @@ links pointing to their associated unit tests:
 - [Jacobi](https://github.com/dassencio/freeaml/tree/master/tests/Jacobi.cpp)
 - [Minimum residual (MINRES)](https://github.com/dassencio/freeaml/tree/master/tests/MinimumResidual.cpp)
 - [Steepest descent](https://github.com/dassencio/freeaml/tree/master/tests/SteepestDescent.cpp)
-- [Successive over-relaxation](https://github.com/dassencio/freeaml/tree/master/tests/SuccessiveOverRelaxation.cpp)
+- [Successive over-relaxation (SOR)](https://github.com/dassencio/freeaml/tree/master/tests/SuccessiveOverRelaxation.cpp)
 - [Weighted Jacobi](https://github.com/dassencio/freeaml/tree/master/tests/WeightedJacobi.cpp)
 
 **Linear least-squares solvers**
