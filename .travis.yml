@@ -8,18 +8,18 @@ matrix:
       dist: trusty
       compiler: gcc
       script:
-         - mkdir build && cd build && cmake -DUSE_OPENMP=ON .. && make -j4
-         - make test
-         - OMP_NUM_THREADS=8 ./run-kpis
+        - mkdir build && cd build && cmake -DUSE_OPENMP=ON .. && make -j4
+        - make test
+        - OMP_NUM_THREADS=8 ./run-kpis
 
     # build and run all tests on Linux with OpenMP disabled
     - os: linux
       dist: trusty
       compiler: gcc
       script:
-         - mkdir build && cd build && cmake -DUSE_OPENMP=OFF .. && make -j4
-         - make test
-         - ./run-kpis
+        - mkdir build && cd build && cmake -DUSE_OPENMP=OFF .. && make -j4
+        - make test
+        - ./run-kpis
 
     # build the Doxygen-based documentation on Linux
     - os: linux
@@ -28,16 +28,16 @@ matrix:
       before_install:
         - sudo apt-get update && sudo apt-get install -qq doxygen graphviz
       script:
-         - mkdir build && cd build && cmake ..
-         - make doc
+        - mkdir build && cd build && cmake ..
+        - make doc
 
     # build and run all tests on OS X with OpenMP disabled
     - os: osx
       compiler: clang
       script:
-         - mkdir build && cd build && cmake -DUSE_OPENMP=OFF .. && make -j4
-         - make test
-         - ./run-kpis
+        - mkdir build && cd build && cmake -DUSE_OPENMP=OFF .. && make -j4
+        - make test
+        - ./run-kpis
 
     # build the Doxygen-based documentation on OS X
     - os: osx
@@ -45,8 +45,8 @@ matrix:
       before_install:
         - brew install doxygen --with-graphviz
       script:
-         - mkdir build && cd build && cmake -DUSE_OPENMP=OFF ..
-         - make doc
+        - mkdir build && cd build && cmake -DUSE_OPENMP=OFF ..
+        - make doc
 
 git:
   depth: 3
