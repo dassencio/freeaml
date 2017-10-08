@@ -39,15 +39,6 @@ matrix:
         - make test
         - ./run-kpis
 
-    # build the Doxygen-based documentation on OS X
-    - os: osx
-      compiler: clang
-      before_install:
-        - brew install doxygen --with-graphviz
-      script:
-        - mkdir build && cd build && cmake -DUSE_OPENMP=OFF ..
-        - make doc
-
 git:
   depth: 3
 
