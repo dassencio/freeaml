@@ -1,7 +1,6 @@
-[![Build Status](https://travis-ci.org/dassencio/freeaml.svg?branch=master)](https://travis-ci.org/dassencio/freeaml)
+[![Build Status](https://api.travis-ci.com/dassencio/freeaml.svg?branch=master)](https://travis-ci.com/dassencio/freeaml)
 
-Description
-===========
+# Description
 
 [FreeAML](https://github.com/dassencio/freeaml) is an easy-to-use, parallel
 applied mathematics library written in C++. It boasts native integration with
@@ -21,17 +20,13 @@ Integrating freeAML into your project can be done in minutes since it is a
 header-only library. All you need to do is download the sources and include the
 desired header files into your project.
 
-
-License
-=======
+# License
 
 All code from this project is licensed under the FreeBSD license. See the
 [`LICENSE`](https://github.com/dassencio/freeaml/tree/master/LICENSE) file for
 more information.
 
-
-Available tools
-===============
+# Available tools
 
 The best way to learn how to use freeAML is by looking at its unit tests. Each
 unit test is written in a very simple manner and is a self-contained example
@@ -72,9 +67,7 @@ links pointing to their associated unit tests:
 - [PLU factorization](https://github.com/dassencio/freeaml/tree/master/tests/PLUFactorization.cpp)
 - [QR factorization](https://github.com/dassencio/freeaml/tree/master/tests/QRFactorization.cpp)
 
-
-Installation and usage instructions
-===================================
+# Installation and usage instructions
 
 FreeAML can be downloaded with the following command:
 
@@ -101,9 +94,7 @@ the following commands in sequence:
 If you do not wish to use OpenMP, simply replace `ON` with `OFF` on the command
 above.
 
-
-Doxygen documentation
-=====================
+# Doxygen documentation
 
 FreeAML is thoroughly documented using the Doxygen format. To generate the
 documentation as an HTML document, go to the directory where you cloned the
@@ -117,8 +108,6 @@ This will create a subdirectory called `html` containing an `index.html` file.
 Open it on a browser to navigate through the documentation of the library
 classes and functions.
 
-
-Contributors & contact information
-==================================
+# Contributors & contact information
 
 Diego Assencio / [diego@assencio.com](mailto:diego@assencio.com)
