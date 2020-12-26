@@ -1,0 +1,64 @@
+name: Performance analysis
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        use-openmp: [ON, OFF]
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Build performance analyzers
+      env:
+        USE_OPENMP: ${{matrix.use-openmp}}
+      run: |
+        mkdir build
+        cd build
+        cmake -DUSE_OPENMP=$USE_OPENMP ..
+        make -j
+
+    - name: Generate artifact containing performance analyzers
+      run: tar -czvf build.tar.gz build
+
+    - name: Upload generated artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: performance-analyzers-OpenMP-${{matrix.use-openmp}}
+        path: build.tar.gz
+
+  analyze:
+    name: Analyze
+    needs: build
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+        - use-openmp: OFF
+        - use-openmp: ON
+          openmp-num-threads: 4
+
+    steps:
+    - name: Fetch artifact cointaining performance analyzers
+      uses: actions/download-artifact@v2
+      with:
+        name: performance-analyzers-OpenMP-${{matrix.use-openmp}}
+
+    - name: Unpackage fetched artifact
+      run: tar -xzvf build.tar.gz build
+
+    - name: Run performance analyzers
+      env:
+        OMP_NUM_THREADS: ${{matrix.openmp-num-threads}}
+      run: |
+        cd build
+        ./run-kpis

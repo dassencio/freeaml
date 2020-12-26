@@ -1,4 +1,6 @@
-[![Build Status](https://api.travis-ci.com/dassencio/freeaml.svg?branch=master)](https://travis-ci.com/dassencio/freeaml)
+![Documentation generation](https://github.com/dassencio/freeaml/workflows/Documentation%20generation/badge.svg)
+![Performance analysis](https://github.com/dassencio/freeaml/workflows/Performance%20analysis/badge.svg)
+![Unit tests](https://github.com/dassencio/freeaml/workflows/Unit%20tests/badge.svg)
 
 # Description
 
