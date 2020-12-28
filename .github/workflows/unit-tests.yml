@@ -1,0 +1,64 @@
+name: Unit tests
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        use-openmp: [ON, OFF]
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Build unit tests
+      env:
+        USE_OPENMP: ${{matrix.use-openmp}}
+      run: |
+        mkdir build
+        cd build
+        cmake -DUSE_OPENMP=$USE_OPENMP ..
+        make -j
+
+    - name: Generate artifact containing unit tests
+      run: tar -czvf build.tar.gz build
+
+    - name: Upload generated artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: unit-tests-OpenMP-${{matrix.use-openmp}}
+        path: build.tar.gz
+
+  test:
+    name: Test
+    needs: build
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        use-openmp: [ON]
+        openmp-num-threads: [1, 2, 3, 4]
+        include:
+        - use-openmp: OFF
+
+    steps:
+    - name: Fetch artifact containing unit tests
+      uses: actions/download-artifact@v2
+      with:
+        name: unit-tests-OpenMP-${{matrix.use-openmp}}
+
+    - name: Unpackage fetched artifact
+      run: tar -xzvf build.tar.gz build
+
+    - name: Run unit tests
+      env:
+        OMP_NUM_THREADS: ${{matrix.openmp-num-threads}}
+      run: |
+        cd build
+        ./run-tests
