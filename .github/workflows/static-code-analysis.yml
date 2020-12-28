@@ -1,0 +1,38 @@
+name: Static code analysis
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+  workflow_dispatch:
+
+jobs:
+  codeql:
+    name: Scan code with CodeQL
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        use-openmp: [ON, OFF]
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v1
+      with:
+        languages: cpp
+        queries: security-and-quality
+
+    - name: Build unit tests and performance analyzers
+      env:
+        USE_OPENMP: ${{matrix.use-openmp}}
+      run: |
+        mkdir build
+        cd build
+        cmake -DUSE_OPENMP=$USE_OPENMP ..
+        make -j
+
+    - name: Perform CodeQL analysis
+      uses: github/codeql-action/analyze@v1

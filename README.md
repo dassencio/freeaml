@@ -1,5 +1,6 @@
 ![Documentation generation](https://github.com/dassencio/freeaml/workflows/Documentation%20generation/badge.svg)
 ![Performance analysis](https://github.com/dassencio/freeaml/workflows/Performance%20analysis/badge.svg)
+![Static code analysis](https://github.com/dassencio/freeaml/workflows/Static%20code%20analysis/badge.svg)
 ![Unit tests](https://github.com/dassencio/freeaml/workflows/Unit%20tests/badge.svg)
 
 # Description
