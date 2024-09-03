@@ -49,7 +49,7 @@ jobs:
 
     steps:
     - name: Fetch artifact containing performance analyzers
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v4.1.7
       with:
         name: performance-analyzers-OpenMP-${{matrix.use-openmp}}
 
